@@ -1,4 +1,10 @@
 ## Core latex/pdflatex auxiliary files:
+sample.*
+readme.*
+guide.*
+art/
+argonne.pdf
+
 *.aux
 *.lof
 *.log
