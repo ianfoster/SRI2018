@@ -69,14 +69,22 @@ Choose next experiment.
 
 We first experimented with online analysis of APS in the late 1990s, 
 when we coupled 
-computing microtomography~\cite{wang1999quasi,wang2001high} and with Westbrook~\cite{von2000using}.
-
-In one memorable demonstration in 1998, we piped microtomography data from beamline 2-BM to a 96-node SGI Origin parallel computer 
+computing microtomography~\cite{wang1999quasi,wang2001high} and crystallographic~\cite{von2000using}
+experiments to remote computers.
+In one memorable demonstration in 1998, we piped microtomography data from APS beamline 2-BM to a 96-node SGI Origin parallel computer 
 at Argonne for incremental reconstruction via filtered backprojection as an experiment was proceeding,
-and then streamed visualization data to the Supercomputing conference in Orlando, Florida, 
-for interactive analysis. 
+and then streamed visualization data to the Supercomputing conference (SC'98) in Orlando, Florida, 
+for interactive analysis: see Figure~\ref{fig:sc98}. 
 As we noted at the time, 
-``the data rates and compute power required ... are prodigious, easily reaching one gigabit per second and a teraflop per second [respectively]"~\cite{von2000using}.
+``the data rates and compute power required ... are prodigious, easily reaching one gigabit per second and a teraflop per second [respectively]"~\cite{von2000using}---numbers that are dwarfed by today's requirements. 
+
+\begin{figure}[h]
+  \centerline{\includegraphics[width=4in]{Figs/APS-Fig.png}}
+  \caption{The processing pipeline used in the SC'98 demonstration. Data collected at the APS 
+  where passed to supercomputer in Argonne's Mathematics and Computer Science (MCS) division for
+  incremental reconstruction and visualization, and results dispatched as a stereoscopic
+  video stream to a remote virtual reality displays at APS and in Orlando.\label{fig:sc98}}
+\end{figure}
 
 \subsection{Current Status}
 
@@ -105,30 +113,14 @@ end-to-end-flow from sample receipt to results dissemination.
 
 
 
-% Figure
-%\begin{figure}[h]
-%  \centerline{\includegraphics[width=150pt]{art/fig_1}}
-%  \caption{To format a figure caption use the \LaTeX template style: Figure Caption. The text ``FIGURE 1,'' which labels the caption, should be bold and in upper case. If figures have more than one part, each part should be labeled (a), (b), etc. Using a table, as in the above example, helps you control the layout.}
-%\end{figure}
-
-%\begin{sidewaysfigure}
-%  \centerline{\includegraphics[width=500pt]{art/fig_2}}
-%  \caption{To format a figure caption use the \LaTeX template style: Figure Caption. The text ``FIGURE 2,'' which labels the caption, should be bold and in upper case. If figures have more than one part, each part should be labeled (a), (b), etc. Using a table, as in the above example, helps you control the layout.}
-%\end{sidewaysfigure}
 
 
 
-\section{SUMMARY}
-
-
-
-
-% Sections that will go in second font
-
-% Acknowledgement
 \section{ACKNOWLEDGMENTS}
 
 This work was supported in part by DOE contract DE-AC02-06CH11357.
+We are grateful to colleagues at the Argonne Photon Source and other synchrotron light sources
+for many helpful discussions.
 
 % References
 
