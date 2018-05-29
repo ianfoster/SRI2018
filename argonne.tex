@@ -11,8 +11,11 @@
 
 \iffinal
     \newcommand\ian[1]{}
+    \newcommand\ben[1]{}
 \else
     \newcommand\ian[1]{{\color{red}[Ian: #1]}}
+    \newcommand\ben[1]{{\color{blue}[Ben: #1]}}
+
 \fi
 
 
@@ -142,6 +145,79 @@ TBD.
 DLHub is a project to promote, simplify, and speed the widespread adoption and usage of machine learning and deep learning techniques by researchers in disciplines ranging from materials science to chemistry, physics, cosmology, and biology. The co-emergence of large amounts of available datasets, movement towards cohesive data services, and new machine learning and, especially, deep learning (ML/DL) capabilities, creates a unique opportunity to leverage and integrate these data streams to allow for ML/DL techniques to guide and, indeed, lead discovery efforts.
  
 Thus, we are developing DLHub (Fig. 1), a self-service platform for publishing, applying, and creating new ML/DL models. DLHub will provide: 1) publication capabilities to make models more discoverable, citable, and reusable; 2) the ability to easily run or test existing models; and 3) links to the data and computing infrastructure to re-train models for new applications. Users will benefit from DLHub in many ways. Data scientists can publish their models (i.e., architectures and weights) and methods. Materials scientists can apply existing models to new data with ease (e.g., by querying a prediction API for a deployed mode) and create new models with state-of-the-art techniques. Together, these capabilities will lower barriers to employing ML/DL, making it easier for researchers to benefit from advances in ML/DL technologies. 
+
+\subsection{DLHub Use Cases}
+We present three separate uses cases of the DLHub service each highlighting
+key capabilities. DLHub pipelines (defined elsewhere?) were created for each
+use case to simplify invocation on PetrelKube and within Amazon Web Services.
+\ben{refine and add based on other paper components and DLHub architecture section}
+
+\textbf{Batch Classification of Beamline X-Ray Scattering Data.}
+Classifying streaming data or archived data from beamlines at national user
+facilities promises to aide future data discovery, promote data reuse, speed
+analyses, and to allow users to receive near real-time feedback on the state
+of their experiments. For example, if a model is able to automatically
+determine that a beam is misaligned, an experimental session may be saved from
+waste by user intervention.
+
+The classification model here enables the multi-label classification of X-Ray
+scattering data with 17 potential labels (e.g., "beam off image", "FCC",
+"BCC", "polycrystalline", "high background", "strong scattering", etc.). The
+classification model is a Tensorflow 1.4 implementation in Python 2.7 of a
+convolutional neural network following the ResNet architecture. Original
+training data comprised simulated data and experimental data tagged by experts
+collected at National Synchrotron Light Source (NSLS) at Brookhaven National
+Laboratory as described in Wang et al. This pretrained model and dataset was
+contributed to DLHub by Wang and Yager et al. and the original source code has
+been made available to the public on Github. Containers were created to serve
+the model and handle data transformation from input image files to the
+required input: 256x256 numpy arrays.
+
+\ben{Add DLHub usage details here}
+
+
+\textbf{Prediction of the Band Gap of Various Material Compositions.}
+Understanding the band gap of material compositions is critical
+to finding new semiconductor materials for next generation computing
+applications. This model was trained on data from the Open Quantum Materials
+Database (OQMD)...
+\ben{More model details}
+\ben{Add DLHub usage details here}
+
+\textbf{Prediction of Bulk Metallic Glass Forming Compositions.}
+Bulk metallic glasses are an important class of materials that promise
+improved durability, corrosion resistance, and mechanical behavior in harsh
+environments. However, discovery of metallic glass forming materials is
+particularly challenging to standard simulation screening techniques. Ren et
+al. trained a machine learning model iteratively using simulation and high-
+throughput experimental datasets gathered at the Stanford Linear Accelerator
+Laboratory (SLAC) to validate and improve the model for Co-V-Zr. The model was
+also shown to be transferrable to other compositions.
+
+The machine learning model was contributed to DLHub by Ward et al. as a
+pickled SciKitLearn RandomForest model. Containers were prepared to serve the
+model and accept input compositions (array of 3 valid elements). We built an
+example Jupyter notebook  to use the model in DLHub to generate ternary plots
+showing areas of highest metallic glass forming likelihood.
+
+\ben{cite https://github.com/fang-ren/}
+
+We train a machine learning (ML) model on previously reported observations,
+parameters from physiochemical theories, and make it synthesis
+method–dependent to guide high-throughput (HiTp) experiments to find a new
+system of metallic glasses in the Co-V-Zr ternary. Experimental observations
+are in good agreement with the predictions of the model, but there are
+quantitative discrepancies in the precise compositions predicted. We use these
+discrepancies to retrain the ML model.
+
+\ben{cite Ward et al (BMG Nature)}
+
+
+\ben{Add DLHub usage details here}
+
+\ben{Other potential models to highlight, CANDLE Benchmarks,
+Segmentation of Tomographic Reconstruction of Connectomes in Mouse Brains}
+
 
 
 Parallel tomo~\cite{Bicer_Europar15}. Real-time steering~\cite{bicer2017real}.
