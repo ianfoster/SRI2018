@@ -133,18 +133,60 @@ pipeline~\cite{wozniak2015big}
 
 
 
-\section{MDF: DATA PUBLICATION AND INDEXING}
+\section{The Materials Data Facility (MDF): DATA PUBLICATION AND INDEXING}
 
-TBD.
+\subsection{MDF Data Publication} 
+The MDF Data Publication service enables
+users to create data publications through a web user interface or a
+programmatically accessible API and to group similar publications into
+collections. Key features of the deployed service include the capability to
+publish large datasets (our largest dataset is over 1.85 TB); the ability to
+publish datasets with millions of files (our largest dataset by file count
+contains over 1 M individual files); and the ability to publish data on
+distributed data stores. Each of these capabilities is coupled with
+features that allow users to add high-level descriptive metadata to each dataset
+(e.g., title, authors, institution, contact), materials-specific metadata
+following the NIST Materials Resource Vocabulary; and the ability to associate
+a permanent identifier with the dataset (i.e., a DOI or Handle) for scholarly
+citation.
+
+\subsection{MDF Data Discovery} 
+The MDF Data Discovery service enables
+researchers to discover, query, browse and aggregate data that have been
+indexed by MDF. Entries in the MDF search index are comprised of descriptive
+information, materials-specific metadata (e.g., composition, crystal
+structure), and links to data harvested from a number of sources. These
+sources include the MDF Data Publication service, MDF Connect prototype, and
+data harvested from databases, services, and other sources from across the
+materials community. To date, we indexed 117 sources representing over 3.4M
+individually discoverable entries.
+
+In order to facilitate usage of the data indexed by MDF, we have released the
+Forge Python client. Forge enables users to search for data in MDF using
+materials-specific facets (e.g., elements, space group number) or general
+metadata (e.g., authors, title) and aggregate search result data with only a
+few lines of code. Forge contains a host of helper functions that
+abstract from the user the need to understand the infrastructure in place
+behind MDF and instead allow them to focus on their task at hand. For example,
+users can perform a query and fetch the resultant files locally or to an
+analysis cluster with a single function call. These functions support data
+transfer via both HTTPS and Globus.
 
 
-\section{DLHUB: AUTOMATED ANALYSIS AND LEARNING}
+\section{Data and Learning Hub for Science (DLHub): AUTOMATED ANALYSIS AND LEARNING}
 
-TBD.
-
-DLHub is a project to promote, simplify, and speed the widespread adoption and usage of machine learning and deep learning techniques by researchers in disciplines ranging from materials science to chemistry, physics, cosmology, and biology. The co-emergence of large amounts of available datasets, movement towards cohesive data services, and new machine learning and, especially, deep learning (ML/DL) capabilities, creates a unique opportunity to leverage and integrate these data streams to allow for ML/DL techniques to guide and, indeed, lead discovery efforts.
- 
-Thus, we are developing DLHub (Fig. 1), a self-service platform for publishing, applying, and creating new ML/DL models. DLHub will provide: 1) publication capabilities to make models more discoverable, citable, and reusable; 2) the ability to easily run or test existing models; and 3) links to the data and computing infrastructure to re-train models for new applications. Users will benefit from DLHub in many ways. Data scientists can publish their models (i.e., architectures and weights) and methods. Materials scientists can apply existing models to new data with ease (e.g., by querying a prediction API for a deployed mode) and create new models with state-of-the-art techniques. Together, these capabilities will lower barriers to employing ML/DL, making it easier for researchers to benefit from advances in ML/DL technologies. 
+Thus, we are developing DLHub (Fig. 1), a self-service platform for
+publishing, applying, and creating new ML/DL models. DLHub will provide: 1)
+publication capabilities to make models more discoverable, citable, and
+reusable; 2) the ability to easily run or test existing models; and 3) links
+to the data and computing infrastructure to re-train models for new
+applications. Users will benefit from DLHub in many ways. Data scientists can
+publish their models (i.e., architectures and weights) and methods. Materials
+scientists can apply existing models to new data with ease (e.g., by querying
+a prediction API for a deployed mode) and create new models with state-of-the-
+art techniques. Together, these capabilities will lower barriers to employing
+ML/DL, making it easier for researchers to benefit from advances in ML/DL
+technologies.
 
 \subsection{DLHub Use Cases}
 We present three separate uses cases of the DLHub service each highlighting
