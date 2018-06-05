@@ -133,9 +133,11 @@ pipeline~\cite{wozniak2015big}
 
 
 
-\section{The Materials Data Facility (MDF): DATA PUBLICATION AND INDEXING}
+\section{THE MATERIALS DATA FACILITY (MDF): DATA PUBLICATION AND INDEXING}
 
-\subsection{MDF Data Publication} 
+\ben{Add MDF overview text and text linking this to the other sections}
+
+\subsection{MDF DATA PUBLICATION} 
 The MDF Data Publication service enables
 users to create data publications through a web user interface or a
 programmatically accessible API and to group similar publications into
@@ -150,13 +152,13 @@ following the NIST Materials Resource Vocabulary; and the ability to associate
 a permanent identifier with the dataset (i.e., a DOI or Handle) for scholarly
 citation.
 
-\subsection{MDF Data Discovery} 
+\subsection{MDF DATA DISCOVERY} 
 The MDF Data Discovery service enables
 researchers to discover, query, browse and aggregate data that have been
 indexed by MDF. Entries in the MDF search index are comprised of descriptive
 information, materials-specific metadata (e.g., composition, crystal
 structure), and links to data harvested from a number of sources. These
-sources include the MDF Data Publication service, MDF Connect prototype, and
+sources include the MDF Data Publication service, and
 data harvested from databases, services, and other sources from across the
 materials community. To date, we indexed 117 sources representing over 3.4M
 individually discoverable entries.
@@ -173,24 +175,29 @@ analysis cluster with a single function call. These functions support data
 transfer via both HTTPS and Globus.
 
 
-\section{Data and Learning Hub for Science (DLHub): AUTOMATED ANALYSIS AND LEARNING}
 
-Thus, we are developing DLHub (Fig. 1), a self-service platform for
-publishing, applying, and creating new ML/DL models. DLHub will provide: 1)
-publication capabilities to make models more discoverable, citable, and
-reusable; 2) the ability to easily run or test existing models; and 3) links
-to the data and computing infrastructure to re-train models for new
-applications. Users will benefit from DLHub in many ways. Data scientists can
-publish their models (i.e., architectures and weights) and methods. Materials
-scientists can apply existing models to new data with ease (e.g., by querying
-a prediction API for a deployed mode) and create new models with state-of-the-
-art techniques. Together, these capabilities will lower barriers to employing
-ML/DL, making it easier for researchers to benefit from advances in ML/DL
-technologies.
+\section{DATA AND LEARNING HUB FOR SCIENCE (DLHub): AUTOMATED ANALYSIS AND LEARNING}
 
-\subsection{DLHub Use Cases}
+In order to simplify the application and adoption of machine learning into the
+scientific workflow of the non-expert, we are developing DLHub (Fig. 1). DLHub
+is a self-service platform for publishing, applying, and creating new ML/DL
+models. DLHub will provide: 1) publication capabilities to make models more
+discoverable, citable, and reusable; 2) the ability to easily run or test
+existing models; and 3) links to the data and computing infrastructure to re-
+train models for new applications. Users will benefit from DLHub in many ways.
+Data scientists can publish their models (i.e., architectures and weights) and
+methods. Materials scientists can apply existing models to new data with ease
+(e.g., by querying a prediction API for a deployed mode) and create new models
+with state-of-the-art techniques. Together, these capabilities will lower
+barriers to employing machine learning, making it easier for researchers to
+discover and benefit from the most recent advances in machine learning.
+
+\subsection{DLHub ARCHITECTURE}
+
+
+\subsection{DLHub USE CASES}
 We present three separate uses cases of the DLHub service each highlighting
-key capabilities. DLHub pipelines (defined elsewhere?) were created for each
+key capabilities. DLHub analysis pipelines were created for each
 use case to simplify invocation on PetrelKube and within Amazon Web Services.
 \ben{refine and add based on other paper components and DLHub architecture section}
 
