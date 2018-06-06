@@ -78,31 +78,61 @@ References: MDF~\cite{MDF2016}, networking materials data~\cite{foster2015networ
 
 \ian{Big picture thoughts I guess.}
 
-Figures from my 
+As the scale and complexity of light science continues to grow so to does the burden on
+researchers to manage an increasingly complex ecosystem of data, software, and cyberinfrastructure. 
+Unfortunately, these overheads are increasingly becoming prohibitive as the workload consumes
+considerable research time~\cite{}. If we look to other fields, from the automotive industry
+to agriculture, the ability to automate common activities has underpinned massive advances
+in terms of productivity and efficiency. Similar advances are required in computational
+and data-driven science to reduce impediments to discovery. 
 
-Choose next experiment.
+%Figures from my 
+
+%Choose next experiment.
 
  
 \ian{Next text and Figure~\ref{fig:diffuse} are from~\cite{foster2015networking}. Need to be rewritten.}
+\kyle{re-written}
 
-As shown in Figure~\ref{fig:diffuse}, the resulting research process can involve a wide variety of interactions among experiment, computation, and human expertise for different purposes and at multiple timescales. 
-On the right, we show diffuse scattering data being gathered for specific materials, with high-performance computing required for data analysis in order to provide timely feedback to experimenters. 
-On the left, 
-many simulations of potential structures are performed, using for example ab initio electronic structure codes, 
-and potentially refined via evolutionary optimization, 
-to create simulated diffuse scattering output that can be compared with experimental data. 
-Ultimately, we want both experimental and simulation data to feed into an evolving knowledge base that can thenplay an important role in guiding current and future research. 
-We also note that human collaboration and guidance is important at many points and scales, from direct steering of experiments to the choice of the next experiment and simulation 
+Figure~\ref{fig:diffuse} illustrates common activities in a diffuse scattering experiment. 
+The figure highlights the interactions between experiment, computation, and human expertise
+at various timescales. In particular, the figure shows the combination of simulation and 
+experimental workflows, combined to enable experiment steering and validation of results.
+On the experiment side, diffuse scattering data are obtained experimental using a beamline, 
+high performance computers are used to reconstruct and analyze the data, often in
+near real-time to provide feedback to researchers. 
+On the simulation side, researchers can explore a huge range of synthetic structures
+using various high performance software packages, and increasingly machine learning
+based methods to create simulated output to be compared with,or to help guide, experiments. 
+It is important to note, that these experiments and simulations need not be performed
+by the same researchers or at the same time. Rather, these actions are performed by
+collaborations that span institutions and even domains. 
+The resulting datasets derived by both experiments and simulations are further analyzed
+and compared to create a knowledge base that may be used internally, or externally, 
+to further investigate data and guide future exploration.
+ 
+
+%Ultimately, we want both experimental and simulation data to feed into an evolving knowledge base that can then play an important role in guiding current and future research. 
+%We also note that human collaboration and guidance is important at many points and scales, from direct steering of experiments to the choice of the next experiment and simulation 
 
 
 \begin{figure}[h]
   \centerline{\includegraphics[width=6in,trim=0 2.6in 0 1.5in,clip]{Figs/diffuse.png}}
-  \caption{Activities involved in a diffuse scattering experiment. 
-  Acceleration and even automation of these various end-to-end processes, plus the creation of powerful knowledge base and simulation capabilities, can create a ``discovery engine'' for materials science research. 
-  Note the publication phase by which data is contributed to the growing knowledge base.\label{fig:diffuse}}
+  \caption{Activities involved in a diffuse scattering experiment. Data is acquired
+   via simulation and experimentation, involves data storage in various locations
+from beamline computers through to data archives, requires analysis at various scales
+and coordination between a diverse group of collaborators.
+  %Acceleration and even automation of these various end-to-end processes, plus the creation of powerful knowledge base and simulation capabilities, can create a ``discovery engine'' for materials science research. 
+  %Note the publication phase by which data is contributed to the growing knowledge base.
+\label{fig:diffuse}}
 \end{figure}
 
+\subsection{Globus Automate}
 
+Describe Globus Automate. 
+
+\subsection{Not sure where this text belongs?}
+\kyle{Following text needs to go somewhere}
 We first experimented with online analysis of APS in the late 1990s, 
 when we coupled 
 computing microtomography~\cite{wang1999quasi,wang2001high} and crystallographic~\cite{von2000using}
