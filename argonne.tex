@@ -12,9 +12,11 @@
 \iffinal
     \newcommand\ian[1]{}
     \newcommand\ben[1]{}
+    \newcommand\ryan[1]{}
 \else
     \newcommand\ian[1]{{\color{red}[Ian: #1]}}
     \newcommand\ben[1]{{\color{blue}[Ben: #1]}}
+    \newcommand\ryan[1]{{\color{green}[Ryan: #1]}}
 
 \fi
 
@@ -131,7 +133,36 @@ pipeline~\cite{wozniak2015big}
 
 \ian{Petrel should get a mention.}
 
+\ryan{Not sure if the plan was to discuss this. Feel free to cut it all.}
 
+Researchers at The University of Chicago use the APS to study neuroanatomy, investigating brain 
+disease and aging. This research relies on the construction of 
+fine-grained mappings of neuron connections, known as connectomes. The APS enables the rapid 
+imaging of large unsectioned brain specimens, drastically reducing the time and complexity of 
+analyzing specimens when compared to traditional electron microscopy approaches.
+
+The process of using the APS to image a particular brain specimen, reconstruct the data, and 
+distribute 
+results to collaborators requires a complex series of actions involving data movement, 
+parallel processing using HPC resources, machine learning, and human-in-the-loop validation, all 
+while conforming to best-practice security and data management practices. Data are acquired on a 
+dedicated machine, however, this is not always appropriate for analyzing the data and 
+reconstructing images as these actions can interfere with the acquisition process. Instead, data 
+are moved to dedicated computing resources, in this case at the Argonne Leadership Computing 
+Facility. The 
+reconstruction process requires setting access control on the resulting data, 
+ensuring the data is available to the scientists providing the samples. The neuroanatomy use 
+case results are persistently stored on the Petrel storage system at Argonne to enable its 
+distribution globally to collaborators. Petrel and Globus' HTTPS support enable the data to be 
+rapidly stream into visualization tools, such as a hosted Neuroglancer service, 
+allowing users to interactively visualize results in three dimensions 
+immediately as the results are produced. 
+
+This acquisition and distribution process is not uncommon across many light source 
+experiments and has guided our development of an automation platform to manage the reconstruction of 
+light source data. We aim to extend this pipeline to add 
+additional value integrating the DLHub platform to dynamically apply state-of-the-art 
+segmentation models to the data as the models are improved.
 
 \section{THE MATERIALS DATA FACILITY (MDF): DATA PUBLICATION AND INDEXING}
 
@@ -193,6 +224,38 @@ barriers to employing machine learning, making it easier for researchers to
 discover and benefit from the most recent advances in machine learning.
 
 \subsection{DLHub ARCHITECTURE}
+\ryan{Super rough draft. I'll revisit tomorrow.}
+
+DLHub is designed to operate with a single Web API exposing model and transformation 
+servables deployed across various execution sites. To achieve this we have architected DLHub to 
+operate as two distinct components: a cloud-hosted Web REST API, secured by Globus Auth, and an 
+execution site, underpinned by the parallel scripting tool, Parsl, and a Kubernetes cluster to 
+deploy containerized servables. These two components are connected via ZeroMQ channels, enabling 
+reliable, high-speed transmission of requests between the API and an execution site.
+
+Models and transformation logic are containerized. This standardized their execution interface, 
+regardless of implementation or language, and enables to encapsulation of their vastly different 
+requirements. Each container is packaged with a dlhub-specific shim, enabling parsl to execute 
+directly within the container.
+
+The Web API provides as an interface to DLHub and facilitates the development of a SDK to interact 
+with the service itself and the deployed servables. Users can deposit models and invoke them 
+through the Web API. This two-tier design enables multi-level caching, with both Parsl and 
+cloud-hosted caches enhancing user experience. Requests can be batched at the cloud level before 
+being transmitted to execution sites.
+
+Execution sites consist of a Parsl \textit{foreman}, a ZMQ receiver, and a Kubernetes cluster. Jobs 
+are transmitted to the ZMQ received and are processed by the Parsl foreman. The foreman is 
+responsible for deploying each of the servables (containerized models and transformation logic) and 
+performing the execution directly within the container. Parsl uses ipyparallel to perform remote 
+executions. Each container is deployed with an \textit{ipengine} that connects back to the foreman 
+to receive jobs.
+
+Execution sites are designed to receive jobs through the ZMQ receiver. Although this is primarily 
+achieved by submitting jobs through the Web API's REST and SDK interfaces, users can establish 
+direct channels to the execution sites to remove unnecessary latency caused by the cloud-hosted API.
+
+
 
 
 \subsection{DLHub USE CASES}
