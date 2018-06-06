@@ -225,37 +225,38 @@ barriers to employing machine learning, making it easier for researchers to
 discover and benefit from the most recent advances in machine learning.
 
 \subsection{DLHub ARCHITECTURE}
-\ryan{Super rough draft. I'll revisit tomorrow.}
 
-DLHub is designed to operate with a single Web API exposing model and transformation 
-servables deployed across various execution sites. To achieve this we have architected DLHub to 
-operate as two distinct components: a cloud-hosted Web REST API, secured by Globus Auth, and an 
-execution site, underpinned by the parallel scripting tool, Parsl, and a Kubernetes cluster to 
-deploy containerized servables. These two components are connected via ZeroMQ channels, enabling 
-reliable, high-speed transmission of requests between the API and an execution site.
+DLHub operates a cloud-hosted Web API to interface with the 
+service, enabling users to publish, search, and invoke models. DLHub serves models and 
+transformation codes across remote \textit{execution 
+sites}. Existing execution sites leverage Kubernetes clusters to manage the deployment of 
+containerized codes and models. Each execution site is connected to the Web API 
+through ZeroMQ (ZMQ) channels, providing a high-performance and reliable mechanism to transmit 
+jobs. 
 
-Models and transformation logic are containerized. This standardized their execution interface, 
-regardless of implementation or language, and enables to encapsulation of their vastly different 
-requirements. Each container is packaged with a dlhub-specific shim, enabling parsl to execute 
-directly within the container.
+Models and transformation logic are containerized with Docker to standardized their execution 
+interface, regardless of implementation or language, and enable the encapsulation of their vastly 
+different requirements. When a code is published to DLHub it is automatically packaged with 
+a custom DLHub python library to abstract the execution interface and provide an ipython engine to 
+facilitate remote execution. These \textit{servables} can then be deployed at execution sites 
+and invoked directly using the Parsl parallel scripting library.
 
-The Web API provides as an interface to DLHub and facilitates the development of a SDK to interact 
-with the service itself and the deployed servables. Users can deposit models and invoke them 
-through the Web API. This two-tier design enables multi-level caching, with both Parsl and 
-cloud-hosted caches enhancing user experience. Requests can be batched at the cloud level before 
-being transmitted to execution sites.
+The Web API provides a Globus-secured interface to DLHub, enabling the implementation 
+of an SDK and direct interaction with both the service itself and deployed servables. Users can 
+deposit models and invoke them through the Web API. Invoking a model through the API initiates the 
+transmission of a job task to an execution site via ZMQ. This two-tier design enables multi-level 
+caching, with both Parsl and cloud-hosted caches enhancing user experience. Requests can also be 
+batched at the cloud level before being transmitted to execution sites to improve throughput.
 
 Execution sites consist of a Parsl \textit{foreman}, a ZMQ receiver, and a Kubernetes cluster. Jobs 
-are transmitted to the ZMQ received and are processed by the Parsl foreman. The foreman is 
-responsible for deploying each of the servables (containerized models and transformation logic) and 
-performing the execution directly within the container. Parsl uses ipyparallel to perform remote 
-executions. Each container is deployed with an \textit{ipengine} that connects back to the foreman 
-to receive jobs.
-
-Execution sites are designed to receive jobs through the ZMQ receiver. Although this is primarily 
-achieved by submitting jobs through the Web API's REST and SDK interfaces, users can establish 
-direct channels to the execution sites to remove unnecessary latency caused by the cloud-hosted API.
-
+are transmitted to the ZMQ receiver and are processed by the Parsl foreman. The foreman is 
+responsible for deploying each of the servables and 
+performing the execution directly within the container. Parsl uses IPyParallel and a pilot-job 
+model to perform remote execution. Each container is deployed with an \textit{ipengine} that 
+connects back to the foreman to receive jobs. Execution sites are designed to receive jobs through 
+the ZMQ receiver. Although this is primarily achieved by submitting jobs through the Web API's REST 
+and SDK interfaces, advanced users can establish direct channels to an execution site, removing 
+unnecessary latency incurred by the API.
 
 
 
