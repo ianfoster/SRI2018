@@ -4,6 +4,7 @@
 \usepackage{rotating}
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{url}
 
 \newif\iffinal
 % Un-comment this line to see proposal without comments
@@ -54,22 +55,26 @@ Rapidly growing data volumes at light sources demand increasingly automated data
 % Head 1
 \section{INTRODUCTION}
 
-\ian{Introductory material on challenges at light sources.}
+Fourth-generation light sources such as the Advanced Photon Source Upgrade (APS-U)~\cite{APSU} will offer exciting new
+scientific communities to the thousands of scientists who use their many beamlines annually.
+They also pose major data and computation challenges, for at least four reasons.
+First, they will generate massive data. 
+For example, x-ray photon correlation spectroscopy can already generate 2MB images at 3,000 Hz,
+for a data rate of 6 GB/s, comparable to that of the Large Hadron Collider~\cite{lhcrate}.
+With APS-U, this data rate is expected to increase by 2--3 orders of magnitude.
+Second, experiments will increasingly generate complex multi-modal data that needs advanced computing
+for interpretation, such as ptychography combined with 
+elemental mapping and visual images as a function of reaction conditions.
+Third, it will become increasingly feasible to use advanced theory and modeling to fit and co-optimize 
+model and experiment, so that 
+Fourth, as synchrotron light source mature as instrucments, they increasingly serve more and different users,
+many with limited or no experience with light sources. 
+Automation is important for such users~\cite{hiraki2008high,toby2009management}.
 
-\begin{verbatim}
-1) Huge data from new detectors, APS-U
-E.g., XPCS: Today: 2MB images @ 100 Hz; FY16: 1MB images @ 2000 Hz (x 10); Eiger: 2Mbyte @ 3000 Hz (x 3); APS-U +2-3 orders of magnitude
-2) Complex, multi-modal data needs advanced ?     computation for interpretation
-E.g., ptychography+elemental mapping+visual images as a function of reaction conditions
-3) Advanced modeling and theory enable fitting ?     and co-optimization of model and experiment
-Goal: Fit one model to all measurements
-4) New user demographics  automation
-Scale to more and different users, many with limited or no experience with light sources
-\end{verbatim}
 
 Transition from artisanal/cottage industry to automated. Onsite not offsite. Capture data. Advanced analyses.
 
-
+APS~\cite{toby2015practices}
 
 References: MDF~\cite{MDF2016}, networking materials data~\cite{foster2015networking}, Justin~\cite{wozniak2015big}.
 
@@ -158,6 +163,9 @@ Sharma, Wozniak, and others developed an online analysis pipeline for high energ
 experiments 
 
 HEDM work to be described somewhere~\cite{park2015high}.
+
+\cite{delageniere2011ispyb}: 
+ISPyB: An information management system for synchrotron macromolecular crystallography
 
 pipeline~\cite{wozniak2015big}
 
@@ -362,6 +370,27 @@ discrepancies to retrain the ML model.
 \ben{Other potential models to highlight, CANDLE Benchmarks,
 Segmentation of Tomographic Reconstruction of Connectomes in Mouse Brains}
 
+
+\section{MDF: DATA PUBLICATION AND INDEXING}
+
+TBD.
+
+
+\section{DLHUB: AUTOMATED ANALYSIS AND LEARNING}
+
+TBD.
+
+DLHub is a project to promote, simplify, and speed the widespread adoption and usage of machine learning and deep learning techniques by researchers in disciplines ranging from materials science to chemistry, physics, cosmology, and biology. The co-emergence of large amounts of available datasets, movement towards cohesive data services, and new machine learning and, especially, deep learning (ML/DL) capabilities, creates a unique opportunity to leverage and integrate these data streams to allow for ML/DL techniques to guide and, indeed, lead discovery efforts.
+ 
+Thus, we are developing DLHub (Fig. 1), a self-service platform for publishing, applying, and creating new ML/DL models. DLHub will provide: 1) publication capabilities to make models more discoverable, citable, and reusable; 2) the ability to easily run or test existing models; and 3) links to the data and computing infrastructure to re-train models for new applications. Users will benefit from DLHub in many ways. Data scientists can publish their models (i.e., architectures and weights) and methods. Materials scientists can apply existing models to new data with ease (e.g., by querying a prediction API for a deployed mode) and create new models with state-of-the-art techniques. Together, these capabilities will lower barriers to employing ML/DL, making it easier for researchers to benefit from advances in ML/DL technologies. 
+
+Reference ModelHub~\cite{miao2017towards}. 
+
+% Velox: https://blog.acolyer.org/2015/02/02/the-missing-piece-in-complex-analytics/
+
+Velox for rapid model serving~\cite{crankshaw2014missing}
+
+and~\cite{kumar2017data}
 
 
 Parallel tomo~\cite{Bicer_Europar15}. Real-time steering~\cite{bicer2017real}.
