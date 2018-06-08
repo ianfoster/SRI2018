@@ -46,7 +46,7 @@
 
 \begin{abstract}
 %The AIP Proceedings article template has many predefined paragraph styles for you to use/apply as you write your paper. To format your abstract, use the \LaTeX template style: {\itshape Abstract.} Each paper must include an abstract. Begin the abstract with the word ``Abstract'' followed by a period in bold font, and then continue with a normal 9 point font.
-Rapidly growing data volumes at light sources demand increasingly automated data collection, distribution, and analysis processes, in order to enable new scientific discoveries while not overwhelming finite human capabilities. I present here three projects that use cloud-hosted data automation and enrichment services, institutional computing resources, and high- performance computing facilities to provide cost-effective, scalable, and reliable implementations of such processes. In the first, Globus cloud-hosted data automation services are used to implement data capture, distribution, and analysis workflows for Advanced Photon Source and Advanced Light Source beamlines, leveraging institutional storage and computing. In the second, such services are combined with cloud-hosted data indexing and institutional storage to create a collaborative data publication, indexing, and discovery service, the Materials Data Facility (MDF), built to support a host of informatics applications in materials science. The third integrates components of the previous two projects with machine learning capabilities provided by the Deep Learning Hub (DLHub) to enable on-demand access to machine learning models from light source data capture and analysis workflows, and provides simplified interfaces to train new models on data from sources such as MDF on leadership scale computing resources. I draw conclusions about best practices for building next-generation data automation systems for future light sources.
+Rapidly growing data volumes at light sources demand increasingly automated data collection, distribution, and analysis processes, in order to enable new scientific discoveries while not overwhelming finite human capabilities. I present here three projects that use cloud-hosted data automation and enrichment services, institutional computing resources, and high- performance computing facilities to provide cost-effective, scalable, and reliable implementations of such processes. In the first, Globus cloud-hosted data automation services are used to implement data capture, distribution, and analysis workflows for Advanced Photon Source and Advanced Light Source beamlines, leveraging institutional storage and computing. In the second, such services are combined with cloud-hosted data indexing and institutional storage to create a collaborative data publication, indexing, and discovery service, the Materials Data Facility (MDF), built to support a host of informatics applications in materials science. The third integrates components of the previous two projects with machine learning capabilities provided by the Data and Learning Hub for science (DLHub) to enable on-demand access to machine learning models from light source data capture and analysis workflows, and provides simplified interfaces to train new models on data from sources such as MDF on leadership scale computing resources. I draw conclusions about best practices for building next-generation data automation systems for future light sources.
 \end{abstract}
 
 \ian{Potential authors: Tekin Bicer, Ben Blaiszik, Kyle Chard, Ryan Chard, Logan Ward, Justin Wozniak, ...}
@@ -126,7 +126,7 @@ to further investigate data and guide future exploration.
   \caption{Activities involved in a diffuse scattering experiment. Data is acquired
    via simulation and experimentation, involves data storage in various locations
 from beamline computers through to data archives, requires analysis at various scales
-and coordination between a diverse group of collaborators.
+and coordination between a diverse group of collaborators. 
   %Acceleration and even automation of these various end-to-end processes, plus the creation of powerful knowledge base and simulation capabilities, can create a ``discovery engine'' for materials science research. 
   %Note the publication phase by which data is contributed to the growing knowledge base.
 \label{fig:diffuse}}
@@ -134,7 +134,72 @@ and coordination between a diverse group of collaborators.
 
 \subsection{Globus Automate}
 
-Describe Globus Automate. 
+\kyle{I'm not sure on page limits so I tried to keep this brief. We can go deeper
+into the event and action interfaces if needed.}
+
+We have developed a prototype cloud-hosted automation service called Globus Automate. 
+Globus Automate aims to make it simple to construct robust automation flows
+that include both automated and human-in-the-loop operations. 
+It is designed following an extensible, modular architecture via which external
+\emph{event} sources and \emph{actions} can be used in pipelines. 
+Thus, developers may select a particular event for invoking the pipeline
+and a series of one or more actions that should then be executed as 
+a result of that event.
+Globus Automate is comprised of two core components: a web service
+that allows for the construction, execution, and sharing of automation
+flows; and a user agent that is used to capture data events on remote systems
+(e.g., file created, deleted, modified). 
+
+Globus Automate exposes a simple, declarative, JSON-based, state machine 
+language for defining flows, 
+based on the Amazon States Language~\cite{AmazonStates}. 
+This language allows for concise definition of flows comprising multiple actions, with control logic ranging from simple sequential actions to complex branching and iteration, with simple but powerful timeout, retry, and recovery capabilities. 
+
+An automation flow consists of one or more steps that invoke pre-defined actions. 
+We define a REST API by which external services can be integrated with Globus Automate to perform actions. 
+Services implementing these interfaces may
+be registered and then integrated into flows by any user, subject to service access rights. 
+This API is similar to the popular if-this-then-that (IFTTT) action service API, 
+with enhancements to accommodate asynchronous activities and the end-to-end security model provided by Globus Auth. When a flow is executing, Globus Automate will use
+the registered action API to invoke the action.
+
+An automation flow can be triggered by a variety of events including 
+data events, external service events, and periodic timers (like cronjobs).
+We define a REST API that allows any service to produce events
+and to submit them to Globus Automate. When creating a flow, 
+users define the type of event to be monitored and simple criteria
+for filtering events. 
+In our prototype system we have created a modular event monitoring system that
+can be deployed on arbitrary storage systems and which leverages
+native storage system notification mechanisms to capture data events~\cite{chard17ripple}. 
+We have demonstrated (\S\ref{sec:proto}) monitoring via the Linux
+inotify API~\cite{inotify}, and achieved, via a hierarchical approach, 
+$\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}.  
+
+\kyle{Do we want to include the automate picture from the proposal? 
+Its a little aspirational at this stage. But its a nice picture.}
+
+\subsection{Automation Use Cases}
+\kyle{The following text is stolen from CSSI - do we want such an example?
+If so, perhaps Ryan can make this accurate.. and add a nice picture.}
+
+We have applied a prototype version of Globus Automate
+to support neuroanatomy experiments that rely on
+X-ray microtomography at the Advanced Photon Source (APS) 32-ID beamline to
+characterize the neuroanatomical structure of large (cm) unsectioned brain volumes~\cite{kasthuri2015saturated}. 
+Datasets, generated at $>$20GB per minute, are processed
+with a complex reconstruction pipeline 
+comprising many machines, tools, and services.  
+Globus Automate is used to move data from beamline to remote computers,
+execute Automo~\cite{Automo} and TomoPy~\cite{gursoy2014tomopy} 
+to generate preview images, and return images to 
+beamline scientists to guide instrument positioning. 
+Simultaneously, machine learning models
+are applied (automatically) to reconstruct and stitch together images, with results 
+moved to persistent storage for distribution, cataloged with
+provenance metadata, and visualized with Neuroglancer~\cite{Neuroglancer}. 
+
+\kyle{Ryan another APS/ALS flow?}
 
 \subsection{Not sure where this text belongs?}
 \kyle{Following text needs to go somewhere}
