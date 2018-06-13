@@ -378,8 +378,8 @@ determine that a beam is misaligned, an experimental session may be saved from
 waste by user intervention.
 
 The classification model here enables the multi-label classification of X-Ray
-scattering data with 17 potential labels (e.g., "beam off image", "FCC",
-"BCC", "polycrystalline", "high background", "strong scattering", etc.). The
+scattering data with 17 potential labels (e.g., ``beam off image", ``FCC",
+``BCC", ``polycrystalline", ``high background", ``strong scattering"). The
 classification model is a Tensorflow 1.4 implementation in Python 2.7 of a
 convolutional neural network following the ResNet architecture. Original
 training data comprised simulated data and experimental data tagged by experts
@@ -417,17 +417,17 @@ model and accept input compositions (array of 3 valid elements). We built an
 example Jupyter notebook  to use the model in DLHub to generate ternary plots
 showing areas of highest metallic glass forming likelihood.
 
-\ben{cite https://github.com/fang-ren/}
+\ben{cite https://github.com/fang-ren/~\cite{FangRen}}
 
 We train a machine learning (ML) model on previously reported observations,
 parameters from physiochemical theories, and make it synthesis
-method–dependent to guide high-throughput (HiTp) experiments to find a new
+method-dependent to guide high-throughput (HiTp) experiments to find a new
 system of metallic glasses in the Co-V-Zr ternary. Experimental observations
 are in good agreement with the predictions of the model, but there are
 quantitative discrepancies in the precise compositions predicted. We use these
 discrepancies to retrain the ML model.
 
-\ben{cite Ward et al (BMG Nature)}
+\ben{cite Ward et al (BMG Nature)~\cite{ward2016general}}
 
 
 \ben{Add DLHub usage details here}
