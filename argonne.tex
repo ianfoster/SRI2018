@@ -22,6 +22,9 @@
     \newcommand\kyle[1]{{\color{purple}[Kyle: #1]}}
 \fi
 
+\newcommand\code[1]{{\tt \footnotesize #1}}
+\newcommand\bluecode[1]{{\color{blue}\code{\textbf{#1}}}}
+\newcommand\darkcode[1]{\code{\textbf{#1}}}
 
 % Document starts
 \begin{document}
@@ -176,8 +179,162 @@ We have demonstrated (\S\ref{sec:proto}) monitoring via the Linux
 inotify API~\cite{inotify}, and achieved, via a hierarchical approach, 
 $\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}.  
 
-\kyle{Do we want to include the automate picture from the proposal? 
-Its a little aspirational at this stage. But its a nice picture.}
+\begin{figure}[h]
+  \centerline{\includegraphics[width=6in]{Figs/automate.png}}
+  \caption{Globus Automate architecture, showing the cloud service at top, services that it
+    manages below, and the extended Globus Connect internals at bottom right. Also, a flow
+    comprising 
+    (1) an event (data created at instrument), (2) a transfer action, and (3) an analysis action.
+\label{fig:diffuse}}
+\end{figure}
+
+
+\subsection{Capturing and responding to events}
+Globus Automate is reliant on the ability to monitor and recieve events from
+external services. 
+We define a \darkcode{globus\_event} REST API to be implemented by any service that wants to produce events for consumption by Globus Automate
+and a simple queuing mechanism to reliably deliver events.
+Our goal is to make it simple for a service to produce and consume events, 
+while also enabling performant and robust event delivery.
+
+The \darkcode{globus\_event}  API, outlined here,
+allows for a client (e.g., Globus Automate) to register with a service (e.g., Globus Connect) 
+to receive events (e.g., file created) that match event-specific criteria (e.g., all files matching a path expression). 
+The API includes methods such as
+the following, some taking a \bluecode{<registration\_id>} as a parameter:
+
+\begin{itemize}
+    \item \code{/globus\_event/v1}\darkcode{/introspect}: 
+    Returns monitorable events and event matching parameters.
+    \item \code{/globus\_event/v1}\darkcode{/register}\code{/}\bluecode{<registration\_id>}: 
+    Register to send matching events to a specified URL. This registration will be identified by
+    the \darkcode{<registration\_id>} UUID.
+    \item \code{/globus\_event/v1}\darkcode{/cancel}\code{/}\bluecode{<registration\_id>}: 
+    Stop sending events from a previous registration.
+\end{itemize}
+
+\vspace{1ex}
+
+Globus Automate (or any other client)
+can use the \darkcode{/introspect} method on a service 
+to determine what event types are available from that service---and,
+for each event type, what parameters can be use to match events. 
+For example, Globus Connect endpoints could offer
+events such as ``file created'' and ``file deleted,'' 
+each accepting a path matching expression as a parameter,
+so that Globus Automate can request notifications when 
+files in a certain directory are created or deleted.
+Globus Automate will \darkcode{/register} 
+for events matching particular parameters, providing a URL to which the service should POST the events, along with a globally unique \bluecode{<registration\_id>} UUID.  In the event of a communication error, Globus Automate can idempotently retry the same \darkcode{/register} call, such that if the service already knows the \bluecode{<registration\_id>} it can respond as such.
+When events are no longer needed from a service, Globus Automate will \darkcode{/cancel} the registration 
+using the same \bluecode{<registration\_id>}.
+
+\subsection{Invoking and managing actions}
+The Globus Automate engine invokes an action in an external service to 
+perform a step of an automation flow. Each external service must implement a
+simple REST API for introspection, execution, and management. 
+When registering an external service, the service must 
+define the actions that it supports, for each with
+a unique name, description, input and output parameters, 
+and whether it runs synchronously (quickly, blocking)
+or asynchronously (slowly, non-blocking).
+The action API focuses only on the information 
+needed by Globus Automate.
+It may be implemented alongside any other REST API offered by a service.
+Each POST specifies a \darkcode{/method} and typically also a \bluecode{variable}:
+
+\begin{itemize}
+    \item \code{/globus\_automate/v1/action}\darkcode{/list}: 
+    List the actions supported by this service.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/introspect}: 
+    Return parameters that can be passed to this action, 
+    with a type and if the parameter is required/optional. 
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/run}:
+    Execute the action, given a parametrized document matching
+    the schema returned from the \darkcode{/introspect} method.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/status}: 
+    Retrieve the state of the given asynchronous action instance. 
+    If the action is complete, return the output document.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/cancel}: 
+    Cancel an asynchronous action instance.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/release}: 
+    Release an action instance. 
+\end{itemize}
+
+\vspace{1ex}
+
+The action model is simple: JSON document in, JSON document out, with a simple protocol to ensure reliable, once-and-only-once execution.
+When Globus Automate needs to run an action as part of a flow, it calls the service's action \darkcode{/run} method with an input JSON document with the appropriate parameters, and a globally unique \code{<action\_id>}.  
+If Globus Automate does not receive a response from \darkcode{/run}, for example due to a network error, 
+it can repeat the \darkcode{/run} call with the same \code{<action\_id>}, allowing the service to recognize duplicate requests.  
+In the case of asynchronous actions, Globus Automate will then periodically call \darkcode{/status} to check if the action  has completed. 
+If the action has completed, \darkcode{/status} will return the output JSON document with the appropriate parameters.  
+ 
+Once Globus Automate sees that an action has completed, it calls \darkcode{/release} 
+so that the service can forget about the \code{<action\_id>}.  
+If an action takes longer than a flow step's configured timeout,
+Globus Automate may call \darkcode{/cancel}. 
+If a service does not recognize the \darkcode{<action\_id>} in a \darkcode{/cancel} or \darkcode{/release}, 
+it should assume it was previously canceled or released, and return an appropriate error. 
+After some extended period (e.g., 30 days after completion),
+a service can forget any \code{<action\_id>} that is not canceled or released. 
+
+Some actions may require human interaction.  For example, as part of 
+the Globus data publication platform we aim to implement 
+a web-based form entry service, 
+with configurable JSON schema and form configuration. 
+This service will be used for such purposes 
+as simple user prompts to complex metadata entry and curation.
+Such services will be integrated with Globus Automate as asynchronous actions.
+
+\subsection{The Globus Automate engine.}
+Globus Automate is responsible for executing end-to-end automation flows \emph{reliably}, 
+from event registration and processing for triggers to
+flow (i.e., state machine) execution and action invocation. 
+After review of several workflow models, such as Amazon Simple
+Workflow Service~\cite{AmazonSWF}, Netflix's Conductor~\cite{conductor}, and Apache Airflow~\cite{airflow}, 
+we choose to leverage
+Amazon Step Functions (ASF)~\cite{AmazonSteps} for implementing and managing flows.
+ASF is provided by AWS as a managed service for reliably 
+and scalably executing state machines (i.e., automation flows);
+its declarative and intuitive JSON-based state machine language allows non-experts
+to define
+flows and its flexible execution model allows Globus Automate
+to execute arbitrary actions.
+
+Globus Automate uses parameterized Lambda functions~\cite{AmazonLambda} to execute actions. 
+When creating a flow, Globus Automate calls \darkcode{/introspect} 
+to determine the input and output parameters for an action. It then creates 
+parametrized Lambda functions for that action. 
+For asynchronous actions multiple Lambda functions are created (i.e., start, monitor).
+When a user deploys an automation flow, Globus Automate translates the user's state machine 
+with user-friendly action and event names into a state machine that invokes the appropriate 
+Lambda functions and manages the flow of state between actions. 
+Its deployment requires that the user specify both how its execution may be triggered and the source of
+the JSON document to be provided as input to the first step of the state machine. 
+(The input JSON document may contain both static content and 
+dynamic content provided by the trigger.)
+% Triggers not yet supported
+%A trigger may be
+%\textbf{manual}: a user executes the flow through a call to the Globus Automate REST API, 
+%with a JSON input document;
+%\textbf{event}: i.e., triggered by receipt of a specified event from a specified service, 
+%with the event as the dynamic JSON input document; or
+%\textbf{schedule}: a particular start time or periodic start, with a dynamic JSON input document containing the time.
+%The deploying user can also set permissions to indicate who
+%may execute the flow, administer its deployment, and monitor or manage flow executions.
+
+Globus Automate wraps all logic for registering and interacting with external event- and action-providing services.  Currently these capabilities are exposed as a REST API. 
+In the future we intend to enhance the Globus web interface to make it 
+easy for users to register action and event services,
+and to deploy, execute, and manage automation flows.
+%As not all users will be comfortable authoring JSON, 
+%we will also develop a simple graphical user interface (GUI) in which users can search for and select
+%registered events and actions, create flows from actions with retry and timeout parameters, and deploy flows with triggers. 
+%This interface (and the underlying REST API) will also allow users to view and modify previously deployed flows, monitor and manage executions of their deployed flows (e.g., cancel a running flow), view the events
+%that triggered the flow, interrogate the JSON state document at any
+%point of the flow, and view the status of actions (e.g., success or failure).
+%Globus Auth will provide end-to-end security.
 
 \subsection{Automation Use Cases}
 \kyle{The following text is stolen from CSSI - do we want such an example?
