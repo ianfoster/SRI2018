@@ -232,25 +232,39 @@ that they can correct errors and optimize experiments.
 Many light source experiments apply a similar process to the acquisition, analysis, and 
 distribution of data. We posit that components of the light source science data 
 lifecycle can be reliably outsourced to specialized services, thus reducing the burdon on 
-scientists. Thus, specialized services can be created to service many sources 
-concurrently, reliably, and efficiently.
+scientists. Specialized services can be created to service many sources 
+concurrently, reliably, and efficiently. These services can reliably provide the tools necessary to 
+perform a wide range of advanced analyses without requiring the scientist to have specialized 
+skills in terms of building, running, and maintaining analytical tools, and removing the barriers to 
+entry to apply analytical tools across leadership computing resources. In addition, specialized 
+services to automatically extract metadata and enforce best-practice cataloging and replication can 
+be deployed such that scientists can simply invoke such a service, rather than creating ad-hoc data 
+management solutions with little reproducibility, adding to the vanguard computing environment that 
+litters many large-scale experimental science instruments.
 
 \section{DATA ACQUISITION AND DISTRIBUTION}
 
-Data acquisition and distribution are fundamental to light scinece. As the rate at which both data 
-are generated from new instruments and robotic processes of managing samples to increase the rate 
-at which experiments are performed, automated acquisition processes become increasingly necessary. 
-New techniques to responsively manage data as they are generated are needed. The Data 
+Data acquisition and distribution are fundamental to light science. As the rate at which both data 
+are generated from new instruments and robotic processes increasingly being used to rapidly manage 
+the analysis of multiple samples, automated acquisition processes become increasingly necessary. New 
+techniques to responsively manage data as they are generated are needed. 
+
+
+A range of tools have been developed to simplify the acquisition process. For example, the Data 
 Management at the APS Imaging Group (DMagic) have worked to automate the collection process and 
 facilitate reliable execution of data management tasks, such as sharing, indexing, and transfer, in 
-response to data events.
+response to data events. DMagic provides an event-driven system to detect the creation of files and 
+enact actions, such as data movement, in response to samples being acquired. Similarly, ISPyB is a 
+Laboratory Information Management System that combines sample tracking and experiment 
+reporting for synchrotrons, in particular for macromolecular crystallography. ISPyB has been in 
+production for numerous years and is specifically designed to simplify development and 
+maintenance~\cite{delageniere2011ispyb}.
+
+% \cite{delageniere2011ispyb}: 
+% ISPyB: An information management system for synchrotron macromolecular crystallography
 
 
 HEDM work to be described somewhere~\cite{park2015high}.
-
-\cite{delageniere2011ispyb}: 
-ISPyB: An information management system for synchrotron macromolecular crystallography
-
 
 
 \ian{Petrel should get a mention.}
