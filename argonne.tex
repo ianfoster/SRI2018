@@ -254,7 +254,12 @@ A range of tools have been developed to simplify the acquisition process. For ex
 Management at the APS Imaging Group (DMagic) have worked to automate the collection process and 
 facilitate reliable execution of data management tasks, such as sharing, indexing, and transfer, in 
 response to data events. DMagic provides an event-driven system to detect the creation of files and 
-enact actions, such as data movement, in response to samples being acquired. Similarly, ISPyB is a 
+enact actions, such as data movement, in response to samples being acquired. DMagic uses Globus 
+APIs create a shared endpoint and deposit the data and set permissions. It also bridges the 
+multiple data sources maintained at the APS, such that given an experiment's date and time, it can 
+retrieve user information from the APS scheduler, associate metadata regarding the beamline with 
+the experimental results, and email the user the location of the shared endpoint for data 
+retrieval. Similarly, ISPyB is a 
 Laboratory Information Management System that combines sample tracking and experiment 
 reporting for synchrotrons, in particular for macromolecular crystallography. ISPyB has been in 
 production for numerous years and is specifically designed to simplify development and 
@@ -274,16 +279,25 @@ In order to enable easy, efficient, secure, reliable distribution of data from b
 locations, platforms are required to store and distribute data with high performance and 
 accessibility. At Argonne National Laboratory we have created a purpose built platform for sharing 
 research outcomes underpinned by high performance networks and the Globus data management platform. 
-This service, called Petrel, provides researchers access to a large, 1.5PB, store positioned within 
+This service, called Petrel, provides researchers access to a large, 1.7PB, store positioned within 
 Argonne's network with high speed access to the APS. Petrel leverages Globus' identity management 
 to provide researchers access to their data without requiring Argonne-specific credentials. 
 Instead, users can authenticate with Petrel and access and distribute data world-wide using their 
-own institutes credentials.
+own institutes credentials. Petrel provides cost-effective storage for researchers. Because Petrel 
+is underpinned by Globus services it presents a sustainable storage model which researchers can 
+rely on to exist and distribute data for prolonged periods of time.
 
 
 
 \section{DATA PUBLICATION AND DISCOVERY}
-\ryan{Making this more general with MDF and search being the main selling points.}
+\ryan{Make this more general with MDF and search being the main selling points?}
+
+\ryan{from talk:
+- Move to permanent location (or publish in place)
+- Compute and record checksums
+- Obtain and record metadata 
+- Assign persistent identifier 
+- Index for discovery}
 
 
 
@@ -331,15 +345,14 @@ transfer via both HTTPS and Globus.
 
 
 \section{PIPELINES AND AUTOMATION}
-\ryan{Making this an automation section}
+\ryan{Making this an automation section. }
 
 
 
 Sharma, Wozniak, and others developed an online analysis pipeline for high energy diffraction 
-microscopy
-experiments 
+microscopy experiments pipeline~\cite{wozniak2015big}
 
-pipeline~\cite{wozniak2015big}
+Trigger-Action Programming (TAP) with Ripple~\cite{ripple}.
 
 
 Researchers at The University of Chicago use the APS to study neuroanatomy, investigating brain 
@@ -365,12 +378,12 @@ rapidly stream into visualization tools, such as a hosted Neuroglancer service,
 allowing users to interactively visualize results in three dimensions 
 immediately as the results are produced. 
 
-This acquisition and distribution process is not uncommon across many light source 
-experiments and has guided our development of an automation platform to manage the reconstruction 
-of 
-light source data. We aim to extend this pipeline to add 
-additional value integrating the DLHub platform to dynamically apply state-of-the-art 
-segmentation models to the data as the models are improved.
+% This acquisition and distribution process is not uncommon across many light source 
+% experiments and has guided our development of an automation platform to manage the reconstruction 
+% of 
+% light source data. We aim to extend this pipeline to add 
+% additional value integrating the DLHub platform to dynamically apply state-of-the-art 
+% segmentation models to the data as the models are improved.
 
 
 \subsection{Globus Automate}
