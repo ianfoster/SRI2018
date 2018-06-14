@@ -359,36 +359,55 @@ transfer via both HTTPS and Globus.
 \section{PIPELINES AND AUTOMATION}
 \ryan{Making this an automation section. }
 
+Following data acquisition it is often necessary to apply quality control, assign identifiers, 
+preprocess, move to data to a suitable compute platform and perform analysis, postprocess, extract 
+features, and eventually publish data to a repository for distribution. Each of these steps 
+presents opportunities to apply custom tools and locations depending on the beamline, users, and 
+experiment being performed, making it impractical to create a custom pipeline for every 
+situation. Instead, common tools and actions must be outsourced to specialized services and 
+automation techniques are needed to construct pipelines between these services.
+
+Automation pipelines also present new opportunities to enhance experiments. For example, Sharma, 
+Wozniak, and others developed an online analysis pipeline for high energy diffraction microscopy 
+experiments pipeline~\cite{wozniak2015big}. This technique constructs an automated feedback loop 
+that directs experiments. Such autonomic computing would not be possible without automation systems 
+managing the acquistion, transfer, and analysis of the data.
 
 
-Sharma, Wozniak, and others developed an online analysis pipeline for high energy diffraction 
-microscopy experiments pipeline~\cite{wozniak2015big}
+To empower beamline scientists to construct automations that aide their work, it is important to 
+leverage user-friendly modalities. Based on this assumption we have explored the use of 
+Trigger-Action Programming (TAP) to automate light science, using a tool called 
+Ripple~\cite{ripple}. Researchers at The University of Chicago use the APS to study neuroanatomy, 
+investigating brain disease and aging. This research relies on the construction of 
+fine-grained mappings of neuron connections, known as connectomes. 
+% The APS enables the rapid 
+% imaging of large unsectioned brain specimens, drastically reducing the time and complexity of 
+% analyzing specimens when compared to traditional electron microscopy approaches.
+We have developed a series of TAP rules, often triggered by the creation of files on various 
+machines, that are processed by a cloud-hosted service. Each rule is an individual trigger-action 
+pairing, where a file being created can result in an action being performed, such as an 
+analysis job being submitted to a computing resource, or a data transfer being initiated.
 
-Trigger-Action Programming (TAP) with Ripple~\cite{ripple}.
+Using these experiences automating light science tasks we propose a service-based automation 
+platform, called Globus Automate. 
 
 
-Researchers at The University of Chicago use the APS to study neuroanatomy, investigating brain 
-disease and aging. This research relies on the construction of 
-fine-grained mappings of neuron connections, known as connectomes. The APS enables the rapid 
-imaging of large unsectioned brain specimens, drastically reducing the time and complexity of 
-analyzing specimens when compared to traditional electron microscopy approaches.
-
-The process of using the APS to image a particular brain specimen, reconstruct the data, and 
-distribute 
-results to collaborators requires a complex series of actions involving data movement, 
-parallel processing using HPC resources, machine learning, and human-in-the-loop validation, all 
-while conforming to best-practice security and data management practices. Data are acquired on a 
-dedicated machine, however, this is not always appropriate for analyzing the data and 
-reconstructing images as these actions can interfere with the acquisition process. Instead, data 
-are moved to dedicated computing resources, in this case at the Argonne Leadership Computing 
-Facility. The 
-reconstruction process requires setting access control on the resulting data, 
-ensuring the data is available to the scientists providing the samples. The neuroanatomy use 
-case results are persistently stored on the Petrel storage system at Argonne to enable its 
-distribution globally to collaborators. Petrel and Globus' HTTPS support enable the data to be 
-rapidly stream into visualization tools, such as a hosted Neuroglancer service, 
-allowing users to interactively visualize results in three dimensions 
-immediately as the results are produced. 
+% The process of using the APS to image a particular brain specimen, reconstruct the data, and 
+% distribute 
+% results to collaborators requires a complex series of actions involving data movement, 
+% parallel processing using HPC resources, machine learning, and human-in-the-loop validation, all 
+% while conforming to best-practice security and data management practices. Data are acquired on a 
+% dedicated machine, however, this is not always appropriate for analyzing the data and 
+% reconstructing images as these actions can interfere with the acquisition process. Instead, data 
+% are moved to dedicated computing resources, in this case at the Argonne Leadership Computing 
+% Facility. The 
+% reconstruction process requires setting access control on the resulting data, 
+% ensuring the data is available to the scientists providing the samples. The neuroanatomy use 
+% case results are persistently stored on the Petrel storage system at Argonne to enable its 
+% distribution globally to collaborators. Petrel and Globus' HTTPS support enable the data to be 
+% rapidly stream into visualization tools, such as a hosted Neuroglancer service, 
+% allowing users to interactively visualize results in three dimensions 
+% immediately as the results are produced. 
 
 % This acquisition and distribution process is not uncommon across many light source 
 % experiments and has guided our development of an automation platform to manage the reconstruction 
@@ -650,8 +669,25 @@ provenance metadata, and visualized with Neuroglancer~\cite{Neuroglancer}.
 
 
 
-\section{TRANSFORMATION AND ANALYSIS}
+\section{TRANSFORMATION, ANALYSIS, AND VISUALIZATION}
 \ryan{Broader with DLhub as the focus.}
+
+The requirement to transform and analyze results is common across all science research. Yet, the 
+approach used to perform such tasks is often developed by the beamline scientists and not shared 
+amongst researchers working in similar fields. To advance beamline science and federate access to 
+advanced computing capabilities analytical tools, generalizable solutions that can be applied 
+across domains are needed. As such, we are actively developing the Data and Learning Hub for 
+Science (DLHub). 
+
+These data can then be used with visualization tools. For example, one gorup using Petrel stores 
+pre-computed visualizations on the Petrel storage service and using Glbous' HTTPS support is able 
+to stream data from Petrel into a locally hosted Neuroglancer deployment. This makes data that are 
+automatically reconstructed globally accessible as 3D 
+visualizations through a simple Web interface.
+
+
+
+
 
 \subsection{DATA AND LEARNING HUB FOR SCIENCE (DLHub)}
 
