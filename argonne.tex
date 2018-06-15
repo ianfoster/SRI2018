@@ -586,7 +586,7 @@ by Globus Auth. When a flow is executing, Globus Automate will use
 the registered action API to invoke the action.
 
 An automation flow can be triggered by a variety of events including 
-data events, external service events, and periodic timers (like cronjobs).
+data events, external service events, and periodic timers.
 We define a REST API that allows any service to produce events
 and to submit them to Globus Automate. When creating a flow, 
 users define the type of event to be monitored and simple criteria
@@ -609,7 +609,7 @@ $\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}
 
 
 \subsection{Capturing and responding to events}
-Globus Automate is reliant on the ability to monitor and recieve events from
+Globus Automate is reliant on the ability to monitor and receive events from
 external services. 
 We define a \darkcode{globus\_event} REST API to be implemented by any service that wants to produce 
 events for consumption by Globus Automate
