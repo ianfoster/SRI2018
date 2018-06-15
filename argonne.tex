@@ -82,20 +82,22 @@ discovery (mdf/search), automation (automate, TAP), transformation and analysis 
 
 \ryan{Rough start...}
 
-Light source scientists are now faced with a data crisis as the rate at which data volumes 
-are generated is rapidly exceeding Moore's Law. Growing data 
-volumes present new challenges to users as they overwhelm their capabilities and require new 
-automated approaches to outsource the acquisition, analysis, and distribution of the 
-light source science data lifecycle. Neither humans or computers can cope using current methods and 
-the existing techniques to design experiments, manage and analyze data, and create and 
-deliver software will not suffice for next generation data rates. Indeed, these 
-challenges present new opportunities and the potential to create the automation and 
-enrichment services needed to exploit instrument advancements. New approaches are necessary to 
-relieve scientists from time consuming data munging, management, and dissemination practices, 
-including reliably indexing and cataloging, pipelining, and transforming results.
+Light source scientists are facing a data crisis as the rate at which new instruments generate data 
+volumes is rapidly exceeding Moore's Law. Growing data 
+volumes present new challenges as they overwhelm finite human capabilities, requiring new 
+machine-based solutions to automate and outsource the acquisition, analysis, and 
+distribution of the 
+light science data lifecycle. Neither humans or computers can cope using current methods. Existing 
+techniques to design experiments, manage and analyze data, and create and 
+deliver software will not suffice for next generation data rates. However, these 
+challenges also present new opportunities and offer the potential to create the new automation 
+systems and enrichment services necessary to utilize instrument advancements. New 
+approaches are required to unburden scientists from time consuming data munging, management, 
+and dissemination practices, including reliably indexing and cataloging, pipelining, and 
+transforming results.
 
 Fourth-generation light sources such as the Advanced Photon Source Upgrade (APS-U)~\cite{APSU} will offer exciting new
-scientific communities to the thousands of scientists who use their many beamlines annually.
+scientific capabilities to the thousands of scientists who use their many beamlines annually.
 They also pose major data and computation challenges, for at least four reasons.
 First, they will generate massive data. 
 For example, x-ray photon correlation spectroscopy can already generate 2MB images at 3,000 Hz,
@@ -106,9 +108,26 @@ for interpretation, such as ptychography combined with
 elemental mapping and visual images as a function of reaction conditions.
 Third, it will become increasingly feasible to use advanced theory and modeling to fit and co-optimize 
 model and experiment, so that ...
-Fourth, as synchrotron light source mature as instrucments, they increasingly serve more and different users,
+Fourth, as synchrotron light source mature as instruments, they increasingly serve more and 
+different users,
 many with limited or no experience with light sources. 
 Automation is important for such users~\cite{hiraki2008high,toby2009management}.
+
+For light science to exploit these advancements the tools and services must transition from an
+artisanal/cottage industry to automated solutions that are integrated into daily operation of a 
+beamline. Tools to automatically capture, apply advanced analyses, and autonomically drive 
+experiments are necessary, such as those we have previously explored~\cite{wozniak2015big}. In 
+addition, once data are acquired scientists must outsource their ongoing management and 
+distribution through dedicated, community-oriented storage hubs that index and make searchable and 
+accessible the results of experiments. Storage catalogs, such as the Materials Data 
+Facility~\cite{MDF2016}, provide rich environments to foster collaboration and increase the value 
+of datasets by disseminating results and in turn, accelerating scientific discovery. Similarly, 
+nexuses for applying transformations and analyses provide platforms that federate access to cutting 
+edge analyses, optimized high performance modalities, and remove barriers of entry to leadership 
+computing facilities.
+
+% RC: not sure what this means.
+% Onsite not offsite.
 
 \ryan{Something along these lines?}
 Here we propose automation and outsourcing as a solution to enable next generation light source 
@@ -121,8 +140,6 @@ Finally, we present the need for transformation services, such as DLHub.
 
 
 
-
-Transition from artisanal/cottage industry to automated. Onsite not offsite. Capture data. Advanced analyses.
 
 APS~\cite{toby2015practices}
 
@@ -194,7 +211,13 @@ science research.
 \label{fig:diffuse}}
 \end{figure}
 
+It is this history of light science automation that informs our belief that existing methods 
+will not meet the requirements of next generation instruments. Indeed, new approaches to managing 
+data volumes, designing experiments, driving acquisition, and intuitively applying advanced 
+analyses are required. We posit automation and outsourcing are needed to exploit 
+instrument advancements and advance light source science outcomes.
 
+\ryan{Yikes, I've been pretty repetitive.}
 
 \section{AUTOMATION AND OUTSOURCING}
 
@@ -257,10 +280,10 @@ experimental science instruments.
 \section{DATA ACQUISITION AND DISTRIBUTION}
 
 Data acquisition and distribution are fundamental to light science. As the rate at which both data 
-are generated from new instruments and robotic processes increasingly being used to rapidly manage 
+are generated from new instruments and robotic processes are increasingly being used to rapidly 
+manage 
 the analysis of multiple samples, automated acquisition processes become increasingly necessary. New 
-techniques to responsively manage data as they are generated are needed. 
-
+techniques to manage the entire data lifecycle in response to their generation are needed.
 
 A range of tools have been developed to simplify the acquisition process. For example, the Data 
 Management at the APS Imaging Group (DMagic) have worked to automate the collection process and 
