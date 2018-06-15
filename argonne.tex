@@ -778,8 +778,6 @@ view the events
 %Globus Auth will provide end-to-end security.
 
 \subsection{Automation Use Cases}
-\kyle{The following text is stolen from CSSI - do we want such an example?
-If so, perhaps Ryan can make this accurate.. and add a nice picture.}
 
 We have applied a prototype version of Globus Automate
 to support neuroanatomy experiments that rely on
@@ -798,36 +796,45 @@ are applied (automatically) to reconstruct and stitch together images, with resu
 moved to persistent storage for distribution, cataloged with
 provenance metadata, and visualized with Neuroglancer~\cite{Neuroglancer}. 
 
-\kyle{Ryan another APS/ALS flow?}
+\kyle{Ryan please add a picture and perhaps expand if you can?}
 
 
 
 \section{TRANSFORMATION, ANALYSIS, AND VISUALIZATION}
-\ryan{Broader with DLhub as the focus.}
 
-The requirement to transform and analyze results is common across all science research. Yet, the 
-approach used to perform such tasks is often developed by the beamline scientists and not shared 
-amongst researchers working in similar fields. To advance beamline science and federate access to 
-advanced computing capabilities analytical tools, generalizable solutions that can be applied 
-across domains are needed. As such, we are actively developing the Data and Learning Hub for 
-Science (DLHub). 
+The requirement to transform and analyze results is common across light source science.
+Yet, the specific analyses and cyberinfrastructure required to support analyses
+are often developed by beamline scientists and are infrequently shared 
+amongst researchers working in similar fields. This is clearly inefficient as it 
+requires beamline scientists to obtain expertise in several unnecessary areas 
+(e.g., developing cyberinfrastructure to support real-time machine learning analyses) 
+and leads to significant duplication. 
+As scientists increasingly look towards new machine learning approaches for various
+tasks (e.g., center finding, error detection, image segmentation), 
+these challenges are likely to become more significant. 
+To address these challenges we are developing  
+%To advance beamline science and federate access to 
+%advanced computing capabilities analytical tools, generalizable solutions that can be applied 
+%across domains are needed. As such, we are actively developing 
+the Data and Learning Hub for Science (DLHub) which aims to 
+support the deposit and sharing of machine learning models, 
+on-demand inference using these models, and a high performance
+computing environment for training models. 
 
-These data can then be used with visualization tools. For example, one gorup using Petrel stores 
-pre-computed visualizations on the Petrel storage service and using Glbous' HTTPS support is able 
-to stream data from Petrel into a locally hosted Neuroglancer deployment. This makes data that are 
-automatically reconstructed globally accessible as 3D 
-visualizations through a simple Web interface.
 
-
-
+% KC: I dont think this fits here. 
+%These data can then be used with visualization tools. For example, one group using Petrel stores 
+%pre-computed visualizations on the Petrel storage service and using Glbous' HTTPS support is able 
+%to stream data from Petrel into a locally hosted Neuroglancer deployment. This makes data that are 
+%automatically reconstructed globally accessible as 3D 
+%visualizations through a simple Web interface.
 
 
 \subsection{DATA AND LEARNING HUB FOR SCIENCE (DLHub)}
-
-
-In order to simplify the application and adoption of machine learning into the
-scientific workflow of the non-expert, we are developing DLHub (Fig. 1). DLHub
-is a self-service platform for publishing, applying, and creating new ML/DL
+%In order to simplify the application and adoption of machine learning into the
+%scientific workflow of the non-expert, we are developing DLHub. 
+DLHub is a self-service platform for publishing, applying, and creating new 
+machine learning and deep learning
 models. DLHub will provide: 1) publication capabilities to make models more
 discoverable, citable, and reusable; 2) the ability to easily run or test
 existing models; and 3) links to the data and computing infrastructure to re-
@@ -840,37 +847,73 @@ barriers to employing machine learning, making it easier for researchers to
 discover and benefit from the most recent advances in machine learning.
 
 \subsection{DLHub ARCHITECTURE}
-DLHub operates a cloud-hosted Web API to interface with the 
-service, enabling users to publish, search, and invoke models. DLHub serves models and 
+DLHub is a cloud-hosted service that offers a REST API 
+to publish, search, and invoke models. DLHub serves models and 
 transformation codes across remote \textit{execution 
-sites}. Existing execution sites leverage Kubernetes clusters to manage the deployment of 
-containerized codes and models. Each execution site is connected to the Web API 
+sites}. 
+The REST API is secured with Globus Auth and offers endpoints for publishing, 
+searching, and invoking models. We provide a Python SDK to 
+%The Web API provides a Globus-secured interface to DLHub, enabling the implementation 
+%of an SDK 
+simplify use of the service. In future work we aim to develop a 
+user interface for these tasks. 
+We have defined a simple metadata schema for describing models. 
+Users who wish to deposit a model must complete this metadata
+and provide a container with their trained model. 
+%Invoking a model through the API initiates the 
+%transmission of a job task to an execution site via ZMQ. 
+When invoking a model, users must first select the specific model to use (from the list 
+of published models) and provide a set of data to be passed to the model.
+At present all input data is described in JSON. 
+DLHub then executes the model for each item in the input JSON and returns
+JSON-based results to the user. 
+
+DLHub relies on the Kubernetes container orchestration 
+system to manage the deployment of containerized codes and models
+on an execution site. 
+Models and transformation logic are wrapped in Docker containers for three primary
+reasons: 
+1) to standardized their execution interface, regardless of implementation or language;
+2) to enable the encapsulation of their vastly different requirements; and
+3) to allow them to be scaled by deploying new containers.
+We call a containerized model a \textit{servable}. 
+When a code is published in DLHub it is automatically packaged with 
+a custom DLHub python library to provide a standard execution interface used to 
+facilitate remote invocation. DLHub
+Servables can be deployed at execution sites and invoked directly
+through DLHub. 
+A single servable may serve results for many inference jobs and 
+the same servable may be deployed several times to meet user demand. 
+
+Each execution site is connected to the DLHub service
 through ZeroMQ (ZMQ) channels, providing a high-performance and reliable mechanism to transmit 
-jobs. 
-
-Models and transformation logic are containerized with Docker to standardized their execution 
-interface, regardless of implementation or language, and enable the encapsulation of their vastly 
-different requirements. When a code is published to DLHub it is automatically packaged with 
-a custom DLHub python library to abstract the execution interface and provide an ipython engine to 
-facilitate remote execution. These \textit{servables} can then be deployed at execution sites 
-and invoked directly using the Parsl parallel scripting library.
-
-The Web API provides a Globus-secured interface to DLHub, enabling the implementation 
-of an SDK and direct interaction with both the service itself and deployed servables. Users can 
-deposit models and invoke them through the Web API. Invoking a model through the API initiates the 
-transmission of a job task to an execution site via ZMQ. This two-tier design enables multi-level 
-caching, with both Parsl and cloud-hosted caches enhancing user experience. Requests can also be 
+jobs.
+We use the Parsl parallel scripting library~\cite{parsl}
+to manage the execution infrastructure by deploying and managing
+servables. Each site
+includes a Parsl \textit{foreman} and a ZMQ receiver. 
+The ZMQ receiver is used to receive inference jobs from the DLHub service. 
+The Parsl foreman is then responsible for taking these inference jobs
+and executing them on one or more servables. This task includes
+submitting work to existing servables or deploying new ones if 
+one is not available. Parsl uses IPyParallel and a pilot job 
+model to perform remote execution within a container. 
+Each container is deployed with an \textit{ipengine} that 
+connects back to the Parsl foreman to receive jobs. 
+This two-tier design enables multi-level 
+caching, with both Parsl and cloud-hosted caches enhancing response time. Requests can also be 
 batched at the cloud level before being transmitted to execution sites to improve throughput.
+While the primary mode for execution is via the DLHub service, 
+for low latency jobs we also allow users to establish a direct
+connection to the execution site. This model allows for DLHub
+to be easily integrated in light source workflows by streaming
+data from the acquisition machine to DLHub for transformation or inference.
+%Execution sites are designed to receive jobs through 
+%the ZMQ receiver. Although this is primarily achieved by submitting jobs through the Web API's REST 
+%and SDK interfaces, advanced users can establish direct channels to an execution site, removing 
+%unnecessary latency incurred by the API.
 
-Execution sites consist of a Parsl \textit{foreman}, a ZMQ receiver, and a Kubernetes cluster. Jobs 
-are transmitted to the ZMQ receiver and are processed by the Parsl foreman. The foreman is 
-responsible for deploying each of the servables and 
-performing the execution directly within the container. Parsl uses IPyParallel and a pilot-job 
-model to perform remote execution. Each container is deployed with an \textit{ipengine} that 
-connects back to the foreman to receive jobs. Execution sites are designed to receive jobs through 
-the ZMQ receiver. Although this is primarily achieved by submitting jobs through the Web API's REST 
-and SDK interfaces, advanced users can establish direct channels to an execution site, removing 
-unnecessary latency incurred by the API.
+
 
 
 
