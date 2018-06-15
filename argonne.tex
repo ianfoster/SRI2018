@@ -955,42 +955,30 @@ data from the acquisition machine to DLHub for transformation or inference.
 We present two separate uses cases of the DLHub service each highlighting
 key capabilities. DLHub analysis pipelines were created for each
 use case to simplify invocation on PetrelKube and within Amazon Web Services.
-\ben{refine and add based on other paper components and DLHub architecture section}
 
-
-
-\ben{Add DLHub usage details here}
-
-
-
-\ben{More model details}
-\ben{Add DLHub usage details here}
-
-\textbf{Prediction of Metallic Glass Forming Compositions.} 
-Metallic glasses are an important class of materials that promise improved
-durability, corrosion resistance, and mechanical behavior in harsh
+\textbf{Prediction of Metallic Glass Forming Compositions.}
+Metallic glasses are an important class of materials that promise
+improved durability, corrosion resistance, and mechanical behavior in harsh
 environments. However, discovery of metallic glass forming materials is
-particularly challenging using standard simulation screening techniques. Ren
-\emph{et al.} \cite{ren2018accelerated} iteratively trained a machine learning
-model using simulation and high- throughput experimental datasets gathered at
-the Stanford Linear Accelerator Laboratory (SLAC) to validate and improve the
-model for Co-V-Zr. After this tunin,  the model was also shown to be
-transferrable to other compositions.
+particularly challenging due to the lack of theories that can predict which
+alloys can be formed into metallic glasses. Ren \emph{et al.}
+trained a machine learning model to predict glass-forming ability using data 
+from the materials literature, and used it to identify new Co-V-Zr metallic glasses
+via high-throughput experiments at Stanford Linear Accelerator
+Laboratory (SLAC). By adding the SLAC data to the training set of the model,
+they found its accuracy improved for many other types of alloys.
 
-The associated machine learning model \cite{FangRen} was contributed to DLHub
-as a serialized SciKitLearn RandomForest model. Containers were prepared to
-serve the model and accept input compositions (an array of 3 valid elements).
-An example Jupyter notebook was then prepared to run the model in DLHub and
-generate ternary plots showing areas of highest metallic glass forming
-likelihood (Figure~\ref{fig:dlhub-glass}).
-
+The associated machine learning model was contributed to DLHub as a
+serialized scikit-learn Random Forest model. Containers were prepared to serve the
+model, which take a list of elments as inputs return the predicted glass-forming ability
+for that alloy system. An example Jupyter notebook was then prepared to use the model in DLHub 
+to generate ternary plots showing areas of highest metallic glass forming likelihood \ref{fig:dlhub-glass}.
 
 \begin{figure}[h]
   \centerline{\includegraphics[width=5in]{Figs/DLHub-metallic-glass.png}}
   \caption{Predicting metallic glass forming ability with DLHub. (a) Example code showing instantiation of DLHub Python client, selection of model, and inference against that model. (b) A user submits a set of three elements and sends to DLHub service for prediction. User receives the predicted glass-forming ability as an output. (c) Displaying the results of the model for Zr, Co, V inputs as a ternary diagram.
 \label{fig:dlhub-glass}}
 \end{figure}
-
 
 \textbf{Batch Classification of Beamline X-Ray Scattering Data.}
 Classifying streaming data or archived data from beamlines at national user
@@ -1018,8 +1006,6 @@ required input: 256x256 numpy arrays.
   \caption{Tagging X-Ray scattering images with DLHub. (a) User sends pointers to X-Ray scattering images to the DLHub service. (b) DLHub returns a list of most likely tags for the image.
 \label{fig:dlhub-bnl}}
 \end{figure}
-
-\ben{cite Ward et al (BMG Nature)~\cite{ward2016general}}
 
 
 \ben{Other potential models to highlight, CANDLE Benchmarks,
