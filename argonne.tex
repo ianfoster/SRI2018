@@ -361,59 +361,51 @@ rely on to exist and distribute data for prolonged periods of time.
 
 \subsection{DATA PUBLICATION AND DISCOVERY}
 
-The Globus data publication platform provides a collection of loosely
-coupled services from which arbitrary publication pipelines can be constructed. 
-These services---data management, persistent identifier management, and 
-metadata indexing and discovery---can be used individually or collectively
-to address a wide range of publication needs. They allow for data
-to be made discoverable (via metadata search), verifiable (via checksums), 
-and accessible (via Globus data access interfaces).
+The Globus data publication platform~\cite{chard2015globus} provides a
+collection of loosely coupled services from which arbitrary publication
+pipelines can be constructed.  These services---data management, persistent
+identifier management, and  metadata indexing and discovery---can be used
+individually or collectively to address a wide range of publication needs.
+They allow for data to be made discoverable (via metadata search), verifiable
+(via checksums), and accessible (via Globus data access interfaces).
 
-Globus data management and access capabilities allow for the 
-``publication'' of data in any Globus-accessible storage system: 
-from local PCs, through to cloud object storage (e.g., Amazon S3), high performance
-file systems, and even archival tape storage. Globus data
-access model allows for user- and group-based access permissions
-to be applied to accessible data and for high performance (GridFTP)
-or web-based (HTTP) access to data. 
-Users may therefore
-choose to publish data by moving it to a permanent location for 
-immutable (and perhaps redundant) storage, or choose to publish 
-data ``in place'' (where it currently resides). 
+Globus data management and access capabilities allow for the  ``publication''
+of data in any Globus-accessible storage system:  from local PCs, through to
+cloud object storage (e.g., Amazon S3), high performance file systems, and
+even archival tape storage. Globus data access model allows for user- and
+group-based access permissions to be applied to accessible data and for high
+performance (GridFTP) or web-based (HTTP) access to data.  Users may therefore
+choose to publish data by moving it to a permanent location for  immutable
+(and perhaps redundant) storage, or choose to publish  data ``in place''
+(where it currently resides).
 
-An important step in data publication is the need to uniquely
-reference data irrespective of its location. A persistent
-identifier provides a long-lasting reference which can be 
-resolved (using a resolution service) to locate the current location
-of that data. There are a range of persistent identifier schemes
-commonly used for digital artifacts including Digital Object
-Identifiers (DOIs), Archival Resource Keys (ARKs), and Handles. 
-In each case, an identifier provider is responsible for minting
-unique identifiers and maintaining minimal metadata about that 
-identifier (e.g., by whom it was created, when, and where 
-the referenced object may be accessed). The Globus identifiers
-service provides a standard way to create and manage persistent
-identifiers (using various identifier providers) 
-and to associate them with arbitrary data. Importantly, it also
-allows users to associate a checksum with identified data
-such that other users may subsequently validate the integrity 
-of published data. 
+An important step in data publication is the need to uniquely reference data
+irrespective of its location. A persistent identifier provides a long-lasting
+reference which can be  resolved (using a resolution service) to locate the
+current location of that data. There are a range of persistent identifier
+schemes commonly used for digital artifacts including Digital Object
+Identifiers (DOIs), Archival Resource Keys (ARKs), and Handles.  In each case,
+an identifier provider is responsible for minting unique identifiers and
+maintaining minimal metadata about that  identifier (e.g., by whom it was
+created, when, and where  the referenced object may be accessed). The Globus
+identifiers service provides a standard way to create and manage persistent
+identifiers (using various identifier providers) and to associate them with
+arbitrary data. Importantly, it also allows users to associate a checksum with
+identified data such that other users may subsequently validate the integrity
+of published data.
 
-Having made data accessible and created a unique reference the
-final component of the data publication platform aims to make
-data discoverable. Globus Search provides a schemaless 
-indexing and discovery model with fine grain access control. 
-Thus, arbitrary metadata, adhering to any publication or 
-domain-specific schema may be associated with a publication. 
-Each metadata entry is assigned to a subject, a unique 
-URI or identifier for a particular dataset.  Each entity
-may also specify a visibility policy which restricts what
-users are able to view or query that metadata. 
-Globus Search provides a powerful free-text query model
-that supports a expression of various query types (substring, range, wildcard, etc.) 
-to discover matching metadata. Further, it can generate
-categorical facets and associated frequencies to 
-intuitively summarize and query data. 
+Having made data accessible and created a unique reference the final component
+of the data publication platform aims to make data discoverable. Globus Search
+provides a schemaless indexing and discovery model with fine grain access
+control.  Thus, arbitrary metadata, adhering to any publication or domain-
+specific schema may be associated with a publication.  Each metadata entry is
+assigned to a subject, a unique  URI or identifier for a particular dataset.
+Each entity may also specify a visibility policy which restricts what users
+are able to view or query that metadata.  Globus Search provides a powerful
+free-text query model that supports a expression of various query types
+(substring, range, wildcard, etc.)  to discover matching metadata. Further, it
+can generate categorical facets and associated frequencies to  intuitively
+summarize and query data.
 
 
 %\ryan{from talk:
@@ -424,15 +416,13 @@ intuitively summarize and query data.
 %- Index for discovery}
 
 
-
 \subsection{THE MATERIALS DATA FACILITY (MDF): DATA PUBLICATION AND INDEXING}
-\ben{Add MDF overview text and text linking this to the other sections}
 
 The MDF Data Publication service builds upon the Globus data
-publication platform to enable
+publication service \cite{chard2015globus} to enable
 users to publish data through a web user interface or a
 programmatically accessible API and to group similar publications into
-collections. Key features of the deployed service include the capability to
+collections \cite{MDF2016}. Key features of the deployed service include the capability to
 publish large datasets (our largest dataset is over 1.85 TB); the ability to
 publish datasets with millions of files (our largest dataset by file count
 contains over 1 M individual files); and the ability to publish data on
@@ -443,19 +433,17 @@ following the NIST Materials Resource Vocabulary; and the ability to associate
 a permanent identifier with the dataset (i.e., a DOI or Handle) for scholarly
 citation.
 
-%\subsection{MDF DATA DISCOVERY} 
-The MDF Data Discovery service enables
-researchers to discover, query, browse and aggregate data that have been
-indexed by MDF. Entries in the MDF search index are comprised of descriptive
-information, materials-specific metadata (e.g., composition, crystal
-structure), and links to data harvested from a number of sources. These
-sources include the MDF Data Publication service, and
+The MDF Data Discovery service enables researchers to discover, query, browse
+and aggregate data that have been indexed by MDF. Entries in the MDF search
+index are comprised of descriptive information, materials-specific metadata
+(e.g., composition, crystal structure), and links to data harvested from a
+number of sources. These sources include the MDF Data Publication service, and
 data harvested from databases, services, and other sources from across the
 materials community. To date, we indexed 117 sources representing over 3.4M
 individually discoverable entries.
 
 In order to facilitate usage of the data indexed by MDF, we have released the
-Forge Python client. Forge enables users to search for data in MDF using
+Forge Python client~\cite{forge}. Forge enables users to search for data in MDF using
 materials-specific facets (e.g., elements, space group number) or general
 metadata (e.g., authors, title) and aggregate search result data with only a
 few lines of code. Forge contains a host of helper functions that
@@ -464,8 +452,6 @@ behind MDF and instead allow them to focus on their task at hand. For example,
 users can perform a query and fetch the resultant files locally or to an
 analysis cluster with a single function call. These functions support data
 transfer via both HTTPS and Globus.
-
-
 
 \section{PIPELINES AND AUTOMATION}
 \ryan{Making this an automation section. }
@@ -864,132 +850,107 @@ computing environment for training models.
 %visualizations through a simple Web interface.
 
 
-\subsection{DATA AND LEARNING HUB FOR SCIENCE (DLHub)}
-%In order to simplify the application and adoption of machine learning into the
-%scientific workflow of the non-expert, we are developing DLHub. 
-DLHub is a self-service platform for publishing, applying, and creating new 
-machine learning and deep learning
-models. DLHub will provide: 1) publication capabilities to make models more
-discoverable, citable, and reusable; 2) the ability to easily run or test
-existing models; and 3) links to the data and computing infrastructure to re-
-train models for new applications. Users will benefit from DLHub in many ways.
-Data scientists can publish their models (i.e., architectures and weights) and
-methods. Materials scientists can apply existing models to new data with ease
-(e.g., by querying a prediction API for a deployed mode) and create new models
-with state-of-the-art techniques. Together, these capabilities will lower
-barriers to employing machine learning, making it easier for researchers to
-discover and benefit from the most recent advances in machine learning.
+\subsection{DATA AND LEARNING HUB FOR SCIENCE (DLHUB)}
+ 
+DLHub is a service to promote, simplify, and speed the widespread adoption and
+usage of machine learning and deep learning techniques by researchers in
+disciplines ranging from materials science to chemistry, physics, cosmology,
+and biology. The co-emergence of large amounts of available datasets, movement
+towards cohesive data services, and new machine learning capabilities, creates
+a unique opportunity to leverage and integrate these data streams to allow for
+machine learning techniques to guide and, indeed, lead discovery efforts.
+ 
+Thus, we are developing DLHub a self-service platform for publishing,
+applying, and creating new machine learning models. DLHub
+will provide: 1) publication capabilities to make models more discoverable,
+citable, and reusable; 2) the ability to easily run or test existing models;
+and 3) links to the data and computing infrastructure to re-train models for
+new applications. Users will benefit from DLHub in many ways. Data scientists
+can publish their models (i.e., architectures and weights) and methods.
+Materials scientists can apply existing models to new data with ease (e.g., by
+querying a prediction API for a deployed mode) and create new models with
+state-of-the-art techniques. Together, these capabilities will lower barriers
+to employing machine learning, making it easier for researchers to discover
+and benefit from the most recent advances in machine learning.
 
-\subsection{DLHub ARCHITECTURE}
-DLHub is a cloud-hosted service that offers a REST API 
-to publish, search, and invoke models. DLHub serves models and 
-transformation codes across remote \textit{execution 
-sites}. 
-The REST API is secured with Globus Auth and offers endpoints for publishing, 
-searching, and invoking models. We provide a Python SDK to 
-%The Web API provides a Globus-secured interface to DLHub, enabling the implementation 
-%of an SDK 
-simplify use of the service. In future work we aim to develop a 
-user interface for these tasks. 
-We have defined a simple metadata schema for describing models. 
-Users who wish to deposit a model must complete this metadata
-and provide a container with their trained model. 
-%Invoking a model through the API initiates the 
-%transmission of a job task to an execution site via ZMQ. 
-When invoking a model, users must first select the specific model to use (from the list 
-of published models) and provide a set of data to be passed to the model.
-At present all input data is described in JSON. 
-DLHub then executes the model for each item in the input JSON and returns
-JSON-based results to the user. 
+\subsection{DLHUB ARCHITECTURE} 
 
-DLHub relies on the Kubernetes container orchestration 
-system to manage the deployment of containerized codes and models
-on an execution site. 
-Models and transformation logic are wrapped in Docker containers for three primary
-reasons: 
-1) to standardized their execution interface, regardless of implementation or language;
-2) to enable the encapsulation of their vastly different requirements; and
-3) to allow them to be scaled by deploying new containers.
-We call a containerized model a \textit{servable}. 
-When a code is published in DLHub it is automatically packaged with 
-a custom DLHub python library to provide a standard execution interface used to 
-facilitate remote invocation. DLHub
-Servables can be deployed at execution sites and invoked directly
-through DLHub. 
-A single servable may serve results for many inference jobs and 
-the same servable may be deployed several times to meet user demand. 
+DLHub is operated as a cloud-hosted service that offers a REST API to
+publish, search, and invoke models. DLHub serves models and transformation
+codes across remote \textit{execution sites}.  The REST API is secured with
+Globus Auth \cite{tuecke2016globus} and offers endpoints for publishing, searching, and invoking
+models. We provide a Python SDK to simplify use of the service. In future
+work, we aim to develop a user interface for many of these tasks.  We have defined a
+simple metadata schema for describing models.  Users who wish to deposit a
+model must provide this metadata and a container with their trained model.
+ 
+When invoking a model, users must first select the specific model to use
+(discovered via searching the list of published models) and provide a set of
+data to be passed to the model. At present, all input data is described in
+JSON.  DLHub then executes the model for each item in the input JSON and
+returns JSON-based results to the user.
 
-Each execution site is connected to the DLHub service
-through ZeroMQ (ZMQ) channels, providing a high-performance and reliable mechanism to transmit 
-jobs.
-We use the Parsl parallel scripting library~\cite{parsl}
-to manage the execution infrastructure by deploying and managing
-servables. Each site
-includes a Parsl \textit{foreman} and a ZMQ receiver. 
-The ZMQ receiver is used to receive inference jobs from the DLHub service. 
-The Parsl foreman is then responsible for taking these inference jobs
-and executing them on one or more servables. This task includes
-submitting work to existing servables or deploying new ones if 
-one is not available. Parsl uses IPyParallel and a pilot job 
-model to perform remote execution within a container. 
-Each container is deployed with an \textit{ipengine} that 
-connects back to the Parsl foreman to receive jobs. 
-This two-tier design enables multi-level 
-caching, with both Parsl and cloud-hosted caches enhancing response time. Requests can also be 
-batched at the cloud level before being transmitted to execution sites to improve throughput.
-While the primary mode for execution is via the DLHub service, 
-for low latency jobs we also allow users to establish a direct
-connection to the execution site. This model allows for DLHub
-to be easily integrated in light source workflows by streaming
-data from the acquisition machine to DLHub for transformation or inference.
-%Execution sites are designed to receive jobs through 
-%the ZMQ receiver. Although this is primarily achieved by submitting jobs through the Web API's REST 
-%and SDK interfaces, advanced users can establish direct channels to an execution site, removing 
-%unnecessary latency incurred by the API.
+DLHub relies on the Kubernetes container orchestration system to manage the
+deployment of containerized codes and models on an execution site.  Models and
+transformation logic are wrapped in Docker containers for three primary
+reasons:  1) to standardize their execution interface, regardless of
+implementation or language; 2) to enable the encapsulation of their vastly
+different software requirements; and 3) to allow them to be scaled by deploying multiple instances of the containers. In DLHub, a containerized model is referred to as a \textit{servable}.  When a code is
+published in DLHub, it is automatically packaged with a custom DLHub Python
+library to provide a standard execution interface to facilitate remote
+invocation. DLHub Servables can be deployed at execution sites and invoked
+directly through DLHub.  A single servable may serve results for many
+inference jobs and the same servable may be deployed several times to meet
+user demand.
 
-
-
-
+Each execution site is connected to the DLHub service through ZeroMQ (ZMQ)
+channels, providing a high-performance and reliable mechanism to transmit
+jobs. We use the Parsl parallel scripting library~\cite{parsl} to manage the
+execution infrastructure by deploying and managing servables. Each site
+includes a Parsl \textit{foreman} and a ZMQ receiver.  The ZMQ receiver is
+used to receive inference jobs from the DLHub service.  The Parsl foreman is
+then responsible for taking these inference jobs and executing them on one or
+more servables. This task includes submitting work to existing servables or
+deploying new ones if  one is not available. Parsl uses IPyParallel and a
+pilot job  model to perform remote execution within a container.  Each
+container is deployed with an \textit{ipengine} that  connects back to the
+Parsl foreman to receive jobs.  This two-tier design enables multi-level
+caching, with both Parsl and cloud-hosted caches enhancing response time.
+Requests can also be  batched at the cloud level before being transmitted to
+execution sites to improve throughput. While the primary mode for execution is
+via the DLHub service,  for low latency jobs we also allow users to establish
+a direct connection to the execution site. This model allows for DLHub to be
+easily integrated in light source workflows by streaming data from the
+acquisition machine to DLHub for transformation or inference.
 
 \subsection{DLHub USE CASES}
 We present two separate uses cases of the DLHub service each highlighting
-key capabilities. DLHub analysis pipelines were created for each
-use case to simplify invocation on PetrelKube and within Amazon Web Services.
-\ben{refine and add based on other paper components and DLHub architecture section}
-
-
-
-\ben{Add DLHub usage details here}
-
-
-
-\ben{More model details}
-\ben{Add DLHub usage details here}
+key capabilities. DLHub analysis pipelines were created for these
+use cases to simplify invocation on PetrelKube and within Amazon Web Services.
 
 \textbf{Prediction of Metallic Glass Forming Compositions.}
 Metallic glasses are an important class of materials that promise
 improved durability, corrosion resistance, and mechanical behavior in harsh
 environments. However, discovery of metallic glass forming materials is
-particularly challenging to standard simulation screening techniques. Ren et
-al. trained a machine learning model iteratively using simulation and high-
-throughput experimental datasets gathered at the Stanford Linear Accelerator
-Laboratory (SLAC) to validate and improve the model for Co-V-Zr. The model was
-also shown to be transferrable to other compositions.
+particularly challenging due to the lack of theories that can predict which
+alloys can be formed into metallic glasses. Ren \emph{et al.}
+trained a machine learning model to predict glass-forming ability using data 
+from the materials literature, and used it to identify new Co-V-Zr metallic glasses
+via high-throughput experiments at Stanford Linear Accelerator
+Laboratory (SLAC). By adding the SLAC data to the training set of the model,
+they found its accuracy improved for many other types of alloys.
 
-The machine learning model was contributed to DLHub by Ward et al. as a
-pickled SciKitLearn RandomForest model. Containers were prepared to serve the
-model and accept input compositions (array of 3 valid elements). We built an
-example Jupyter notebook  to use the model in DLHub to generate ternary plots
-showing areas of highest metallic glass forming likelihood.
-
+The associated machine learning model was contributed to DLHub as a
+serialized scikit-learn Random Forest model. Containers were prepared to serve the
+model, which take a list of elments as inputs return the predicted glass-forming ability
+for that alloy system. An example Jupyter notebook was then prepared to use the model in DLHub 
+to generate ternary plots showing areas of highest metallic glass forming likelihood \ref{fig:dlhub-glass}.
 
 \begin{figure}[h]
   \centerline{\includegraphics[width=5in]{Figs/DLHub-metallic-glass.png}}
   \caption{Predicting metallic glass forming ability with DLHub. (a) Example code showing instantiation of DLHub Python client, selection of model, and inference against that model. (b) A user submits a set of three elements and sends to DLHub service for prediction. User receives the predicted glass-forming ability as an output. (c) Displaying the results of the model for Zr, Co, V inputs as a ternary diagram.
 \label{fig:dlhub-glass}}
 \end{figure}
-
-\ben{cite https://github.com/fang-ren/~\cite{FangRen}}
 
 \textbf{Batch Classification of Beamline X-Ray Scattering Data.}
 Classifying streaming data or archived data from beamlines at national user
@@ -1001,46 +962,22 @@ waste by user intervention.
 
 The classification model here enables the multi-label classification of X-Ray
 scattering data with 17 potential labels (e.g., ``beam off image", ``FCC",
-``BCC", ``polycrystalline", ``high background", ``strong scattering"). The
+``BCC", ``polycrystalline", ``high background", ``strong scattering") \cite{wang2017x}. The
 classification model is a Tensorflow 1.4 implementation in Python 2.7 of a
 convolutional neural network following the ResNet architecture. Original
 training data comprised simulated data and experimental data tagged by experts
 collected at National Synchrotron Light Source (NSLS) at Brookhaven National
 Laboratory as described in Wang et al. This pretrained model and dataset was
 contributed to DLHub by Wang and Yager et al. and the original source code has
-been made available to the public on Github. Containers were created to serve
+been made available to the public on Github\cite{wang2017xcode}. Containers were created to serve
 the model and handle data transformation from input image files to the
 required input: 256x256 numpy arrays.
 
 \begin{figure}[h]
   \centerline{\includegraphics[width=5in]{Figs/DLHub-BNL.png}}
-  \caption{Predicting metallic glass forming ability with DLHub. (a) Example code showing instantiation of DLHub Python client, selection of model, and inference against that model. (b) A user submits a set of three elements and sends to DLHub service for prediction. User receives the predicted glass-forming ability as an output.
+  \caption{Tagging X-Ray scattering images with DLHub. (a) User sends pointers to X-Ray scattering images to the DLHub service. (b) DLHub returns a list of most likely tags for the image.
 \label{fig:dlhub-bnl}}
 \end{figure}
-
-\ben{cite Ward et al (BMG Nature)~\cite{ward2016general}}
-
-
-\ben{Other potential models to highlight, CANDLE Benchmarks,
-Segmentation of Tomographic Reconstruction of Connectomes in Mouse Brains}
-
-
-\section{MDF: DATA PUBLICATION AND INDEXING}
-
-TBD.
-
-
-\section{DLHUB: AUTOMATED ANALYSIS AND LEARNING}
-
-TBD.
-
-DLHub is a project to promote, simplify, and speed the widespread adoption and usage of machine learning and deep learning techniques by researchers in disciplines ranging from materials science to chemistry, physics, cosmology, and biology. The co-emergence of large amounts of available datasets, movement towards cohesive data services, and new machine learning and, especially, deep learning (ML/DL) capabilities, creates a unique opportunity to leverage and integrate these data streams to allow for ML/DL techniques to guide and, indeed, lead discovery efforts.
- 
-Thus, we are developing DLHub (Fig. 1), a self-service platform for publishing, applying, and creating new ML/DL models. DLHub will provide: 1) publication capabilities to make models more discoverable, citable, and reusable; 2) the ability to easily run or test existing models; and 3) links to the data and computing infrastructure to re-train models for new applications. Users will benefit from DLHub in many ways. Data scientists can publish their models (i.e., architectures and weights) and methods. Materials scientists can apply existing models to new data with ease (e.g., by querying a prediction API for a deployed mode) and create new models with state-of-the-art techniques. Together, these capabilities will lower barriers to employing ML/DL, making it easier for researchers to benefit from advances in ML/DL technologies. 
-
-
-
-
 
 \section{RELATED WORK}
 
