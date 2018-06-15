@@ -783,18 +783,28 @@ We have applied a prototype version of Globus Automate
 to support neuroanatomy experiments that rely on
 X-ray microtomography at the Advanced Photon Source (APS) 32-ID beamline to
 characterize the neuroanatomical structure of large (cm) unsectioned brain 
-volumes~\cite{kasthuri2015saturated}. 
+volumes~\cite{kasthuri2015saturated}, as shown in \figurename{~\ref{fig:brains}}. 
 Datasets, generated at $>$20GB per minute, are processed
 with a complex reconstruction pipeline 
 comprising many machines, tools, and services.  
 Globus Automate is used to move data from beamline to remote computers,
 execute Automo~\cite{Automo} and TomoPy~\cite{gursoy2014tomopy} 
-to generate preview images, and return images to 
-beamline scientists to guide instrument positioning. 
-Simultaneously, machine learning models
-are applied (automatically) to reconstruct and stitch together images, with results 
-moved to persistent storage for distribution, cataloged with
-provenance metadata, and visualized with Neuroglancer~\cite{Neuroglancer}. 
+to generate preview images. Simultaneously, machine learning models
+are applied (automatically) to estimate the center of rotation. This value and the resulting 
+images are returned to beamline scientists to guide instrument positioning. Once the center value 
+has been verified the flow continues by performing the full reconstruction. Results are moved to 
+persistent storage for distribution, cataloged with
+provenance metadata, and precomputed to be visualized with Neuroglancer~\cite{Neuroglancer}. 
+
+\begin{figure*}[t!]
+	\centering
+	\includegraphics[trim={0 7cm 0 0},clip,width=0.99\textwidth]{Figs/brains.pdf}
+	\caption{(a) Schematic diagram showing data acquisition process. 
+	(b) A coronal cross section of a reconstructed brain.
+	(c) A 3D rendering of a reconstructed brain volume using Neuroglancer.}
+	\label{fig:brains}
+\end{figure*}
+
 
 \kyle{Ryan please add a picture and perhaps expand if you can?}
 
