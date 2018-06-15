@@ -152,9 +152,9 @@ and analysis workflows.
 
 
 
-APS~\cite{toby2015practices}
 
-References: MDF~\cite{MDF2016}, networking materials data~\cite{foster2015networking}, Justin~\cite{wozniak2015big}.
+References:networking materials data~\cite{foster2015networking}, Justin~\cite{wozniak2015big}, APS~\cite{toby2015practices}
+
 
 \section{BACKGROUND/HISTORY}
 
@@ -182,13 +182,23 @@ collected at the APS
   video stream to a remote virtual reality displays at APS and in Orlando.\label{fig:sc98}}
 \end{figure}
 
-Figure~\ref{fig:diffuse} illustrates common activities in a diffuse scattering experiment. 
+Figure~\ref{fig:diffuse} illustrates a more recent example of APS data analysis
+for a diffuse scattering experiment in 2015. 
 The figure highlights the interactions between experiment, computation, and human expertise
 at various timescales. In particular, the figure shows the combination of simulation and 
 experimental workflows, combined to enable experiment steering and validation of results.
 On the experiment side, diffuse scattering data are obtained experimental using a beamline, 
 high performance computers are used to reconstruct and analyze the data, often in
-near real-time to provide feedback to researchers. 
+near real-time to provide feedback to researchers.  Here, data is collected
+as a sample is rotated 360 degrees in tenth-of-a-degree increments, yielding
+3,600 images. Each image comprises 2048$\times$2048 32-
+bit pixels, (i.e., 16 MB), a total of 56 GB. Images are
+produced at a rate of 10 per second and thus at a peak rate of
+160 MB/s. Following the collection of a complete 3,600-image
+dataset, which takes about 10 minutes, either a new sample
+is inserted or the sample conditions are changed,
+and the process is repeated. 
+
 On the simulation side, researchers can explore a huge range of synthetic structures
 using various high performance software packages, and increasingly machine learning
 based methods to create simulated output to be compared with,or to help guide, experiments. 
@@ -212,21 +222,22 @@ science research.
 \label{fig:diffuse}}
 \end{figure}
 
-It is this history of light science automation that informs our belief that existing methods 
-will not meet the requirements of next generation instruments. Indeed, new approaches to managing 
-data volumes, designing experiments, driving acquisition, and intuitively applying advanced 
-analyses are required. We posit automation and outsourcing are needed to exploit 
+It is this history with light science experiments and simulation that informs our belief that existing methods 
+will not meet the requirements of next generation instruments. Indeed, new approaches 
+are needed to manage increasing data volumes, design yet more complex
+experiments, drive acquisition at unprecedented rates, and intuitively apply
+and integrate advanced analyses. We posit automation and outsourcing are needed to exploit 
 instrument advancements and advance light source science outcomes.
 
 
 
 \section{MOTIVATION: AUTOMATION AND OUTSOURCING}
 
-\ian{Big picture thoughts I guess.}
-
-\ryan{Use this section as motivation for the following ones? I decided to move automate etc. down 
-to its own section and keep this one high level -- like in the talk. Goal of this section is to 
-talk about: automation, human-in-the-loop, outsourcing, and motivate the 3 coming sections.}
+%\ian{Big picture thoughts I guess.}
+%
+%\ryan{Use this section as motivation for the following ones? I decided to move automate etc. down 
+%to its own section and keep this one high level -- like in the talk. Goal of this section is to 
+%talk about: automation, human-in-the-loop, outsourcing, and motivate the 3 coming sections.}
 
 
 As the scale and complexity of light-source science continues to grow, so to
