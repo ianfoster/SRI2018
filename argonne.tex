@@ -429,10 +429,10 @@ intuitively summarize and query data.
 \ben{Add MDF overview text and text linking this to the other sections}
 
 The MDF Data Publication service builds upon the Globus data
-publication platform to enable
+publication service \cite{chard2015globus} to enable
 users to publish data through a web user interface or a
 programmatically accessible API and to group similar publications into
-collections. Key features of the deployed service include the capability to
+collections \cite{MDF2016}. Key features of the deployed service include the capability to
 publish large datasets (our largest dataset is over 1.85 TB); the ability to
 publish datasets with millions of files (our largest dataset by file count
 contains over 1 M individual files); and the ability to publish data on
@@ -443,19 +443,17 @@ following the NIST Materials Resource Vocabulary; and the ability to associate
 a permanent identifier with the dataset (i.e., a DOI or Handle) for scholarly
 citation.
 
-%\subsection{MDF DATA DISCOVERY} 
-The MDF Data Discovery service enables
-researchers to discover, query, browse and aggregate data that have been
-indexed by MDF. Entries in the MDF search index are comprised of descriptive
-information, materials-specific metadata (e.g., composition, crystal
-structure), and links to data harvested from a number of sources. These
-sources include the MDF Data Publication service, and
+The MDF Data Discovery service enables researchers to discover, query, browse
+and aggregate data that have been indexed by MDF. Entries in the MDF search
+index are comprised of descriptive information, materials-specific metadata
+(e.g., composition, crystal structure), and links to data harvested from a
+number of sources. These sources include the MDF Data Publication service, and
 data harvested from databases, services, and other sources from across the
 materials community. To date, we indexed 117 sources representing over 3.4M
 individually discoverable entries.
 
 In order to facilitate usage of the data indexed by MDF, we have released the
-Forge Python client. Forge enables users to search for data in MDF using
+Forge Python client~\cite{forge}. Forge enables users to search for data in MDF using
 materials-specific facets (e.g., elements, space group number) or general
 metadata (e.g., authors, title) and aggregate search result data with only a
 few lines of code. Forge contains a host of helper functions that
@@ -464,7 +462,6 @@ behind MDF and instead allow them to focus on their task at hand. For example,
 users can perform a query and fetch the resultant files locally or to an
 analysis cluster with a single function call. These functions support data
 transfer via both HTTPS and Globus.
-
 
 
 \section{PIPELINES AND AUTOMATION}
