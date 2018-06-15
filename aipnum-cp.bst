@@ -2639,6 +2639,7 @@ FUNCTION {article}
     }{ output } if$
   author format.key output
   new.block.comma
+  format.title output % ADDED
   output.article.booktitle
   crossref missing$
     {
