@@ -80,8 +80,6 @@ best practices for building next-generation data automation systems for future l
 outsourcing (high level motivation), acquisition and distribution (dmagic/petrel), publication and 
 discovery (mdf/search), automation (automate, TAP), transformation and analysis (dlhub).}
 
-\ryan{Rough start...}
-
 Light source scientists are facing a data crisis as the rate at which new instruments generate data 
 volumes is rapidly exceeding Moore's Law. Growing data 
 volumes present new challenges as they overwhelm finite human capabilities, requiring new 
@@ -107,14 +105,16 @@ Second, experiments will increasingly generate complex multi-modal data that nee
 for interpretation, such as ptychography combined with 
 elemental mapping and visual images as a function of reaction conditions.
 Third, it will become increasingly feasible to use advanced theory and modeling to fit and co-optimize 
-model and experiment, so that ...
+model and experiment, to increase experiment efficiency and maximize limited experiment and 
+simulation resources.
 Fourth, as synchrotron light source mature as instruments, they increasingly serve more and 
 different users,
 many with limited or no experience with light sources. 
 Automation is important for such users~\cite{hiraki2008high,toby2009management}.
 
 For light science to exploit these advancements the tools and services must transition from an
-artisanal/cottage industry to automated solutions that are integrated into daily operation of a 
+artisanal/cottage industry to one that builds on 
+automated solutions that are integrated into daily operation of a 
 beamline. Tools to automatically capture, apply advanced analyses, and autonomically drive 
 experiments are necessary, such as those we have previously explored~\cite{wozniak2015big}. In 
 addition, once data are acquired scientists must outsource their ongoing management and 
@@ -129,15 +129,26 @@ computing facilities.
 % RC: not sure what this means.
 % Onsite not offsite.
 
-\ryan{Something along these lines?}
-Here we propose automation and outsourcing as a solution to enable next generation light source 
-science. We discuss areas in which we are working to reduce the burden of scientists by 
-developing the tools and techniques needed to reliably manage data. First, we present data 
-acquisition and distribution tools and services. We then present the case for automation and the 
-techqinues used to enables its application. We then describe data indexing and search tools, such 
-as the Materials Data Facility, to outsource the management of data once it has been created. 
-Finally, we present the need for transformation services, such as DLHub.
-
+Here we describe our efforts to outsource and automate
+data distribution, management, and transformation. We
+describe how each enables light source scientists to 
+outsource tasks crucial for their science.
+% We discuss areas in which we are working to reduce the burden of scientists by 
+%developing the tools and techniques needed to reliably manage data. 
+First, we present data acquisition and distribution tools and services, 
+describing specifically how the Globus data publication platform can enable scalable and 
+secure data distribution using powerful data access and discovery capabilities. 
+Second, we outline new Globus cloud-hosted data automation 
+services and describe how they can be used to implement sophisticated data lifecycle pipelines. 
+%We then present the case for automation and the 
+%techniques used to enables its application. 
+%We then describe data indexing and search tools, such 
+%as the Materials Data Facility, to outsource the management of data once it has been created. 
+Finally, we explore the data transformation capabilities 
+provided by the Data and Learning Hub for science (DLHub) 
+to enable simple, yet scalable, training of machine learning models
+and on-demand access to machine learning models from light source data capture
+and analysis workflows.
 
 
 
@@ -147,10 +158,6 @@ References: MDF~\cite{MDF2016}, networking materials data~\cite{foster2015networ
 
 \section{BACKGROUND/HISTORY}
 
-\ryan{Not sure what to call this, but it gives this text a place.}
-
-% \subsection{Not sure where this text belongs?}
-% \kyle{Following text needs to go somewhere}
 We first experimented with online analysis of APS data in the late 1990s, 
 when we coupled 
 computing microtomography~\cite{wang1999quasi,wang2001high} and crystallographic~\cite{von2000using}
@@ -175,10 +182,6 @@ collected at the APS
   video stream to a remote virtual reality displays at APS and in Orlando.\label{fig:sc98}}
 \end{figure}
 
-\ian{Next text and Figure~\ref{fig:diffuse} are from~\cite{foster2015networking}. Need to be 
-rewritten.}
-\kyle{re-written}
-
 Figure~\ref{fig:diffuse} illustrates common activities in a diffuse scattering experiment. 
 The figure highlights the interactions between experiment, computation, and human expertise
 at various timescales. In particular, the figure shows the combination of simulation and 
@@ -195,8 +198,6 @@ collaborations that span institutions and even domains.
 The resulting datasets derived by both experiments and simulations are further analyzed
 and compared to create a knowledge base that may be used internally, or externally, 
 to further investigate data and guide future exploration.
-
-
 
 \begin{figure}[h]
   \centerline{\includegraphics[width=6in,trim=0 2.6in 0 1.5in,clip]{Figs/diffuse.png}}
@@ -217,9 +218,9 @@ data volumes, designing experiments, driving acquisition, and intuitively applyi
 analyses are required. We posit automation and outsourcing are needed to exploit 
 instrument advancements and advance light source science outcomes.
 
-\ryan{Yikes, I've been pretty repetitive.}
 
-\section{AUTOMATION AND OUTSOURCING}
+
+\section{MOTIVATION: AUTOMATION AND OUTSOURCING}
 
 \ian{Big picture thoughts I guess.}
 
@@ -277,6 +278,7 @@ creating \emph{ad hoc} data management solutions with little reproducibility, ad
 to the vanguard computing environment that litters many large-scale
 experimental science instruments.
 
+
 \section{DATA ACQUISITION AND DISTRIBUTION}
 
 Data acquisition and distribution are fundamental to light science. As the rate at which both data 
@@ -324,7 +326,7 @@ rely on to exist and distribute data for prolonged periods of time.
 
 
 
-\section{DATA PUBLICATION AND DISCOVERY}
+\subsection{DATA PUBLICATION AND DISCOVERY}
 \ryan{Make this more general with MDF and search being the main selling points?}
 
 \ryan{from talk:
@@ -442,8 +444,6 @@ platform, called Globus Automate.
 
 \subsection{Globus Automate}
 
-\kyle{I'm not sure on page limits so I tried to keep this brief. We can go deeper
-into the event and action interfaces if needed.}
 
 We have developed a prototype cloud-hosted automation service called Globus Automate. 
 Globus Automate aims to make it simple to construct robust automation flows
