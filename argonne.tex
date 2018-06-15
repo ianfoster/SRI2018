@@ -153,7 +153,7 @@ and analysis workflows.
 
 
 
-References:networking materials data~\cite{foster2015networking}, Justin~\cite{wozniak2015big}, APS~\cite{toby2015practices}
+\kyle{References:networking materials data~\cite{foster2015networking}, Justin~\cite{wozniak2015big}, APS~\cite{toby2015practices}}
 
 
 \section{BACKGROUND/HISTORY}
@@ -240,54 +240,82 @@ instrument advancements and advance light source science outcomes.
 %talk about: automation, human-in-the-loop, outsourcing, and motivate the 3 coming sections.}
 
 
-As the scale and complexity of light-source science continues to grow, so to
+As the scale and complexity of light-source science continues to grow, so too
 does the burden on researchers to manage an increasingly complex ecosystem of
-data, software, and cyberinfrastructure.  Unfortunately, these overheads are
-increasingly becoming prohibitive as the workload consumes considerable
-research time~\cite{}. If we look to other fields, from the automotive
-industry to agriculture, the ability to automate common activities has
+data, software, and cyberinfrastructure.  Unfortunately, these burdens are
+increasingly prohibitive as the workload consumes considerable
+research time. If we look to other fields, from the automotive
+industry to agriculture, the ability to automate common or mundane activities has
 underpinned massive advances in terms of productivity and efficiency. Similar
 advances are required to combine computational and data-driven science with
 experiment to speed discovery.
 
-%Figures from my 
+Over the past dozen years Globus has demonstrated the value of outsourcing
+a myriad of common research data management activities, including data 
+transfer, synchronization, and sharing. In these cases, researchers benefit
+from the ability to outsource activities to a reliable, cloud-hosted
+service that deals with the complexity of these tasks. For example, 
+when transferring data, Globus manages credentials required to access
+storage systems, establishes and maintains a secure connection between
+storage systems, optimizes transfer configuration to provide rapid
+data movement, validates data integrity, and recovers from errors. 
 
-\ryan{Woah this is bad. I will iterate and make it into something decent.}
-
-Achieving similar gains in the sciences will require both building and
-leveraging existing services and software to support the synthesis of data
-from simulation and experiment into an evolving and accessible knowledge base.
-This programatically accessible knowledge base can then be used to automate
-analyses, perform machine learning tasks, evaluate data quality, and
-critically to guide current and future research direction.  Automation of
-these processes holds the promise of simplifying  the processes used by
-scientists, improving throughput, and increasing both the quality and accuracy
-of the results generated.
-
-While full automation may be possible in some circumstances, partial
-automation via interactions between researchers and the automation processes
-may find early and more widespread adoption. Interfaces to facilitate such
-complex interactions will be critical at many points in the research cycle and at
-various scales: from direct steering of experiments to the choice of the next
-experiment and simulation. Human-in-the-loop interactions are critical to both
-the design of experiments, analysis of results, correction of errors,
-supplementation of training data, and optimization of experiments.
-
-Many light source experiments apply a similar process to the acquisition,
+Achieving similar gains in light source sciences will require 
+the use of such services (e.g., those provided by Globus) as 
+well as development of new services that are able to perform 
+many other operations.  We believe there is potential for widespread
+impact with such approaches and simultaneously other benefits
+such as reduced costs (via economies of scale) and increased reliability
+(due to professionally hosted services). We observe that many 
+light source experiments apply a similar foundational processes to the acquisition,
 analysis, and  distribution of data. We posit that components of the light
-source science data  ifecycle can be reliably outsourced to specialized
-services, thus reducing the burden on  researchers. Specialized services can be
+source science data lifecycle can be reliably outsourced to specialized
+services, thus reducing the burden on researchers. Specialized services can be
 created to service many distributed sources concurrently, reliably, and efficiently.
 These services can reliably provide the tools necessary to  perform a wide
 range of advanced analyses without requiring the scientist to have specialized
 skills in terms of building, running, and maintaining analytical tools, and
 removing the barriers to entry to apply analytical tools across leadership
-computing resources. In addition, specialized  services to automatically
+computing resources. In addition, specialized services to automatically
 extract metadata and enforce best-practice cataloging and replication can be
 deployed such that scientists can simply invoke such a service, rather than
 creating \emph{ad hoc} data management solutions with little reproducibility, adding
 to the vanguard computing environment that litters many large-scale
 experimental science instruments.
+
+Automation provides the second piece to this puzzle allowing for 
+frequent operations to be applied without human involvement. 
+by further raising the level of abstraction, such that light source
+scientists may define frequent operations (or series of operations)
+to be performed we further reduce the burden on humans while also 
+increasing reliability and efficiency. Examples of automation include
+moving data when it is acquired to large storage or analysis resources
+and thereby eliminating the need for scientists to monitor storage
+space and orchestrate the movement of data or executing data quality
+control algorithms to automate the detection of errors in data acquisition
+and thereby eliminate costly experiment inefficiency.
+While full automation may be possible in some circumstances, partial
+automation via interactions between researchers and the automation processes
+may find early and more widespread adoption. Interfaces to facilitate such
+complex interactions will be critical at many points in the research lifecycle and at
+various scales: from direct steering of experiments to the choice of the next
+experiment and simulation. Human-in-the-loop interactions are critical to both
+the design of experiments, analysis of results, correction of errors,
+supplementation of training data, and optimization of experiments.
+
+Developing such an ecosystem of services and existing
+software will support the synthesis of data
+from simulation and experiment into an evolving and accessible knowledge base.
+This programatically accessible knowledge base can then be used to automate
+analyses, perform machine learning tasks, evaluate data quality, and
+critically to guide current and future research direction. Automation of
+these processes holds the promise of simplifying  the processes used by
+scientists, improving throughput, and increasing both the quality and accuracy
+of the results generated.
+
+
+
+
 
 
 \section{DATA ACQUISITION AND DISTRIBUTION}
