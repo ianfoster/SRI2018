@@ -361,59 +361,51 @@ rely on to exist and distribute data for prolonged periods of time.
 
 \subsection{DATA PUBLICATION AND DISCOVERY}
 
-The Globus data publication platform provides a collection of loosely
-coupled services from which arbitrary publication pipelines can be constructed. 
-These services---data management, persistent identifier management, and 
-metadata indexing and discovery---can be used individually or collectively
-to address a wide range of publication needs. They allow for data
-to be made discoverable (via metadata search), verifiable (via checksums), 
-and accessible (via Globus data access interfaces).
+The Globus data publication platform~\cite{chard2015globus} provides a
+collection of loosely coupled services from which arbitrary publication
+pipelines can be constructed.  These services---data management, persistent
+identifier management, and  metadata indexing and discovery---can be used
+individually or collectively to address a wide range of publication needs.
+They allow for data to be made discoverable (via metadata search), verifiable
+(via checksums), and accessible (via Globus data access interfaces).
 
-Globus data management and access capabilities allow for the 
-``publication'' of data in any Globus-accessible storage system: 
-from local PCs, through to cloud object storage (e.g., Amazon S3), high performance
-file systems, and even archival tape storage. Globus data
-access model allows for user- and group-based access permissions
-to be applied to accessible data and for high performance (GridFTP)
-or web-based (HTTP) access to data. 
-Users may therefore
-choose to publish data by moving it to a permanent location for 
-immutable (and perhaps redundant) storage, or choose to publish 
-data ``in place'' (where it currently resides). 
+Globus data management and access capabilities allow for the  ``publication''
+of data in any Globus-accessible storage system:  from local PCs, through to
+cloud object storage (e.g., Amazon S3), high performance file systems, and
+even archival tape storage. Globus data access model allows for user- and
+group-based access permissions to be applied to accessible data and for high
+performance (GridFTP) or web-based (HTTP) access to data.  Users may therefore
+choose to publish data by moving it to a permanent location for  immutable
+(and perhaps redundant) storage, or choose to publish  data ``in place''
+(where it currently resides).
 
-An important step in data publication is the need to uniquely
-reference data irrespective of its location. A persistent
-identifier provides a long-lasting reference which can be 
-resolved (using a resolution service) to locate the current location
-of that data. There are a range of persistent identifier schemes
-commonly used for digital artifacts including Digital Object
-Identifiers (DOIs), Archival Resource Keys (ARKs), and Handles. 
-In each case, an identifier provider is responsible for minting
-unique identifiers and maintaining minimal metadata about that 
-identifier (e.g., by whom it was created, when, and where 
-the referenced object may be accessed). The Globus identifiers
-service provides a standard way to create and manage persistent
-identifiers (using various identifier providers) 
-and to associate them with arbitrary data. Importantly, it also
-allows users to associate a checksum with identified data
-such that other users may subsequently validate the integrity 
-of published data. 
+An important step in data publication is the need to uniquely reference data
+irrespective of its location. A persistent identifier provides a long-lasting
+reference which can be  resolved (using a resolution service) to locate the
+current location of that data. There are a range of persistent identifier
+schemes commonly used for digital artifacts including Digital Object
+Identifiers (DOIs), Archival Resource Keys (ARKs), and Handles.  In each case,
+an identifier provider is responsible for minting unique identifiers and
+maintaining minimal metadata about that  identifier (e.g., by whom it was
+created, when, and where  the referenced object may be accessed). The Globus
+identifiers service provides a standard way to create and manage persistent
+identifiers (using various identifier providers) and to associate them with
+arbitrary data. Importantly, it also allows users to associate a checksum with
+identified data such that other users may subsequently validate the integrity
+of published data.
 
-Having made data accessible and created a unique reference the
-final component of the data publication platform aims to make
-data discoverable. Globus Search provides a schemaless 
-indexing and discovery model with fine grain access control. 
-Thus, arbitrary metadata, adhering to any publication or 
-domain-specific schema may be associated with a publication. 
-Each metadata entry is assigned to a subject, a unique 
-URI or identifier for a particular dataset.  Each entity
-may also specify a visibility policy which restricts what
-users are able to view or query that metadata. 
-Globus Search provides a powerful free-text query model
-that supports a expression of various query types (substring, range, wildcard, etc.) 
-to discover matching metadata. Further, it can generate
-categorical facets and associated frequencies to 
-intuitively summarize and query data. 
+Having made data accessible and created a unique reference the final component
+of the data publication platform aims to make data discoverable. Globus Search
+provides a schemaless indexing and discovery model with fine grain access
+control.  Thus, arbitrary metadata, adhering to any publication or domain-
+specific schema may be associated with a publication.  Each metadata entry is
+assigned to a subject, a unique  URI or identifier for a particular dataset.
+Each entity may also specify a visibility policy which restricts what users
+are able to view or query that metadata.  Globus Search provides a powerful
+free-text query model that supports a expression of various query types
+(substring, range, wildcard, etc.)  to discover matching metadata. Further, it
+can generate categorical facets and associated frequencies to  intuitively
+summarize and query data.
 
 
 %\ryan{from talk:
@@ -424,9 +416,7 @@ intuitively summarize and query data.
 %- Index for discovery}
 
 
-
 \subsection{THE MATERIALS DATA FACILITY (MDF): DATA PUBLICATION AND INDEXING}
-\ben{Add MDF overview text and text linking this to the other sections}
 
 The MDF Data Publication service builds upon the Globus data
 publication service \cite{chard2015globus} to enable
@@ -462,7 +452,6 @@ behind MDF and instead allow them to focus on their task at hand. For example,
 users can perform a query and fetch the resultant files locally or to an
 analysis cluster with a single function call. These functions support data
 transfer via both HTTPS and Globus.
-
 
 \section{PIPELINES AND AUTOMATION}
 \ryan{Making this an automation section. }
