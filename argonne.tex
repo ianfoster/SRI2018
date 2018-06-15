@@ -1048,10 +1048,33 @@ Parallel tomo~\cite{Bicer_Europar15}. Real-time steering~\cite{bicer2017real}.
 
 \section{RELATED WORK}
 
-Coles et al.~\cite{coles2005ecses,coles2006science} developed an automated small molecule crystallography service that automated the
-end-to-end-flow from sample receipt to results dissemination.
+\ryan{Might need something about outsourcing.}
 
-PNNL work~\cite{thomas2015towards}. Helmholtz work~\cite{gehrke2015high}. BNL work~\cite{deslippe2014workflow}.
+The requirement for automation in science has been well studied
+studied~\cite{king2009automation, deslippe2014workflow, chard2017ripple} and 
+as such there are many automation systems currently in use. Coles et 
+al.~\cite{coles2005ecses,coles2006science} developed an automated small molecule crystallography 
+service that manages the end-to-end-flow from sample receipt to results dissemination. 
+The SPOT framework~\cite{deslippe2014workflow} powers similar pipelines for Berkeley's Advanced 
+Light Source. Scientific workflow engines, such as Galaxy~\cite{galaxy}, Parsl~\cite{parsl}, 
+Pegasus~\cite{pegasus}, Swift~\cite{wilde2011swift}, and Taverna~\cite{hull2006taverna},
+enable the fault-tolerant and reproducible execution of pipelines comprising various tools and 
+services. While some, such as Teverna, support Web service composition, these tools are generally 
+designed to facilitate dataflow modeling and the execution of sequences of tools. This is in 
+contrast to Automate, which aims to orchestrate a mix of custom software and human-in-the-loop 
+tasks.
+
+\ian{PNNL work~\cite{thomas2015towards}. Helmholtz work~\cite{gehrke2015high}.}
+% BNL work~\cite{deslippe2014workflow} (SPOT).
+
+The need to reliably catalog and publish data has led to the development of several 
+tools~\cite{chard15publication,wilkinson16,costello09pub}. Indeed, many of these platforms are 
+widely in use (e.g., Dataverse~\cite{dataverse}, DuraCloud~\cite{duracloud}, and 
+figshare~\cite{figshare}).
+Our approach 
+with the MDF is to provide a generalizable platform to accommodate diverse communities, datasets, 
+and publication scenarios by outsourcing the tools required to mint identifiers, catalog metadata, 
+and search over distributed datasets to specialized services.
 
 
 \section{SUMMARY}
