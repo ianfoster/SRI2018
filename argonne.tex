@@ -864,97 +864,83 @@ computing environment for training models.
 %visualizations through a simple Web interface.
 
 
-\subsection{DATA AND LEARNING HUB FOR SCIENCE (DLHub)}
-%In order to simplify the application and adoption of machine learning into the
-%scientific workflow of the non-expert, we are developing DLHub. 
-DLHub is a self-service platform for publishing, applying, and creating new 
-machine learning and deep learning
-models. DLHub will provide: 1) publication capabilities to make models more
-discoverable, citable, and reusable; 2) the ability to easily run or test
-existing models; and 3) links to the data and computing infrastructure to re-
-train models for new applications. Users will benefit from DLHub in many ways.
-Data scientists can publish their models (i.e., architectures and weights) and
-methods. Materials scientists can apply existing models to new data with ease
-(e.g., by querying a prediction API for a deployed mode) and create new models
-with state-of-the-art techniques. Together, these capabilities will lower
-barriers to employing machine learning, making it easier for researchers to
-discover and benefit from the most recent advances in machine learning.
+\subsection{DATA AND LEARNING HUB FOR SCIENCE (DLHUB)}
+ 
+DLHub is a service to promote, simplify, and speed the widespread adoption and
+usage of machine learning and deep learning techniques by researchers in
+disciplines ranging from materials science to chemistry, physics, cosmology,
+and biology. The co-emergence of large amounts of available datasets, movement
+towards cohesive data services, and new machine learning capabilities, creates
+a unique opportunity to leverage and integrate these data streams to allow for
+machine learning techniques to guide and, indeed, lead discovery efforts.
+ 
+Thus, we are developing DLHub a self-service platform for publishing,
+applying, and creating new machine learning models. DLHub
+will provide: 1) publication capabilities to make models more discoverable,
+citable, and reusable; 2) the ability to easily run or test existing models;
+and 3) links to the data and computing infrastructure to re-train models for
+new applications. Users will benefit from DLHub in many ways. Data scientists
+can publish their models (i.e., architectures and weights) and methods.
+Materials scientists can apply existing models to new data with ease (e.g., by
+querying a prediction API for a deployed mode) and create new models with
+state-of-the-art techniques. Together, these capabilities will lower barriers
+to employing machine learning, making it easier for researchers to discover
+and benefit from the most recent advances in machine learning.
 
-\subsection{DLHub ARCHITECTURE}
-DLHub is a cloud-hosted service that offers a REST API 
-to publish, search, and invoke models. DLHub serves models and 
-transformation codes across remote \textit{execution 
-sites}. 
-The REST API is secured with Globus Auth and offers endpoints for publishing, 
-searching, and invoking models. We provide a Python SDK to 
-%The Web API provides a Globus-secured interface to DLHub, enabling the implementation 
-%of an SDK 
-simplify use of the service. In future work we aim to develop a 
-user interface for these tasks. 
-We have defined a simple metadata schema for describing models. 
-Users who wish to deposit a model must complete this metadata
-and provide a container with their trained model. 
-%Invoking a model through the API initiates the 
-%transmission of a job task to an execution site via ZMQ. 
-When invoking a model, users must first select the specific model to use (from the list 
-of published models) and provide a set of data to be passed to the model.
-At present all input data is described in JSON. 
-DLHub then executes the model for each item in the input JSON and returns
-JSON-based results to the user. 
+\subsection{DLHUB ARCHITECTURE} 
 
-DLHub relies on the Kubernetes container orchestration 
-system to manage the deployment of containerized codes and models
-on an execution site. 
-Models and transformation logic are wrapped in Docker containers for three primary
-reasons: 
-1) to standardized their execution interface, regardless of implementation or language;
-2) to enable the encapsulation of their vastly different requirements; and
-3) to allow them to be scaled by deploying new containers.
-We call a containerized model a \textit{servable}. 
-When a code is published in DLHub it is automatically packaged with 
-a custom DLHub python library to provide a standard execution interface used to 
-facilitate remote invocation. DLHub
-Servables can be deployed at execution sites and invoked directly
-through DLHub. 
-A single servable may serve results for many inference jobs and 
-the same servable may be deployed several times to meet user demand. 
+DLHub is operated as a cloud-hosted service that offers a REST API to
+publish, search, and invoke models. DLHub serves models and transformation
+codes across remote \textit{execution sites}.  The REST API is secured with
+Globus Auth \cite{tuecke2016globus} and offers endpoints for publishing, searching, and invoking
+models. We provide a Python SDK to simplify use of the service. In future
+work, we aim to develop a user interface for many of these tasks.  We have defined a
+simple metadata schema for describing models.  Users who wish to deposit a
+model must provide this metadata and a container with their trained model.
+ 
+When invoking a model, users must first select the specific model to use
+(discovered via searching the list of published models) and provide a set of
+data to be passed to the model. At present, all input data is described in
+JSON.  DLHub then executes the model for each item in the input JSON and
+returns JSON-based results to the user.
 
-Each execution site is connected to the DLHub service
-through ZeroMQ (ZMQ) channels, providing a high-performance and reliable mechanism to transmit 
-jobs.
-We use the Parsl parallel scripting library~\cite{parsl}
-to manage the execution infrastructure by deploying and managing
-servables. Each site
-includes a Parsl \textit{foreman} and a ZMQ receiver. 
-The ZMQ receiver is used to receive inference jobs from the DLHub service. 
-The Parsl foreman is then responsible for taking these inference jobs
-and executing them on one or more servables. This task includes
-submitting work to existing servables or deploying new ones if 
-one is not available. Parsl uses IPyParallel and a pilot job 
-model to perform remote execution within a container. 
-Each container is deployed with an \textit{ipengine} that 
-connects back to the Parsl foreman to receive jobs. 
-This two-tier design enables multi-level 
-caching, with both Parsl and cloud-hosted caches enhancing response time. Requests can also be 
-batched at the cloud level before being transmitted to execution sites to improve throughput.
-While the primary mode for execution is via the DLHub service, 
-for low latency jobs we also allow users to establish a direct
-connection to the execution site. This model allows for DLHub
-to be easily integrated in light source workflows by streaming
-data from the acquisition machine to DLHub for transformation or inference.
-%Execution sites are designed to receive jobs through 
-%the ZMQ receiver. Although this is primarily achieved by submitting jobs through the Web API's REST 
-%and SDK interfaces, advanced users can establish direct channels to an execution site, removing 
-%unnecessary latency incurred by the API.
+DLHub relies on the Kubernetes container orchestration system to manage the
+deployment of containerized codes and models on an execution site.  Models and
+transformation logic are wrapped in Docker containers for three primary
+reasons:  1) to standardize their execution interface, regardless of
+implementation or language; 2) to enable the encapsulation of their vastly
+different software requirements; and 3) to allow them to be scaled by deploying multiple instances of the containers. In DLHub, a containerized model is referred to as a \textit{servable}.  When a code is
+published in DLHub, it is automatically packaged with a custom DLHub Python
+library to provide a standard execution interface to facilitate remote
+invocation. DLHub Servables can be deployed at execution sites and invoked
+directly through DLHub.  A single servable may serve results for many
+inference jobs and the same servable may be deployed several times to meet
+user demand.
 
-
-
-
+Each execution site is connected to the DLHub service through ZeroMQ (ZMQ)
+channels, providing a high-performance and reliable mechanism to transmit
+jobs. We use the Parsl parallel scripting library~\cite{parsl} to manage the
+execution infrastructure by deploying and managing servables. Each site
+includes a Parsl \textit{foreman} and a ZMQ receiver.  The ZMQ receiver is
+used to receive inference jobs from the DLHub service.  The Parsl foreman is
+then responsible for taking these inference jobs and executing them on one or
+more servables. This task includes submitting work to existing servables or
+deploying new ones if  one is not available. Parsl uses IPyParallel and a
+pilot job  model to perform remote execution within a container.  Each
+container is deployed with an \textit{ipengine} that  connects back to the
+Parsl foreman to receive jobs.  This two-tier design enables multi-level
+caching, with both Parsl and cloud-hosted caches enhancing response time.
+Requests can also be  batched at the cloud level before being transmitted to
+execution sites to improve throughput. While the primary mode for execution is
+via the DLHub service,  for low latency jobs we also allow users to establish
+a direct connection to the execution site. This model allows for DLHub to be
+easily integrated in light source workflows by streaming data from the
+acquisition machine to DLHub for transformation or inference.
 
 \subsection{DLHub USE CASES}
 We present two separate uses cases of the DLHub service each highlighting
-key capabilities. DLHub analysis pipelines were created for each
-use case to simplify invocation on PetrelKube and within Amazon Web Services.
+key capabilities. DLHub analysis pipelines were created for these
+use cases to simplify invocation on PetrelKube and within Amazon Web Services.
 
 \textbf{Prediction of Metallic Glass Forming Compositions.}
 Metallic glasses are an important class of materials that promise
@@ -1006,28 +992,6 @@ required input: 256x256 numpy arrays.
   \caption{Tagging X-Ray scattering images with DLHub. (a) User sends pointers to X-Ray scattering images to the DLHub service. (b) DLHub returns a list of most likely tags for the image.
 \label{fig:dlhub-bnl}}
 \end{figure}
-
-
-\ben{Other potential models to highlight, CANDLE Benchmarks,
-Segmentation of Tomographic Reconstruction of Connectomes in Mouse Brains}
-
-
-\section{MDF: DATA PUBLICATION AND INDEXING}
-
-TBD.
-
-
-\section{DLHUB: AUTOMATED ANALYSIS AND LEARNING}
-
-TBD.
-
-DLHub is a project to promote, simplify, and speed the widespread adoption and usage of machine learning and deep learning techniques by researchers in disciplines ranging from materials science to chemistry, physics, cosmology, and biology. The co-emergence of large amounts of available datasets, movement towards cohesive data services, and new machine learning and, especially, deep learning (ML/DL) capabilities, creates a unique opportunity to leverage and integrate these data streams to allow for ML/DL techniques to guide and, indeed, lead discovery efforts.
- 
-Thus, we are developing DLHub (Fig. 1), a self-service platform for publishing, applying, and creating new ML/DL models. DLHub will provide: 1) publication capabilities to make models more discoverable, citable, and reusable; 2) the ability to easily run or test existing models; and 3) links to the data and computing infrastructure to re-train models for new applications. Users will benefit from DLHub in many ways. Data scientists can publish their models (i.e., architectures and weights) and methods. Materials scientists can apply existing models to new data with ease (e.g., by querying a prediction API for a deployed mode) and create new models with state-of-the-art techniques. Together, these capabilities will lower barriers to employing ML/DL, making it easier for researchers to benefit from advances in ML/DL technologies. 
-
-
-
-
 
 \section{RELATED WORK}
 
