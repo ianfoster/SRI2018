@@ -49,7 +49,25 @@
 
 \begin{abstract}
 %The AIP Proceedings article template has many predefined paragraph styles for you to use/apply as you write your paper. To format your abstract, use the \LaTeX template style: {\itshape Abstract.} Each paper must include an abstract. Begin the abstract with the word ``Abstract'' followed by a period in bold font, and then continue with a normal 9 point font.
-Rapidly growing data volumes at light sources demand increasingly automated data collection, distribution, and analysis processes, in order to enable new scientific discoveries while not overwhelming finite human capabilities. I present here three projects that use cloud-hosted data automation and enrichment services, institutional computing resources, and high- performance computing facilities to provide cost-effective, scalable, and reliable implementations of such processes. In the first, Globus cloud-hosted data automation services are used to implement data capture, distribution, and analysis workflows for Advanced Photon Source and Advanced Light Source beamlines, leveraging institutional storage and computing. In the second, such services are combined with cloud-hosted data indexing and institutional storage to create a collaborative data publication, indexing, and discovery service, the Materials Data Facility (MDF), built to support a host of informatics applications in materials science. The third integrates components of the previous two projects with machine learning capabilities provided by the Data and Learning Hub for science (DLHub) to enable on-demand access to machine learning models from light source data capture and analysis workflows, and provides simplified interfaces to train new models on data from sources such as MDF on leadership scale computing resources. I draw conclusions about best practices for building next-generation data automation systems for future light sources.
+Rapidly growing data volumes at light sources demand increasingly automated data collection, 
+distribution, and analysis processes, in order to enable new scientific discoveries while not 
+overwhelming finite human capabilities. I present here the case for automating and outsourcing 
+light source science using cloud-hosted data automation and enrichment services, institutional 
+computing resources, and high- performance computing facilities to provide cost-effective, scalable, 
+and reliable implementations of such processes. I discuss three specific services that accomplish 
+these goals for data distribution, automation, and transformation. In the first, such services are 
+combined with cloud-hosted data indexing and institutional storage to create a 
+collaborative data publication, indexing, and discovery service, the Materials Data Facility (MDF), 
+built to support a host of informatics applications in materials science. In the second,  
+Globus cloud-hosted data automation services are used to implement data capture, distribution, and 
+analysis workflows for Advanced Photon Source and Advanced Light Source beamlines, leveraging 
+institutional storage and computing. The third integrates 
+components of the previous two projects with machine learning capabilities provided by the Data and 
+Learning Hub for science (DLHub) to enable on-demand access to machine learning models from light 
+source data capture and analysis workflows, and provides simplified interfaces to train new models 
+on data from sources such as MDF on leadership scale computing resources. I draw conclusions about 
+best practices for building next-generation data automation systems for future light sources.
+\ryan{Map this to the new structure.}
 \end{abstract}
 
 \ian{Potential authors: Tekin Bicer, Ben Blaiszik, Kyle Chard, Ryan Chard, Logan Ward, Justin Wozniak, ...}
@@ -58,8 +76,28 @@ Rapidly growing data volumes at light sources demand increasingly automated data
 % Head 1
 \section{INTRODUCTION}
 
+\ryan{Proposed new structure to follow the talk: Introduction, history/background, automation and 
+outsourcing (high level motivation), acquisition and distribution (dmagic/petrel), publication and 
+discovery (mdf/search), automation (automate, TAP), transformation and analysis (dlhub).}
+
+\ryan{Rough start...}
+
+Light source scientists are facing a data crisis as the rate at which new instruments generate data 
+volumes is rapidly exceeding Moore's Law. Growing data 
+volumes present new challenges as they overwhelm finite human capabilities, requiring new 
+machine-based solutions to automate and outsource the acquisition, analysis, and 
+distribution of the 
+light science data lifecycle. Neither humans or computers can cope using current methods. Existing 
+techniques to design experiments, manage and analyze data, and create and 
+deliver software will not suffice for next generation data rates. However, these 
+challenges also present new opportunities and offer the potential to create the new automation 
+systems and enrichment services necessary to utilize instrument advancements. New 
+approaches are required to unburden scientists from time consuming data munging, management, 
+and dissemination practices, including reliably indexing and cataloging, pipelining, and 
+transforming results.
+
 Fourth-generation light sources such as the Advanced Photon Source Upgrade (APS-U)~\cite{APSU} will offer exciting new
-scientific communities to the thousands of scientists who use their many beamlines annually.
+scientific capabilities to the thousands of scientists who use their many beamlines annually.
 They also pose major data and computation challenges, for at least four reasons.
 First, they will generate massive data. 
 For example, x-ray photon correlation spectroscopy can already generate 2MB images at 3,000 Hz,
@@ -69,37 +107,76 @@ Second, experiments will increasingly generate complex multi-modal data that nee
 for interpretation, such as ptychography combined with 
 elemental mapping and visual images as a function of reaction conditions.
 Third, it will become increasingly feasible to use advanced theory and modeling to fit and co-optimize 
-model and experiment, so that 
-Fourth, as synchrotron light source mature as instrucments, they increasingly serve more and different users,
+model and experiment, so that ...
+Fourth, as synchrotron light source mature as instruments, they increasingly serve more and 
+different users,
 many with limited or no experience with light sources. 
 Automation is important for such users~\cite{hiraki2008high,toby2009management}.
 
+For light science to exploit these advancements the tools and services must transition from an
+artisanal/cottage industry to automated solutions that are integrated into daily operation of a 
+beamline. Tools to automatically capture, apply advanced analyses, and autonomically drive 
+experiments are necessary, such as those we have previously explored~\cite{wozniak2015big}. In 
+addition, once data are acquired scientists must outsource their ongoing management and 
+distribution through dedicated, community-oriented storage hubs that index and make searchable and 
+accessible the results of experiments. Storage catalogs, such as the Materials Data 
+Facility~\cite{MDF2016}, provide rich environments to foster collaboration and increase the value 
+of datasets by disseminating results and in turn, accelerating scientific discovery. Similarly, 
+nexuses for applying transformations and analyses provide platforms that federate access to cutting 
+edge analyses, optimized high performance modalities, and remove barriers of entry to leadership 
+computing facilities.
 
-Transition from artisanal/cottage industry to automated. Onsite not offsite. Capture data. Advanced analyses.
+% RC: not sure what this means.
+% Onsite not offsite.
+
+\ryan{Something along these lines?}
+Here we propose automation and outsourcing as a solution to enable next generation light source 
+science. We discuss areas in which we are working to reduce the burden of scientists by 
+developing the tools and techniques needed to reliably manage data. First, we present data 
+acquisition and distribution tools and services. We then present the case for automation and the 
+techqinues used to enables its application. We then describe data indexing and search tools, such 
+as the Materials Data Facility, to outsource the management of data once it has been created. 
+Finally, we present the need for transformation services, such as DLHub.
+
+
+
 
 APS~\cite{toby2015practices}
 
 References: MDF~\cite{MDF2016}, networking materials data~\cite{foster2015networking}, Justin~\cite{wozniak2015big}.
 
+\section{BACKGROUND/HISTORY}
 
-\section{DATA AUTOMATION}
+\ryan{Not sure what to call this, but it gives this text a place.}
 
-\ian{Big picture thoughts I guess.}
+% \subsection{Not sure where this text belongs?}
+% \kyle{Following text needs to go somewhere}
+We first experimented with online analysis of APS data in the late 1990s, 
+when we coupled 
+computing microtomography~\cite{wang1999quasi,wang2001high} and crystallographic~\cite{von2000using}
+experiments to remote computers.
+In one memorable demonstration in 1998, we piped microtomography data from APS beamline 2-BM to a 
+96-node SGI Origin parallel computer 
+at Argonne for incremental reconstruction via filtered backprojection as an experiment was 
+proceeding,
+and then streamed visualization data to the Supercomputing conference (SC'98) in Orlando, Florida, 
+for interactive analysis: see Figure~\ref{fig:sc98}. 
+As we noted at the time, 
+``the data rates and compute power required ... are prodigious, easily reaching one gigabit per 
+second and a teraflop per second [respectively]"~\cite{von2000real}---numbers that are dwarfed by 
+today's requirements. 
 
-As the scale and complexity of light science continues to grow so to does the burden on
-researchers to manage an increasingly complex ecosystem of data, software, and cyberinfrastructure. 
-Unfortunately, these overheads are increasingly becoming prohibitive as the workload consumes
-considerable research time~\cite{}. If we look to other fields, from the automotive industry
-to agriculture, the ability to automate common activities has underpinned massive advances
-in terms of productivity and efficiency. Similar advances are required in computational
-and data-driven science to reduce impediments to discovery. 
+\begin{figure}[h]
+  \centerline{\includegraphics[width=4in]{Figs/APS-Fig.png}}
+  \caption{The processing pipeline used in the SC'98 demonstration~\cite{von2000real}. Data 
+collected at the APS 
+  where passed to supercomputer in Argonne's Mathematics and Computer Science (MCS) division for
+  incremental reconstruction and visualization, and results dispatched as a stereoscopic
+  video stream to a remote virtual reality displays at APS and in Orlando.\label{fig:sc98}}
+\end{figure}
 
-%Figures from my 
-
-%Choose next experiment.
-
- 
-\ian{Next text and Figure~\ref{fig:diffuse} are from~\cite{foster2015networking}. Need to be rewritten.}
+\ian{Next text and Figure~\ref{fig:diffuse} are from~\cite{foster2015networking}. Need to be 
+rewritten.}
 \kyle{re-written}
 
 Figure~\ref{fig:diffuse} illustrates common activities in a diffuse scattering experiment. 
@@ -118,10 +195,7 @@ collaborations that span institutions and even domains.
 The resulting datasets derived by both experiments and simulations are further analyzed
 and compared to create a knowledge base that may be used internally, or externally, 
 to further investigate data and guide future exploration.
- 
 
-%Ultimately, we want both experimental and simulation data to feed into an evolving knowledge base that can then play an important role in guiding current and future research. 
-%We also note that human collaboration and guidance is important at many points and scales, from direct steering of experiments to the choice of the next experiment and simulation 
 
 
 \begin{figure}[h]
@@ -130,302 +204,139 @@ to further investigate data and guide future exploration.
    via simulation and experimentation, involves data storage in various locations
 from beamline computers through to data archives, requires analysis at various scales
 and coordination between a diverse group of collaborators. 
-  %Acceleration and even automation of these various end-to-end processes, plus the creation of powerful knowledge base and simulation capabilities, can create a ``discovery engine'' for materials science research. 
+  %Acceleration and even automation of these various end-to-end processes, plus the creation of 
+powerful knowledge base and simulation capabilities, can create a ``discovery engine'' for materials 
+science research. 
   %Note the publication phase by which data is contributed to the growing knowledge base.
 \label{fig:diffuse}}
 \end{figure}
 
-\subsection{Globus Automate}
+It is this history of light science automation that informs our belief that existing methods 
+will not meet the requirements of next generation instruments. Indeed, new approaches to managing 
+data volumes, designing experiments, driving acquisition, and intuitively applying advanced 
+analyses are required. We posit automation and outsourcing are needed to exploit 
+instrument advancements and advance light source science outcomes.
 
-\kyle{I'm not sure on page limits so I tried to keep this brief. We can go deeper
-into the event and action interfaces if needed.}
+\ryan{Yikes, I've been pretty repetitive.}
 
-We have developed a prototype cloud-hosted automation service called Globus Automate. 
-Globus Automate aims to make it simple to construct robust automation flows
-that include both automated and human-in-the-loop operations. 
-It is designed following an extensible, modular architecture via which external
-\emph{event} sources and \emph{actions} can be used in pipelines. 
-Thus, developers may select a particular event for invoking the pipeline
-and a series of one or more actions that should then be executed as 
-a result of that event.
-Globus Automate is comprised of two core components: a web service
-that allows for the construction, execution, and sharing of automation
-flows; and a user agent that is used to capture data events on remote systems
-(e.g., file created, deleted, modified). 
+\section{AUTOMATION AND OUTSOURCING}
 
-Globus Automate exposes a simple, declarative, JSON-based, state machine 
-language for defining flows, 
-based on the Amazon States Language~\cite{AmazonStates}. 
-This language allows for concise definition of flows comprising multiple actions, with control logic ranging from simple sequential actions to complex branching and iteration, with simple but powerful timeout, retry, and recovery capabilities. 
+\ian{Big picture thoughts I guess.}
 
-An automation flow consists of one or more steps that invoke pre-defined actions. 
-We define a REST API by which external services can be integrated with Globus Automate to perform actions. 
-Services implementing these interfaces may
-be registered and then integrated into flows by any user, subject to service access rights. 
-This API is similar to the popular if-this-then-that (IFTTT) action service API, 
-with enhancements to accommodate asynchronous activities and the end-to-end security model provided by Globus Auth. When a flow is executing, Globus Automate will use
-the registered action API to invoke the action.
-
-An automation flow can be triggered by a variety of events including 
-data events, external service events, and periodic timers (like cronjobs).
-We define a REST API that allows any service to produce events
-and to submit them to Globus Automate. When creating a flow, 
-users define the type of event to be monitored and simple criteria
-for filtering events. 
-In our prototype system we have created a modular event monitoring system that
-can be deployed on arbitrary storage systems and which leverages
-native storage system notification mechanisms to capture data events~\cite{chard17ripple}. 
-We have demonstrated (\S\ref{sec:proto}) monitoring via the Linux
-inotify API~\cite{inotify}, and achieved, via a hierarchical approach, 
-$\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}.  
-
-\begin{figure}[h]
-  \centerline{\includegraphics[width=6in]{Figs/automate.png}}
-  \caption{Globus Automate architecture, showing the cloud service at top, services that it
-    manages below, and the extended Globus Connect internals at bottom right. Also, a flow
-    comprising 
-    (1) an event (data created at instrument), (2) a transfer action, and (3) an analysis action.
-\label{fig:diffuse}}
-\end{figure}
+\ryan{Use this section as motivation for the following ones? I decided to move automate etc. down 
+to its own section and keep this one high level -- like in the talk. Goal of this section is to 
+talk about: automation, human-in-the-loop, outsourcing, and motivate the 3 coming sections.}
 
 
-\subsection{Capturing and responding to events}
-Globus Automate is reliant on the ability to monitor and recieve events from
-external services. 
-We define a \darkcode{globus\_event} REST API to be implemented by any service that wants to produce events for consumption by Globus Automate
-and a simple queuing mechanism to reliably deliver events.
-Our goal is to make it simple for a service to produce and consume events, 
-while also enabling performant and robust event delivery.
+As the scale and complexity of light-source science continues to grow, so to
+does the burden on researchers to manage an increasingly complex ecosystem of
+data, software, and cyberinfrastructure.  Unfortunately, these overheads are
+increasingly becoming prohibitive as the workload consumes considerable
+research time~\cite{}. If we look to other fields, from the automotive
+industry to agriculture, the ability to automate common activities has
+underpinned massive advances in terms of productivity and efficiency. Similar
+advances are required to combine computational and data-driven science with
+experiment to speed discovery.
 
-The \darkcode{globus\_event}  API, outlined here,
-allows for a client (e.g., Globus Automate) to register with a service (e.g., Globus Connect) 
-to receive events (e.g., file created) that match event-specific criteria (e.g., all files matching a path expression). 
-The API includes methods such as
-the following, some taking a \bluecode{<registration\_id>} as a parameter:
+%Figures from my 
 
-\begin{itemize}
-    \item \code{/globus\_event/v1}\darkcode{/introspect}: 
-    Returns monitorable events and event matching parameters.
-    \item \code{/globus\_event/v1}\darkcode{/register}\code{/}\bluecode{<registration\_id>}: 
-    Register to send matching events to a specified URL. This registration will be identified by
-    the \darkcode{<registration\_id>} UUID.
-    \item \code{/globus\_event/v1}\darkcode{/cancel}\code{/}\bluecode{<registration\_id>}: 
-    Stop sending events from a previous registration.
-\end{itemize}
+\ryan{Woah this is bad. I will iterate and make it into something decent.}
 
-\vspace{1ex}
+Achieving similar gains in the sciences will require both building and
+leveraging existing services and software to support the synthesis of data
+from simulation and experiment into an evolving and accessible knowledge base.
+This programatically accessible knowledge base can then be used to automate
+analyses, perform machine learning tasks, evaluate data quality, and
+critically to guide current and future research direction.  Automation of
+these processes holds the promise of simplifying  the processes used by
+scientists, improving throughput, and increasing both the quality and accuracy
+of the results generated.
 
-Globus Automate (or any other client)
-can use the \darkcode{/introspect} method on a service 
-to determine what event types are available from that service---and,
-for each event type, what parameters can be use to match events. 
-For example, Globus Connect endpoints could offer
-events such as ``file created'' and ``file deleted,'' 
-each accepting a path matching expression as a parameter,
-so that Globus Automate can request notifications when 
-files in a certain directory are created or deleted.
-Globus Automate will \darkcode{/register} 
-for events matching particular parameters, providing a URL to which the service should POST the events, along with a globally unique \bluecode{<registration\_id>} UUID.  In the event of a communication error, Globus Automate can idempotently retry the same \darkcode{/register} call, such that if the service already knows the \bluecode{<registration\_id>} it can respond as such.
-When events are no longer needed from a service, Globus Automate will \darkcode{/cancel} the registration 
-using the same \bluecode{<registration\_id>}.
+While full automation may be possible in some circumstances, partial
+automation via interactions between researchers and the automation processes
+may find early and more widespread adoption. Interfaces to facilitate such
+complex interactions will be critical at many points in the research cycle and at
+various scales: from direct steering of experiments to the choice of the next
+experiment and simulation. Human-in-the-loop interactions are critical to both
+the design of experiments, analysis of results, correction of errors,
+supplementation of training data, and optimization of experiments.
 
-\subsection{Invoking and managing actions}
-The Globus Automate engine invokes an action in an external service to 
-perform a step of an automation flow. Each external service must implement a
-simple REST API for introspection, execution, and management. 
-When registering an external service, the service must 
-define the actions that it supports, for each with
-a unique name, description, input and output parameters, 
-and whether it runs synchronously (quickly, blocking)
-or asynchronously (slowly, non-blocking).
-The action API focuses only on the information 
-needed by Globus Automate.
-It may be implemented alongside any other REST API offered by a service.
-Each POST specifies a \darkcode{/method} and typically also a \bluecode{variable}:
-
-\begin{itemize}
-    \item \code{/globus\_automate/v1/action}\darkcode{/list}: 
-    List the actions supported by this service.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/introspect}: 
-    Return parameters that can be passed to this action, 
-    with a type and if the parameter is required/optional. 
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/run}:
-    Execute the action, given a parametrized document matching
-    the schema returned from the \darkcode{/introspect} method.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/status}: 
-    Retrieve the state of the given asynchronous action instance. 
-    If the action is complete, return the output document.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/cancel}: 
-    Cancel an asynchronous action instance.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/release}: 
-    Release an action instance. 
-\end{itemize}
-
-\vspace{1ex}
-
-The action model is simple: JSON document in, JSON document out, with a simple protocol to ensure reliable, once-and-only-once execution.
-When Globus Automate needs to run an action as part of a flow, it calls the service's action \darkcode{/run} method with an input JSON document with the appropriate parameters, and a globally unique \code{<action\_id>}.  
-If Globus Automate does not receive a response from \darkcode{/run}, for example due to a network error, 
-it can repeat the \darkcode{/run} call with the same \code{<action\_id>}, allowing the service to recognize duplicate requests.  
-In the case of asynchronous actions, Globus Automate will then periodically call \darkcode{/status} to check if the action  has completed. 
-If the action has completed, \darkcode{/status} will return the output JSON document with the appropriate parameters.  
- 
-Once Globus Automate sees that an action has completed, it calls \darkcode{/release} 
-so that the service can forget about the \code{<action\_id>}.  
-If an action takes longer than a flow step's configured timeout,
-Globus Automate may call \darkcode{/cancel}. 
-If a service does not recognize the \darkcode{<action\_id>} in a \darkcode{/cancel} or \darkcode{/release}, 
-it should assume it was previously canceled or released, and return an appropriate error. 
-After some extended period (e.g., 30 days after completion),
-a service can forget any \code{<action\_id>} that is not canceled or released. 
-
-Some actions may require human interaction.  For example, as part of 
-the Globus data publication platform we aim to implement 
-a web-based form entry service, 
-with configurable JSON schema and form configuration. 
-This service will be used for such purposes 
-as simple user prompts to complex metadata entry and curation.
-Such services will be integrated with Globus Automate as asynchronous actions.
-
-\subsection{The Globus Automate engine.}
-Globus Automate is responsible for executing end-to-end automation flows \emph{reliably}, 
-from event registration and processing for triggers to
-flow (i.e., state machine) execution and action invocation. 
-After review of several workflow models, such as Amazon Simple
-Workflow Service~\cite{AmazonSWF}, Netflix's Conductor~\cite{conductor}, and Apache Airflow~\cite{airflow}, 
-we choose to leverage
-Amazon Step Functions (ASF)~\cite{AmazonSteps} for implementing and managing flows.
-ASF is provided by AWS as a managed service for reliably 
-and scalably executing state machines (i.e., automation flows);
-its declarative and intuitive JSON-based state machine language allows non-experts
-to define
-flows and its flexible execution model allows Globus Automate
-to execute arbitrary actions.
-
-Globus Automate uses parameterized Lambda functions~\cite{AmazonLambda} to execute actions. 
-When creating a flow, Globus Automate calls \darkcode{/introspect} 
-to determine the input and output parameters for an action. It then creates 
-parametrized Lambda functions for that action. 
-For asynchronous actions multiple Lambda functions are created (i.e., start, monitor).
-When a user deploys an automation flow, Globus Automate translates the user's state machine 
-with user-friendly action and event names into a state machine that invokes the appropriate 
-Lambda functions and manages the flow of state between actions. 
-Its deployment requires that the user specify both how its execution may be triggered and the source of
-the JSON document to be provided as input to the first step of the state machine. 
-(The input JSON document may contain both static content and 
-dynamic content provided by the trigger.)
-% Triggers not yet supported
-%A trigger may be
-%\textbf{manual}: a user executes the flow through a call to the Globus Automate REST API, 
-%with a JSON input document;
-%\textbf{event}: i.e., triggered by receipt of a specified event from a specified service, 
-%with the event as the dynamic JSON input document; or
-%\textbf{schedule}: a particular start time or periodic start, with a dynamic JSON input document containing the time.
-%The deploying user can also set permissions to indicate who
-%may execute the flow, administer its deployment, and monitor or manage flow executions.
-
-Globus Automate wraps all logic for registering and interacting with external event- and action-providing services.  Currently these capabilities are exposed as a REST API. 
-In the future we intend to enhance the Globus web interface to make it 
-easy for users to register action and event services,
-and to deploy, execute, and manage automation flows.
-%As not all users will be comfortable authoring JSON, 
-%we will also develop a simple graphical user interface (GUI) in which users can search for and select
-%registered events and actions, create flows from actions with retry and timeout parameters, and deploy flows with triggers. 
-%This interface (and the underlying REST API) will also allow users to view and modify previously deployed flows, monitor and manage executions of their deployed flows (e.g., cancel a running flow), view the events
-%that triggered the flow, interrogate the JSON state document at any
-%point of the flow, and view the status of actions (e.g., success or failure).
-%Globus Auth will provide end-to-end security.
-
-\subsection{Automation Use Cases}
-\kyle{The following text is stolen from CSSI - do we want such an example?
-If so, perhaps Ryan can make this accurate.. and add a nice picture.}
-
-We have applied a prototype version of Globus Automate
-to support neuroanatomy experiments that rely on
-X-ray microtomography at the Advanced Photon Source (APS) 32-ID beamline to
-characterize the neuroanatomical structure of large (cm) unsectioned brain volumes~\cite{kasthuri2015saturated}. 
-Datasets, generated at $>$20GB per minute, are processed
-with a complex reconstruction pipeline 
-comprising many machines, tools, and services.  
-Globus Automate is used to move data from beamline to remote computers,
-execute Automo~\cite{Automo} and TomoPy~\cite{gursoy2014tomopy} 
-to generate preview images, and return images to 
-beamline scientists to guide instrument positioning. 
-Simultaneously, machine learning models
-are applied (automatically) to reconstruct and stitch together images, with results 
-moved to persistent storage for distribution, cataloged with
-provenance metadata, and visualized with Neuroglancer~\cite{Neuroglancer}. 
-
-\kyle{Ryan another APS/ALS flow?}
-
-\subsection{Not sure where this text belongs?}
-\kyle{Following text needs to go somewhere}
-We first experimented with online analysis of APS in the late 1990s, 
-when we coupled 
-computing microtomography~\cite{wang1999quasi,wang2001high} and crystallographic~\cite{von2000using}
-experiments to remote computers.
-In one memorable demonstration in 1998, we piped microtomography data from APS beamline 2-BM to a 96-node SGI Origin parallel computer 
-at Argonne for incremental reconstruction via filtered backprojection as an experiment was proceeding,
-and then streamed visualization data to the Supercomputing conference (SC'98) in Orlando, Florida, 
-for interactive analysis: see Figure~\ref{fig:sc98}. 
-As we noted at the time, 
-``the data rates and compute power required ... are prodigious, easily reaching one gigabit per second and a teraflop per second [respectively]"~\cite{von2000real}---numbers that are dwarfed by today's requirements. 
-
-\begin{figure}[h]
-  \centerline{\includegraphics[width=4in]{Figs/APS-Fig.png}}
-  \caption{The processing pipeline used in the SC'98 demonstration~\cite{von2000real}. Data collected at the APS 
-  where passed to supercomputer in Argonne's Mathematics and Computer Science (MCS) division for
-  incremental reconstruction and visualization, and results dispatched as a stereoscopic
-  video stream to a remote virtual reality displays at APS and in Orlando.\label{fig:sc98}}
-\end{figure}
+Many light source experiments apply a similar process to the acquisition,
+analysis, and  distribution of data. We posit that components of the light
+source science data  ifecycle can be reliably outsourced to specialized
+services, thus reducing the burden on  researchers. Specialized services can be
+created to service many distributed sources concurrently, reliably, and efficiently.
+These services can reliably provide the tools necessary to  perform a wide
+range of advanced analyses without requiring the scientist to have specialized
+skills in terms of building, running, and maintaining analytical tools, and
+removing the barriers to entry to apply analytical tools across leadership
+computing resources. In addition, specialized  services to automatically
+extract metadata and enforce best-practice cataloging and replication can be
+deployed such that scientists can simply invoke such a service, rather than
+creating \emph{ad hoc} data management solutions with little reproducibility, adding
+to the vanguard computing environment that litters many large-scale
+experimental science instruments.
 
 \section{DATA ACQUISITION AND DISTRIBUTION}
 
-Sharma, Wozniak, and others developed an online analysis pipeline for high energy diffraction microscopy
-experiments 
+Data acquisition and distribution are fundamental to light science. As the rate at which both data 
+are generated from new instruments and robotic processes are increasingly being used to rapidly 
+manage 
+the analysis of multiple samples, automated acquisition processes become increasingly necessary. New 
+techniques to manage the entire data lifecycle in response to their generation are needed.
+
+A range of tools have been developed to simplify the acquisition process. For example, the Data 
+Management at the APS Imaging Group (DMagic) have worked to automate the collection process and 
+facilitate reliable execution of data management tasks, such as sharing, indexing, and transfer, in 
+response to data events. DMagic provides an event-driven system to detect the creation of files and 
+enact actions, such as data movement, in response to samples being acquired. DMagic uses Globus 
+APIs create a shared endpoint and deposit the data and set permissions. It also bridges the 
+multiple data sources maintained at the APS, such that given an experiment's date and time, it can 
+retrieve user information from the APS scheduler, associate metadata regarding the beamline with 
+the experimental results, and email the user the location of the shared endpoint for data 
+retrieval. Similarly, ISPyB is a 
+Laboratory Information Management System that combines sample tracking and experiment 
+reporting for synchrotrons, in particular for macromolecular crystallography. ISPyB has been in 
+production for numerous years and is specifically designed to simplify development and 
+maintenance~\cite{delageniere2011ispyb}.
+
+% \cite{delageniere2011ispyb}: 
+% ISPyB: An information management system for synchrotron macromolecular crystallography
+
 
 HEDM work to be described somewhere~\cite{park2015high}.
-
-\cite{delageniere2011ispyb}: 
-ISPyB: An information management system for synchrotron macromolecular crystallography
-
-pipeline~\cite{wozniak2015big}
 
 
 \ian{Petrel should get a mention.}
 
-\ryan{Not sure if the plan was to discuss this. Feel free to cut it all.}
 
-Researchers at The University of Chicago use the APS to study neuroanatomy, investigating brain 
-disease and aging. This research relies on the construction of 
-fine-grained mappings of neuron connections, known as connectomes. The APS enables the rapid 
-imaging of large unsectioned brain specimens, drastically reducing the time and complexity of 
-analyzing specimens when compared to traditional electron microscopy approaches.
+In order to enable easy, efficient, secure, reliable distribution of data from beamlines to many 
+locations, platforms are required to store and distribute data with high performance and 
+accessibility. At Argonne National Laboratory we have created a purpose built platform for sharing 
+research outcomes underpinned by high performance networks and the Globus data management platform. 
+This service, called Petrel, provides researchers access to a large, 1.7PB, store positioned within 
+Argonne's network with high speed access to the APS. Petrel leverages Globus' identity management 
+to provide researchers access to their data without requiring Argonne-specific credentials. 
+Instead, users can authenticate with Petrel and access and distribute data world-wide using their 
+own institutes credentials. Petrel provides cost-effective storage for researchers. Because Petrel 
+is underpinned by Globus services it presents a sustainable storage model which researchers can 
+rely on to exist and distribute data for prolonged periods of time.
 
-The process of using the APS to image a particular brain specimen, reconstruct the data, and 
-distribute 
-results to collaborators requires a complex series of actions involving data movement, 
-parallel processing using HPC resources, machine learning, and human-in-the-loop validation, all 
-while conforming to best-practice security and data management practices. Data are acquired on a 
-dedicated machine, however, this is not always appropriate for analyzing the data and 
-reconstructing images as these actions can interfere with the acquisition process. Instead, data 
-are moved to dedicated computing resources, in this case at the Argonne Leadership Computing 
-Facility. The 
-reconstruction process requires setting access control on the resulting data, 
-ensuring the data is available to the scientists providing the samples. The neuroanatomy use 
-case results are persistently stored on the Petrel storage system at Argonne to enable its 
-distribution globally to collaborators. Petrel and Globus' HTTPS support enable the data to be 
-rapidly stream into visualization tools, such as a hosted Neuroglancer service, 
-allowing users to interactively visualize results in three dimensions 
-immediately as the results are produced. 
 
-This acquisition and distribution process is not uncommon across many light source 
-experiments and has guided our development of an automation platform to manage the reconstruction of 
-light source data. We aim to extend this pipeline to add 
-additional value integrating the DLHub platform to dynamically apply state-of-the-art 
-segmentation models to the data as the models are improved.
 
-\section{THE MATERIALS DATA FACILITY (MDF): DATA PUBLICATION AND INDEXING}
+\section{DATA PUBLICATION AND DISCOVERY}
+\ryan{Make this more general with MDF and search being the main selling points?}
+
+\ryan{from talk:
+- Move to permanent location (or publish in place)
+- Compute and record checksums
+- Obtain and record metadata 
+- Assign persistent identifier 
+- Index for discovery}
+
+
+
+\subsection{THE MATERIALS DATA FACILITY (MDF): DATA PUBLICATION AND INDEXING}
 
 \ben{Add MDF overview text and text linking this to the other sections}
 
@@ -468,7 +379,341 @@ transfer via both HTTPS and Globus.
 
 
 
-\section{DATA AND LEARNING HUB FOR SCIENCE (DLHub): AUTOMATED ANALYSIS AND LEARNING}
+\section{PIPELINES AND AUTOMATION}
+\ryan{Making this an automation section. }
+
+Following data acquisition it is often necessary to apply quality control, assign identifiers, 
+preprocess, move to data to a suitable compute platform and perform analysis, postprocess, extract 
+features, and eventually publish data to a repository for distribution. Each of these steps 
+presents opportunities to apply custom tools and locations depending on the beamline, users, and 
+experiment being performed, making it impractical to create a custom pipeline for every 
+situation. Instead, common tools and actions must be outsourced to specialized services and 
+automation techniques are needed to construct pipelines between these services.
+
+Automation pipelines also present new opportunities to enhance experiments. For example, Sharma, 
+Wozniak, and others developed an online analysis pipeline for high energy diffraction microscopy 
+experiments pipeline~\cite{wozniak2015big}. This technique constructs an automated feedback loop 
+that directs experiments. Such autonomic computing would not be possible without automation systems 
+managing the acquistion, transfer, and analysis of the data.
+
+
+To empower beamline scientists to construct automations that aide their work, it is important to 
+leverage user-friendly modalities. Based on this assumption we have explored the use of 
+Trigger-Action Programming (TAP) to automate light science, using a tool called 
+Ripple~\cite{ripple}. Researchers at The University of Chicago use the APS to study neuroanatomy, 
+investigating brain disease and aging. This research relies on the construction of 
+fine-grained mappings of neuron connections, known as connectomes. 
+% The APS enables the rapid 
+% imaging of large unsectioned brain specimens, drastically reducing the time and complexity of 
+% analyzing specimens when compared to traditional electron microscopy approaches.
+We have developed a series of TAP rules, often triggered by the creation of files on various 
+machines, that are processed by a cloud-hosted service. Each rule is an individual trigger-action 
+pairing, where a file being created can result in an action being performed, such as an 
+analysis job being submitted to a computing resource, or a data transfer being initiated.
+
+Using these experiences automating light science tasks we propose a service-based automation 
+platform, called Globus Automate. 
+
+
+% The process of using the APS to image a particular brain specimen, reconstruct the data, and 
+% distribute 
+% results to collaborators requires a complex series of actions involving data movement, 
+% parallel processing using HPC resources, machine learning, and human-in-the-loop validation, all 
+% while conforming to best-practice security and data management practices. Data are acquired on a 
+% dedicated machine, however, this is not always appropriate for analyzing the data and 
+% reconstructing images as these actions can interfere with the acquisition process. Instead, data 
+% are moved to dedicated computing resources, in this case at the Argonne Leadership Computing 
+% Facility. The 
+% reconstruction process requires setting access control on the resulting data, 
+% ensuring the data is available to the scientists providing the samples. The neuroanatomy use 
+% case results are persistently stored on the Petrel storage system at Argonne to enable its 
+% distribution globally to collaborators. Petrel and Globus' HTTPS support enable the data to be 
+% rapidly stream into visualization tools, such as a hosted Neuroglancer service, 
+% allowing users to interactively visualize results in three dimensions 
+% immediately as the results are produced. 
+
+% This acquisition and distribution process is not uncommon across many light source 
+% experiments and has guided our development of an automation platform to manage the reconstruction 
+% of 
+% light source data. We aim to extend this pipeline to add 
+% additional value integrating the DLHub platform to dynamically apply state-of-the-art 
+% segmentation models to the data as the models are improved.
+
+
+\subsection{Globus Automate}
+
+\kyle{I'm not sure on page limits so I tried to keep this brief. We can go deeper
+into the event and action interfaces if needed.}
+
+We have developed a prototype cloud-hosted automation service called Globus Automate. 
+Globus Automate aims to make it simple to construct robust automation flows
+that include both automated and human-in-the-loop operations. 
+It is designed following an extensible, modular architecture via which external
+\emph{event} sources and \emph{actions} can be used in pipelines. 
+Thus, developers may select a particular event for invoking the pipeline
+and a series of one or more actions that should then be executed as 
+a result of that event.
+Globus Automate is comprised of two core components: a web service
+that allows for the construction, execution, and sharing of automation
+flows; and a user agent that is used to capture data events on remote systems
+(e.g., file created, deleted, modified). 
+
+Globus Automate exposes a simple, declarative, JSON-based, state machine 
+language for defining flows, 
+based on the Amazon States Language~\cite{AmazonStates}. 
+This language allows for concise definition of flows comprising multiple actions, with control logic 
+ranging from simple sequential actions to complex branching and iteration, with simple but powerful 
+timeout, retry, and recovery capabilities. 
+
+An automation flow consists of one or more steps that invoke pre-defined actions. 
+We define a REST API by which external services can be integrated with Globus Automate to perform 
+actions. 
+Services implementing these interfaces may
+be registered and then integrated into flows by any user, subject to service access rights. 
+This API is similar to the popular if-this-then-that (IFTTT) action service API, 
+with enhancements to accommodate asynchronous activities and the end-to-end security model provided 
+by Globus Auth. When a flow is executing, Globus Automate will use
+the registered action API to invoke the action.
+
+An automation flow can be triggered by a variety of events including 
+data events, external service events, and periodic timers (like cronjobs).
+We define a REST API that allows any service to produce events
+and to submit them to Globus Automate. When creating a flow, 
+users define the type of event to be monitored and simple criteria
+for filtering events. 
+In our prototype system we have created a modular event monitoring system that
+can be deployed on arbitrary storage systems and which leverages
+native storage system notification mechanisms to capture data events~\cite{chard17ripple}. 
+We have demonstrated (\S\ref{sec:proto}) monitoring via the Linux
+inotify API~\cite{inotify}, and achieved, via a hierarchical approach, 
+$\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}.  
+
+\begin{figure}[h]
+  \centerline{\includegraphics[width=6in]{Figs/automate.png}}
+  \caption{Globus Automate architecture, showing the cloud service at top, services that it
+    manages below, and the extended Globus Connect internals at bottom right. Also, a flow
+    comprising 
+    (1) an event (data created at instrument), (2) a transfer action, and (3) an analysis action.
+\label{fig:diffuse}}
+\end{figure}
+
+
+\subsection{Capturing and responding to events}
+Globus Automate is reliant on the ability to monitor and recieve events from
+external services. 
+We define a \darkcode{globus\_event} REST API to be implemented by any service that wants to produce 
+events for consumption by Globus Automate
+and a simple queuing mechanism to reliably deliver events.
+Our goal is to make it simple for a service to produce and consume events, 
+while also enabling performant and robust event delivery.
+
+The \darkcode{globus\_event}  API, outlined here,
+allows for a client (e.g., Globus Automate) to register with a service (e.g., Globus Connect) 
+to receive events (e.g., file created) that match event-specific criteria (e.g., all files matching 
+a path expression). 
+The API includes methods such as
+the following, some taking a \bluecode{<registration\_id>} as a parameter:
+
+\begin{itemize}
+    \item \code{/globus\_event/v1}\darkcode{/introspect}: 
+    Returns monitorable events and event matching parameters.
+    \item \code{/globus\_event/v1}\darkcode{/register}\code{/}\bluecode{<registration\_id>}: 
+    Register to send matching events to a specified URL. This registration will be identified by
+    the \darkcode{<registration\_id>} UUID.
+    \item \code{/globus\_event/v1}\darkcode{/cancel}\code{/}\bluecode{<registration\_id>}: 
+    Stop sending events from a previous registration.
+\end{itemize}
+
+\vspace{1ex}
+
+Globus Automate (or any other client)
+can use the \darkcode{/introspect} method on a service 
+to determine what event types are available from that service---and,
+for each event type, what parameters can be use to match events. 
+For example, Globus Connect endpoints could offer
+events such as ``file created'' and ``file deleted,'' 
+each accepting a path matching expression as a parameter,
+so that Globus Automate can request notifications when 
+files in a certain directory are created or deleted.
+Globus Automate will \darkcode{/register} 
+for events matching particular parameters, providing a URL to which the service should POST the 
+events, along with a globally unique \bluecode{<registration\_id>} UUID.  In the event of a 
+communication error, Globus Automate can idempotently retry the same \darkcode{/register} call, such 
+that if the service already knows the \bluecode{<registration\_id>} it can respond as such.
+When events are no longer needed from a service, Globus Automate will \darkcode{/cancel} the 
+registration 
+using the same \bluecode{<registration\_id>}.
+
+\subsection{Invoking and managing actions}
+The Globus Automate engine invokes an action in an external service to 
+perform a step of an automation flow. Each external service must implement a
+simple REST API for introspection, execution, and management. 
+When registering an external service, the service must 
+define the actions that it supports, for each with
+a unique name, description, input and output parameters, 
+and whether it runs synchronously (quickly, blocking)
+or asynchronously (slowly, non-blocking).
+The action API focuses only on the information 
+needed by Globus Automate.
+It may be implemented alongside any other REST API offered by a service.
+Each POST specifies a \darkcode{/method} and typically also a \bluecode{variable}:
+
+\begin{itemize}
+    \item \code{/globus\_automate/v1/action}\darkcode{/list}: 
+    List the actions supported by this service.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/introspect}: 
+    Return parameters that can be passed to this action, 
+    with a type and if the parameter is required/optional. 
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/run}:
+    Execute the action, given a parametrized document matching
+    the schema returned from the \darkcode{/introspect} method.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/status}: 
+    Retrieve the state of the given asynchronous action instance. 
+    If the action is complete, return the output document.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/cancel}: 
+    Cancel an asynchronous action instance.
+    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/release}: 
+    Release an action instance. 
+\end{itemize}
+
+\vspace{1ex}
+
+The action model is simple: JSON document in, JSON document out, with a simple protocol to ensure 
+reliable, once-and-only-once execution.
+When Globus Automate needs to run an action as part of a flow, it calls the service's action 
+\darkcode{/run} method with an input JSON document with the appropriate parameters, and a globally 
+unique \code{<action\_id>}.  
+If Globus Automate does not receive a response from \darkcode{/run}, for example due to a network 
+error, 
+it can repeat the \darkcode{/run} call with the same \code{<action\_id>}, allowing the service to 
+recognize duplicate requests.  
+In the case of asynchronous actions, Globus Automate will then periodically call \darkcode{/status} 
+to check if the action  has completed. 
+If the action has completed, \darkcode{/status} will return the output JSON document with the 
+appropriate parameters.  
+ 
+Once Globus Automate sees that an action has completed, it calls \darkcode{/release} 
+so that the service can forget about the \code{<action\_id>}.  
+If an action takes longer than a flow step's configured timeout,
+Globus Automate may call \darkcode{/cancel}. 
+If a service does not recognize the \darkcode{<action\_id>} in a \darkcode{/cancel} or 
+\darkcode{/release}, 
+it should assume it was previously canceled or released, and return an appropriate error. 
+After some extended period (e.g., 30 days after completion),
+a service can forget any \code{<action\_id>} that is not canceled or released. 
+
+Some actions may require human interaction.  For example, as part of 
+the Globus data publication platform we aim to implement 
+a web-based form entry service, 
+with configurable JSON schema and form configuration. 
+This service will be used for such purposes 
+as simple user prompts to complex metadata entry and curation.
+Such services will be integrated with Globus Automate as asynchronous actions.
+
+\subsection{The Globus Automate engine.}
+Globus Automate is responsible for executing end-to-end automation flows \emph{reliably}, 
+from event registration and processing for triggers to
+flow (i.e., state machine) execution and action invocation. 
+After review of several workflow models, such as Amazon Simple
+Workflow Service~\cite{AmazonSWF}, Netflix's Conductor~\cite{conductor}, and Apache 
+Airflow~\cite{airflow}, 
+we choose to leverage
+Amazon Step Functions (ASF)~\cite{AmazonSteps} for implementing and managing flows.
+ASF is provided by AWS as a managed service for reliably 
+and scalably executing state machines (i.e., automation flows);
+its declarative and intuitive JSON-based state machine language allows non-experts
+to define
+flows and its flexible execution model allows Globus Automate
+to execute arbitrary actions.
+
+Globus Automate uses parameterized Lambda functions~\cite{AmazonLambda} to execute actions. 
+When creating a flow, Globus Automate calls \darkcode{/introspect} 
+to determine the input and output parameters for an action. It then creates 
+parametrized Lambda functions for that action. 
+For asynchronous actions multiple Lambda functions are created (i.e., start, monitor).
+When a user deploys an automation flow, Globus Automate translates the user's state machine 
+with user-friendly action and event names into a state machine that invokes the appropriate 
+Lambda functions and manages the flow of state between actions. 
+Its deployment requires that the user specify both how its execution may be triggered and the source 
+of
+the JSON document to be provided as input to the first step of the state machine. 
+(The input JSON document may contain both static content and 
+dynamic content provided by the trigger.)
+% Triggers not yet supported
+%A trigger may be
+%\textbf{manual}: a user executes the flow through a call to the Globus Automate REST API, 
+%with a JSON input document;
+%\textbf{event}: i.e., triggered by receipt of a specified event from a specified service, 
+%with the event as the dynamic JSON input document; or
+%\textbf{schedule}: a particular start time or periodic start, with a dynamic JSON input document 
+containing the time.
+%The deploying user can also set permissions to indicate who
+%may execute the flow, administer its deployment, and monitor or manage flow executions.
+
+Globus Automate wraps all logic for registering and interacting with external event- and 
+action-providing services.  Currently these capabilities are exposed as a REST API. 
+In the future we intend to enhance the Globus web interface to make it 
+easy for users to register action and event services,
+and to deploy, execute, and manage automation flows.
+%As not all users will be comfortable authoring JSON, 
+%we will also develop a simple graphical user interface (GUI) in which users can search for and 
+select
+%registered events and actions, create flows from actions with retry and timeout parameters, and 
+deploy flows with triggers. 
+%This interface (and the underlying REST API) will also allow users to view and modify previously 
+deployed flows, monitor and manage executions of their deployed flows (e.g., cancel a running flow), 
+view the events
+%that triggered the flow, interrogate the JSON state document at any
+%point of the flow, and view the status of actions (e.g., success or failure).
+%Globus Auth will provide end-to-end security.
+
+\subsection{Automation Use Cases}
+\kyle{The following text is stolen from CSSI - do we want such an example?
+If so, perhaps Ryan can make this accurate.. and add a nice picture.}
+
+We have applied a prototype version of Globus Automate
+to support neuroanatomy experiments that rely on
+X-ray microtomography at the Advanced Photon Source (APS) 32-ID beamline to
+characterize the neuroanatomical structure of large (cm) unsectioned brain 
+volumes~\cite{kasthuri2015saturated}. 
+Datasets, generated at $>$20GB per minute, are processed
+with a complex reconstruction pipeline 
+comprising many machines, tools, and services.  
+Globus Automate is used to move data from beamline to remote computers,
+execute Automo~\cite{Automo} and TomoPy~\cite{gursoy2014tomopy} 
+to generate preview images, and return images to 
+beamline scientists to guide instrument positioning. 
+Simultaneously, machine learning models
+are applied (automatically) to reconstruct and stitch together images, with results 
+moved to persistent storage for distribution, cataloged with
+provenance metadata, and visualized with Neuroglancer~\cite{Neuroglancer}. 
+
+\kyle{Ryan another APS/ALS flow?}
+
+
+
+\section{TRANSFORMATION, ANALYSIS, AND VISUALIZATION}
+\ryan{Broader with DLhub as the focus.}
+
+The requirement to transform and analyze results is common across all science research. Yet, the 
+approach used to perform such tasks is often developed by the beamline scientists and not shared 
+amongst researchers working in similar fields. To advance beamline science and federate access to 
+advanced computing capabilities analytical tools, generalizable solutions that can be applied 
+across domains are needed. As such, we are actively developing the Data and Learning Hub for 
+Science (DLHub). 
+
+These data can then be used with visualization tools. For example, one gorup using Petrel stores 
+pre-computed visualizations on the Petrel storage service and using Glbous' HTTPS support is able 
+to stream data from Petrel into a locally hosted Neuroglancer deployment. This makes data that are 
+automatically reconstructed globally accessible as 3D 
+visualizations through a simple Web interface.
+
+
+
+
+
+\subsection{DATA AND LEARNING HUB FOR SCIENCE (DLHub)}
+
 
 In order to simplify the application and adoption of machine learning into the
 scientific workflow of the non-expert, we are developing DLHub (Fig. 1). DLHub
@@ -485,7 +730,6 @@ barriers to employing machine learning, making it easier for researchers to
 discover and benefit from the most recent advances in machine learning.
 
 \subsection{DLHub ARCHITECTURE}
-
 DLHub operates a cloud-hosted Web API to interface with the 
 service, enabling users to publish, search, and invoke models. DLHub serves models and 
 transformation codes across remote \textit{execution 
