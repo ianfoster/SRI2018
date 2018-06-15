@@ -779,7 +779,11 @@ view the events
 
 \subsection{Automation Use Cases}
 
-We have applied a prototype version of Globus Automate
+We present two use cases in which Globus Automate is currently being applied. These
+use cases highlight the benefits of automation for analysis and publication activities
+conducted at light sources.
+
+\textbf{Neuroanatomy analysis:} We have applied a prototype version of Globus Automate
 to support neuroanatomy experiments that rely on
 X-ray microtomography at the Advanced Photon Source (APS) 32-ID beamline to
 characterize the neuroanatomical structure of large (cm) unsectioned brain 
@@ -806,8 +810,27 @@ provenance metadata, and precomputed to be visualized with Neuroglancer~\cite{Ne
 \end{figure*}
 
 
-\kyle{Ryan please add a picture and perhaps expand if you can?}
-
+\textbf{Data publication:} We are using the prototype system to develop
+flexible data publication pipelines for MDF that combine machine and human
+steps. Our aim here is to provide an automated deposit mechanism in 
+which users define a dataset to be published (via a reference
+to a Globus endpoint) and the automation flow manages the steps required
+to make that data accessible in MDF. In one example, the workflow
+will transfer data to an intermediary location for processing 
+and also to a permanent storage location for publication. That 
+dataset will be processed with 
+a community code to extract materials-specific metadata
+from the dataset. This metadata will be used to register the dataset in 
+in the NIST Materials Resource Registry, Citrination, or
+other community registries, and also to index the dataset
+in the MDF discovery index. Before the data is to be made
+accessible the flow will notify MDF curators of its arrival
+and wait until they have approved the dataset for publication
+before progressing. A unique identifier will 
+be created for the dataset, using user-defined and automatically
+extracted metadata. Finally, access permissions will be 
+modified such that the metadata is discoverable
+and the dataset is accessible. 
 
 
 \section{TRANSFORMATION, ANALYSIS, AND VISUALIZATION}
