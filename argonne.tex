@@ -1000,9 +1000,18 @@ tasks.
 % BNL work~\cite{deslippe2014workflow} (SPOT).
 
 The need to reliably catalog and publish data has led to the development of several 
-tools~\cite{chard15publication,wilkinson16,costello09pub}. Indeed, many of these platforms are 
-widely in use (e.g., Dataverse~\cite{dataverse}, DuraCloud~\cite{duracloud}, and 
+tools~\cite{chard2015publication,wilkinson16,costello09pub}. Indeed, many of these platforms are 
+in widespread use (e.g., Dataverse~\cite{dataverse}, DuraCloud~\cite{duracloud}, and 
 figshare~\cite{figshare}).
+However, there are several issues with current approaches when considering the needs
+of light source science. First, these systems are primarily designed to support small
+scale data publication and likely would not scale to the increasing data sizes
+typical in light source science. Second, these systems are primarily software services
+and thus they cannot be easily built upon or integrated into existing software. Finally, 
+each system is designed for a specific community or data publication scenario and is
+therefore difficult to apply to different 
+scenarios (e.g., domain-specific metadata, various standards, data types, and 
+curation requirements).  
 Our approach 
 with the MDF is to provide a generalizable platform to accommodate diverse communities, datasets, 
 and publication scenarios by outsourcing the tools required to mint identifiers, catalog metadata, 
