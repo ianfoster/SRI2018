@@ -79,7 +79,7 @@ best practices for building next-generation data automation systems for future l
 %discovery (mdf/search), automation (automate, TAP), transformation and analysis (dlhub).}
 
 Light source scientists are facing a data crisis as the rate at which new instruments generate data 
-volumes is rapidly exceeding Moore's Law. Growing data 
+volumes is rapidly exceeding Moore's Law~\cite{toby2015practices}. Growing data 
 volumes present new challenges as they overwhelm finite human capabilities, requiring new 
 machine-based solutions to automate and outsource the acquisition, analysis, and 
 distribution of 
@@ -103,9 +103,9 @@ Second, experiments will increasingly generate complex multi-modal data that nee
 for interpretation, such as ptychography combined with 
 elemental mapping and visual images as a function of reaction conditions.
 Third, it will become increasingly feasible to use advanced theory and modeling to fit and co-optimize 
-model and experiment, to increase experiment efficiency and maximize limited experiment and 
-simulation resources.
-Fourth, as synchrotron light source mature as instruments, they increasingly serve more and 
+model and experiment. 
+% to increase experiment efficiency and maximize limited experiment and simulation resources.
+Fourth, as synchrotron light sources mature as instruments, they increasingly serve more and 
 different users,
 many with limited or no experience with light sources. 
 Automation is important for such users~\cite{hiraki2008high,toby2009management}.
@@ -115,8 +115,8 @@ artisanal/cottage industry to one that builds on
 automated solutions that are integrated into daily operation of a 
 beamline. Tools to automatically capture, apply advanced analyses, and autonomically drive 
 experiments are necessary, such as those we have previously explored~\cite{wozniak2015big}. In 
-addition, once data are acquired scientists must outsource their ongoing management and 
-distribution through dedicated, community-oriented storage hubs that index and make searchable and 
+addition, once data are acquired, scientists must outsource their ongoing management and 
+distribution through dedicated, community-oriented storage hubs that make discoverable and 
 accessible the results of experiments. Storage catalogs, such as the Materials Data 
 Facility~\cite{MDF2016}, provide rich environments to foster collaboration and increase the value 
 of datasets by disseminating results and in turn, accelerating scientific discovery. Similarly, 
@@ -136,8 +136,8 @@ outsource tasks crucial for their science.
 First, we present data acquisition and distribution tools and services, 
 describing specifically how the Globus data publication platform can enable scalable and 
 secure data distribution using powerful data access and discovery capabilities. 
-Second, we outline new Globus cloud-hosted data automation 
-services and describe how they can be used to implement sophisticated data lifecycle pipelines. 
+Second, we outline a new Globus cloud-hosted data automation 
+service and describe how it can be used to manage sophisticated data lifecycles. 
 %We then present the case for automation and the 
 %techniques used to enables its application. 
 %We then describe data indexing and search tools, such 
@@ -148,10 +148,6 @@ to enable simple, yet scalable, training of machine learning models
 and on-demand access to machine learning models from light source data capture
 and analysis workflows.
 
-
-
-
-\kyle{References:networking materials data~\cite{foster2015networking}, Justin~\cite{wozniak2015big}, APS~\cite{toby2015practices}}
 
 
 \section{BACKGROUND/HISTORY}
@@ -183,7 +179,7 @@ collected at the APS
 \end{figure}
 
 Figure~\ref{fig:diffuse} illustrates a more recent example of APS data analysis
-for a diffuse scattering experiment in 2015. 
+for a diffuse scattering experiment in 2015~\cite{foster2015networking}. 
 The figure highlights the interactions between experiment, computation, and human expertise
 at various timescales. In particular, the figure shows the combination of simulation and 
 experimental workflows, combined to enable experiment steering and validation of results.
