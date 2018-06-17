@@ -603,25 +603,23 @@ events for consumption by Globus Automate
 and a simple queuing mechanism to reliably deliver events.
 Our goal is to make it simple for a service to produce and consume events, 
 while also enabling performant and robust event delivery.
-
-The \darkcode{globus\_event}  API, outlined here,
+The \darkcode{globus\_event}  API, 
 allows for a client (e.g., Globus Automate) to register with a service (e.g., Globus Connect) 
 to receive events (e.g., file created) that match event-specific criteria (e.g., all files matching 
 a path expression). 
-The API includes methods such as
-the following, some taking a \bluecode{<registration\_id>} as a parameter:
+%The API includes methods such as
+%the following, some taking a \bluecode{<registration\_id>} as a parameter:
 
-\begin{itemize}
-    \item \code{/globus\_event/v1}\darkcode{/introspect}: 
-    Returns monitorable events and event matching parameters.
-    \item \code{/globus\_event/v1}\darkcode{/register}\code{/}\bluecode{<registration\_id>}: 
-    Register to send matching events to a specified URL. This registration will be identified by
-    the \darkcode{<registration\_id>} UUID.
-    \item \code{/globus\_event/v1}\darkcode{/cancel}\code{/}\bluecode{<registration\_id>}: 
-    Stop sending events from a previous registration.
-\end{itemize}
-
-\vspace{1ex}
+%\begin{itemize}
+    %\item \code{/globus\_event/v1}\darkcode{/introspect}: 
+    %Returns monitorable events and event matching parameters.
+    %\item \code{/globus\_event/v1}\darkcode{/register}\code{/}\bluecode{<registration\_id>}: 
+    %Register to send matching events to a specified URL. This registration will be identified by
+    %the \darkcode{<registration\_id>} UUID.
+    %\item \code{/globus\_event/v1}\darkcode{/cancel}\code{/}\bluecode{<registration\_id>}: 
+    %Stop sending events from a previous registration.
+%\end{itemize}
+%\vspace{1ex}
 
 Globus Automate (or any other client)
 can use the \darkcode{/introspect} method on a service 
@@ -653,27 +651,27 @@ or asynchronously (slowly, non-blocking).
 The action API focuses only on the information 
 needed by Globus Automate.
 It may be implemented alongside any other REST API offered by a service.
-Each POST specifies a \darkcode{/method} and typically also a \bluecode{variable}:
+%Each POST specifies a \darkcode{/method} and typically also a \bluecode{variable}:
 
-\begin{itemize}
-    \item \code{/globus\_automate/v1/action}\darkcode{/list}: 
-    List the actions supported by this service.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/introspect}: 
-    Return parameters that can be passed to this action, 
-    with a type and if the parameter is required/optional. 
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/run}:
-    Execute the action, given a parametrized document matching
-    the schema returned from the \darkcode{/introspect} method.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/status}: 
-    Retrieve the state of the given asynchronous action instance. 
-    If the action is complete, return the output document.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/cancel}: 
-    Cancel an asynchronous action instance.
-    \item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/release}: 
-    Release an action instance. 
-\end{itemize}
-
-\vspace{1ex}
+%\begin{itemize}
+    %\item \code{/globus\_automate/v1/action}\darkcode{/list}: 
+    %List the actions supported by this service.
+    %\item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/introspect}: 
+    %Return parameters that can be passed to this action, 
+    %with a type and if the parameter is required/optional. 
+    %\item \code{/globus\_automate/v1/action/}\bluecode{<action\_name>}\darkcode{/run}:
+    %Execute the action, given a parametrized document matching
+    %the schema returned from the \darkcode{/introspect} method.
+    %\item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/status}: 
+    %Retrieve the state of the given asynchronous action instance. 
+    %If the action is complete, return the output document.
+    %\item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/cancel}: 
+    %Cancel an asynchronous action instance.
+    %\item \code{/globus\_automate/v1/action/}\bluecode{<action\_id>}\darkcode{/release}: 
+    %Release an action instance. 
+%\end{itemize}
+%
+%\vspace{1ex}
 
 The action model is simple: JSON document in, JSON document out, with a simple protocol to ensure 
 reliable, once-and-only-once execution.
