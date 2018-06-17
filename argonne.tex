@@ -978,19 +978,18 @@ required input: 256x256 numpy arrays.
   \caption{Tagging X-Ray scattering images with DLHub. (a) User sends pointers to X-Ray scattering images to the DLHub service. (b) DLHub returns a list of most likely tags for the image.
 \label{fig:dlhub-bnl}}
 \end{figure}
-
 \section{RELATED WORK}
 
 \ryan{Might need something about outsourcing.}
 
 The requirement for automation in science has been well studied
-studied~\cite{king2009automation, deslippe2014workflow, chard2017ripple} and 
+studied~\cite{king2009automation, deslippe2014workflow, chard17ripple} and 
 as such there are many automation systems currently in use. Coles et 
 al.~\cite{coles2005ecses,coles2006science} developed an automated small molecule crystallography 
 service that manages the end-to-end-flow from sample receipt to results dissemination. 
 The SPOT framework~\cite{deslippe2014workflow} powers similar pipelines for Berkeley's Advanced 
 Light Source. Scientific workflow engines, such as Galaxy~\cite{galaxy}, Parsl~\cite{parsl}, 
-Pegasus~\cite{pegasus}, Swift~\cite{wilde2011swift}, and Taverna~\cite{hull2006taverna},
+Pegasus~\cite{pegasus}, Swift~\cite{wilde2011swift}, and Taverna~\cite{taverna},
 enable the fault-tolerant and reproducible execution of pipelines comprising various tools and 
 services. While some, such as Teverna, support Web service composition, these tools are generally 
 designed to facilitate dataflow modeling and the execution of sequences of tools. This is in 
@@ -1009,15 +1008,43 @@ with the MDF is to provide a generalizable platform to accommodate diverse commu
 and publication scenarios by outsourcing the tools required to mint identifiers, catalog metadata, 
 and search over distributed datasets to specialized services.
 
-Reference ModelHub~\cite{miao2017towards}. 
-
+\ian{Reference ModelHub~\cite{miao2017towards}. Velox for rapid model 
+serving~\cite{crankshaw2014missing}. and~\cite{kumar2017data}}
 % Velox: https://blog.acolyer.org/2015/02/02/the-missing-piece-in-complex-analytics/
 
-Velox for rapid model serving~\cite{crankshaw2014missing}
+\ryan{DLHub RW?}
 
-and~\cite{kumar2017data}
+As machine learning becomes 
+increasingly pervasive there is a growing requirement for services to publish, share, and serve 
+models. High performance, low latency 
+model serving is necessary to facilitate the integration of machine learning solutions into 
+everyday tasks. To this end, various model serving platforms have been 
+developed~\cite{clipper, crankshaw2014missing, tfserving, awssagemaker}. Clipper~\cite{clipper} and 
+Tensorflow Serving~\cite{tfserving} use RPC-based invocations solutions to minimize the overhead 
+when invoking models, providing extremely low latency serving solutions. In addition, Tensorflow 
+serving facilitates extreme-scale deployment of models, enabling integration in large-scale 
+platforms, such as shopping carts. One limitation of these systems is their strict enforcement of 
+the types of models and transformation logic that can be served. For example, Tensorflow Serving 
+restrict servable types to be those that can be exported as Tensorflow graphs and provides minimal 
+support for transformation codes.
 
+\ryan{I haven't read the modelhub paper -- not entirely sure this usage is accurate}
+Similarly, model publication services, such as Kipoi~\cite{kipoi} and 
+ModelHub~\cite{miao2017towards}, have been established to publish models along with their trained 
+weights and metadata describing their inputs and outputs, graph design, training and 
+validation datasets, accuracy, as well as information relating to citation and authorship. Such 
+tools are necessary to disseminate machine learning models and make them available to the 
+community.
 
+DLHub differs from these solutions by combining publishing capabilities, model serving 
+functionality, and the resources required to train and invoke models on-demand. DLHub is designed 
+to accommodate arbitrary models and servables through containerization, removing the restrictions 
+of serving systems such as Tensorflow Serving. Leveraging descriptive metadata, inspired by 
+Kipoi~\cite{kipoi}, and the Globus Search service, DLHub enables the publication of models such 
+that users can search and find models, retrain them on specific datasets, and invoke them against 
+data on-demand. 
+
+% \ryan{We really need to write a paper surveying model serving platforms.}
 
 \section{SUMMARY}
 
