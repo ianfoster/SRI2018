@@ -74,16 +74,16 @@ best practices for building next-generation data automation systems for future l
 
 \section{INTRODUCTION}
 
-\ryan{Proposed new structure to follow the talk: Introduction, history/background, automation and 
-outsourcing (high level motivation), acquisition and distribution (dmagic/petrel), publication and 
-discovery (mdf/search), automation (automate, TAP), transformation and analysis (dlhub).}
+%\ryan{Proposed new structure to follow the talk: Introduction, history/background, automation and 
+%outsourcing (high level motivation), acquisition and distribution (dmagic/petrel), publication and 
+%discovery (mdf/search), automation (automate, TAP), transformation and analysis (dlhub).}
 
 Light source scientists are facing a data crisis as the rate at which new instruments generate data 
 volumes is rapidly exceeding Moore's Law. Growing data 
 volumes present new challenges as they overwhelm finite human capabilities, requiring new 
 machine-based solutions to automate and outsource the acquisition, analysis, and 
-distribution of the 
-light science data lifecycle. Neither humans or computers can cope using current methods. Existing 
+distribution of 
+light science data. Neither humans or computers can cope using current methods. Existing 
 techniques to design experiments, manage and analyze data, and create and 
 deliver software will not suffice for next generation data rates. However, these 
 challenges also present new opportunities and offer the potential to create the new automation 
@@ -251,7 +251,7 @@ underpinned massive advances in terms of productivity and efficiency. Similar
 advances are required to combine computational and data-driven science with
 experiment to speed discovery.
 
-Over the past dozen years Globus has demonstrated the value of outsourcing
+Over the past dozen years Globus~\cite{chard14globus} has demonstrated the value of outsourcing
 a myriad of common research data management activities, including data 
 transfer, synchronization, and sharing. In these cases, researchers benefit
 from the ability to outsource activities to a reliable, cloud-hosted
@@ -361,7 +361,7 @@ rely on to exist and distribute data for prolonged periods of time.
 
 \subsection{DATA PUBLICATION AND DISCOVERY}
 
-The Globus data publication platform~\cite{chard2015globus} provides a
+The Globus data publication platform~\cite{ananthakrishnan2018publication} provides a
 collection of loosely coupled services from which arbitrary publication
 pipelines can be constructed.  These services---data management, persistent
 identifier management, and  metadata indexing and discovery---can be used
@@ -419,7 +419,7 @@ summarize and query data.
 \subsection{THE MATERIALS DATA FACILITY (MDF): DATA PUBLICATION AND INDEXING}
 
 The MDF Data Publication service builds upon the Globus data
-publication service \cite{chard2015globus} to enable
+publication service~\cite{chard2015publication} and publication platform to enable
 users to publish data through a web user interface or a
 programmatically accessible API and to group similar publications into
 collections \cite{MDF2016}. Key features of the deployed service include the capability to
