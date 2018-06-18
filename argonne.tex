@@ -167,7 +167,7 @@ As we noted at the time,
 ``the data rates and compute power required ... are prodigious, easily reaching one gigabit per 
 second and a teraflop per second [respectively]"~\cite{von2000real}---numbers that are dwarfed by 
 today's requirements. 
-These demands have since increased tremendously, as illustrated by recent work on near-real-time tomography~\cite{Bicer_Europar15,bicer2017real}.
+These demands have since increased tremendously, as illustrated by recent work on near-real-time tomography~\cite{Bicer_Europar15,bicer2017real,thomas2015towards}.
 %in which XXX.
 
 \begin{figure}[h]
@@ -320,8 +320,6 @@ of the results generated.
 
 
 \section{DATA ACQUISITION AND DISTRIBUTION}
-
-%\ian{HEDM work to be described somewhere~\cite{park2015high}.}
 
 Data acquisition and distribution are fundamental to light science. As the rate at which both data 
 are generated from new instruments and robotic processes are increasingly being used to rapidly 
@@ -953,15 +951,15 @@ waste by user intervention.
 The classification model here enables the multi-label classification of X-Ray
 scattering data with 17 potential labels (e.g., ``beam off image," ``FCC,"
 ``BCC," ``polycrystalline," ``high background," ``strong scattering") \cite{wang2017x}. The
-classification model is a Tensorflow 1.4~\cite{tensorflow} implementation in Python 2.7 of a
+classification model is a Tensorflow 1.4~\cite{abadi2016tensorflow} implementation in Python 2.7 of a
 convolutional neural network following the ResNet architecture~\cite{resnet}. Original
 training data comprised simulated data and experimental data tagged by experts
 collected at National Synchrotron Light Source (NSLS) at Brookhaven National
 Laboratory as described in Wang et al. This pretrained model and dataset were
 contributed to DLHub by Wang and Yager et al.; the source code is available 
 on Github\cite{wang2017xcode}. Containers were created to serve
-the model and handle data transformation from input image files to the
-required input: 256$\times$256 NumPy arrays.
+the model and to transform input image files to the
+required input format of 256$\times$256 NumPy arrays.
 
 \begin{figure}[h]
   \centerline{\includegraphics[width=5in]{Figs/DLHub-BNL.png}}
@@ -973,40 +971,42 @@ required input: 256$\times$256 NumPy arrays.
 
 \section{RELATED WORK}
 
-\ryan{Might need something about outsourcing.}
+%\ryan{Might need something about outsourcing.}
 
 The requirement for automation in science has been well studied
 studied~\cite{king2009automation, deslippe2014workflow, chard17ripple} and 
-as such there are many automation systems currently in use. Coles et 
+many automation systems have been developed. Coles et 
 al.~\cite{coles2005ecses,coles2006science} developed an automated small molecule crystallography 
-service that manages the end-to-end-flow from sample receipt to results dissemination. 
-The SPOT framework~\cite{deslippe2014workflow} powers similar pipelines for Berkeley's Advanced 
-Light Source. Scientific workflow engines, such as Galaxy~\cite{galaxy}, Parsl~\cite{parsl}, 
+service to manage the end-to-end-flow from sample receipt to results dissemination. 
+The SPOT framework~\cite{deslippe2014workflow} powers similar pipelines for Lawrence Berkeley National's Advanced 
+Light Source. 
+The Rapid Experimental Analysis (REXAN) system~\cite{thomas2015towards} developed at Pacific Northwest National
+Laboratory, pipelines developed at Argonne for high-speed tomography~\cite{Bicer_Europar15,bicer2017real} and high energy diffraction microscopy~\cite{park2015high},
+and the high data rate processing and analysis initiative of the Helmholtz Association~\cite{gehrke2015high} are other 
+examples.
+
+Scientific workflow engines, such as Galaxy~\cite{galaxy}, Parsl~\cite{parsl}, 
 Pegasus~\cite{pegasus}, Swift~\cite{wilde2011swift}, and Taverna~\cite{taverna},
 enable the fault-tolerant and reproducible execution of pipelines comprising various tools and 
-services. While some, such as Teverna, support Web service composition, these tools are generally 
-designed to facilitate dataflow modeling and the execution of sequences of tools. This is in 
-contrast to Automate, which aims to orchestrate a mix of custom software and human-in-the-loop 
+services. While some, such as Taverna, support Web service composition, these tools are generally 
+designed to facilitate dataflow modeling and the execution of sequences of tools. In 
+contrast, Automate aims to orchestrate a mix of custom software and human-in-the-loop 
 tasks.
-
-\ian{PNNL work~\cite{thomas2015towards}. Helmholtz work~\cite{gehrke2015high}.}
-% BNL work~\cite{deslippe2014workflow} (SPOT).
 
 The need to reliably catalog and publish data has led to the development of several 
 tools~\cite{chard2015publication,wilkinson16,costello09pub}. Indeed, many of these platforms are 
 in widespread use (e.g., Dataverse~\cite{dataverse}, DuraCloud~\cite{duracloud}, and 
 figshare~\cite{figshare}).
-However, there are several issues with current approaches when considering the needs
+However, current approaches have limitations with  needs
 of light source science. First, these systems are primarily designed to support small
-scale data publication and likely would not scale to the increasing data sizes
+scale data publication and do not scale to the large data sizes
 typical in light source science. Second, these systems are primarily software services
 and thus they cannot be easily built upon or integrated into existing software. Finally, 
 each system is designed for a specific community or data publication scenario and is
 therefore difficult to apply to different 
 scenarios (e.g., domain-specific metadata, various standards, data types, and 
 curation requirements).  
-Our approach 
-with the MDF is to provide a generalizable platform to accommodate diverse communities, datasets, 
+MDF, in contrast, provides a generalizable platform that has been shown able to accommodate diverse communities, datasets, 
 and publication scenarios by outsourcing the tools required to mint identifiers, catalog metadata, 
 and search over distributed datasets to specialized services.
 
@@ -1062,7 +1062,7 @@ data on-demand.
 
 This work was supported in part by DOE contract DE-AC02-06CH11357 and by award 70NANB14H012 from the U.S.\  Department of Commerce, National Institute of Standards and Technology as part of the Center for Hierarchical Materials Design (CHiMaD).
 We are grateful to colleagues at the Argonne Photon Source and elsewhere
-for many helpful discussions, in particular Jon Almer, Tekin Bicer, Francesco De Carlo, Do{\u{g}}a G{\"u}rsoy, Ray Osborn, Dula Parkinson, Nicholas Schwarz, Hemant Sharma, Stephen Streiffer, Brian Toby, and Justin Wozniak.
+for many helpful discussions, in particular Jon Almer, Tekin Bicer, Francesco De Carlo, Do{\u{g}}a G{\"u}rsoy, Ray Osborn, Dula Parkinson, Nicholas Schwarz, Hemant Sharma, Stephen Streiffer, Brian Toby, Stefan Vogt, and Justin Wozniak.
 
 % References
 
