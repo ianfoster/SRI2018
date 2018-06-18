@@ -54,17 +54,19 @@
 %The AIP Proceedings article template has many predefined paragraph styles for you to use/apply as you write your paper. To format your abstract, use the \LaTeX template style: {\itshape Abstract.} Each paper must include an abstract. Begin the abstract with the word ``Abstract'' followed by a period in bold font, and then continue with a normal 9 point font.
 Rapidly growing data volumes at light sources demand increasingly automated data collection, 
 distribution, and analysis processes, in order to enable new scientific discoveries while not 
-overwhelming finite human capabilities. I present here the case for automating and outsourcing 
+overwhelming finite human capabilities. We present here the case for automating and outsourcing 
 light source science using cloud-hosted data automation and enrichment services, institutional 
 computing resources, and high- performance computing facilities to provide cost-effective, scalable, 
 and reliable implementations of such processes. We discuss three specific services that accomplish 
-these goals for data distribution, automation, and transformation. In the first, such services are 
-combined with cloud-hosted data indexing and institutional storage to create a 
-collaborative data publication, indexing, and discovery service, the Materials Data Facility (MDF), 
-built to support a host of informatics applications in materials science. In the second,  
+these goals for data distribution, automation, and transformation. In the first, 
 Globus cloud-hosted data automation services are used to implement data capture, distribution, and 
 analysis workflows for Advanced Photon Source and Advanced Light Source beamlines, leveraging 
-institutional storage and computing. The third integrates 
+institutional storage and computing. 
+In the second, such services are 
+combined with cloud-hosted data indexing and institutional storage to create a 
+collaborative data publication, indexing, and discovery service, the Materials Data Facility (MDF), 
+built to support a host of informatics applications in materials science.  
+The third integrates 
 components of the previous two projects with machine learning capabilities provided by the Data and 
 Learning Hub for science (DLHub) to enable on-demand access to machine learning models from light 
 source data capture and analysis workflows, and provides simplified interfaces to train new models 
@@ -575,7 +577,7 @@ for filtering events.
 In our prototype system we have created a modular event monitoring system that
 can be deployed on arbitrary storage systems and which leverages
 native storage system notification mechanisms to capture data events~\cite{chard17ripple}. 
-We have demonstrated (\S\ref{sec:proto}) monitoring via the Linux
+We have demonstrated monitoring via the Linux
 inotify API~\cite{inotify}, and achieved, via a hierarchical approach, 
 $\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}.  
 
@@ -585,7 +587,7 @@ $\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}
     manages below, and the extended Globus Connect internals at bottom right. Also, a flow
     comprising 
     (1) an event (data created at instrument), (2) a transfer action, and (3) an analysis action.
-\label{fig:diffuse}}
+\label{fig:automate}}
 \end{figure}
 
 
@@ -952,7 +954,7 @@ The classification model here enables the multi-label classification of X-Ray
 scattering data with 17 potential labels (e.g., ``beam off image," ``FCC,"
 ``BCC," ``polycrystalline," ``high background," ``strong scattering") \cite{wang2017x}. The
 classification model is a Tensorflow 1.4~\cite{abadi2016tensorflow} implementation in Python 2.7 of a
-convolutional neural network following the ResNet architecture~\cite{resnet}. Original
+convolutional neural network following the ResNet architecture. Original
 training data comprised simulated data and experimental data tagged by experts
 collected at National Synchrotron Light Source (NSLS) at Brookhaven National
 Laboratory as described in Wang et al. This pretrained model and dataset were
@@ -1010,18 +1012,14 @@ MDF, in contrast, provides a generalizable platform that has been shown able to 
 and publication scenarios by outsourcing the tools required to mint identifiers, catalog metadata, 
 and search over distributed datasets to specialized services.
 
-\ian{Reference ModelHub~\cite{miao2017towards}. Velox for rapid model 
-serving~\cite{crankshaw2014missing}. and~\cite{kumar2017data}}
-% Velox: https://blog.acolyer.org/2015/02/02/the-missing-piece-in-complex-analytics/
-
-\ryan{DLHub RW?}
+%\ryan{DLHub RW?}
 
 As machine learning becomes 
 increasingly pervasive there is a growing requirement for services to publish, share, and serve 
-models. High performance, low latency 
+models~\cite{kumar2017data}. High performance, low latency 
 model serving is necessary to facilitate the integration of machine learning solutions into 
 everyday tasks. To this end, various model serving platforms have been 
-developed~\cite{crankshaw2017clipper, tfserving, awssagemaker}. Clipper~\cite{crankshaw2017clipper} and 
+developed~\cite{crankshaw2014missing,crankshaw2017clipper, tfserving, awssagemaker}. Clipper~\cite{crankshaw2017clipper} and 
 Tensorflow Serving~\cite{tfserving} use RPC-based invocations solutions to minimize the overhead 
 when invoking models, providing extremely low latency serving solutions. In addition, Tensorflow 
 serving facilitates extreme-scale deployment of models, enabling integration in large-scale 
@@ -1030,7 +1028,7 @@ the types of models and transformation logic that can be served. For example, Te
 restrict servable types to be those that can be exported as Tensorflow graphs and provides minimal 
 support for transformation codes.
 
-\ryan{I haven't read the modelhub paper -- not entirely sure this usage is accurate}
+%\ryan{I haven't read the modelhub paper -- not entirely sure this usage is accurate}
 Similarly, model publication services, such as Kipoi~\cite{kipoi} and 
 ModelHub~\cite{miao2017towards}, have been established to publish models along with their trained 
 weights and metadata describing their inputs and outputs, graph design, training and 
@@ -1046,9 +1044,8 @@ Kipoi~\cite{kipoi}, and the Globus Search service, DLHub enables the publication
 that users can search and find models, retrain them on specific datasets, and invoke them against 
 data on-demand. 
 
-% \ryan{We really need to write a paper surveying model serving platforms.}
 
-\section{SUMMARY}
+%\section{SUMMARY}
 
 
 
