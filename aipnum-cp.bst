@@ -2901,7 +2901,7 @@ FUNCTION {misc}
   output.nonnull
   link.shut
 %  new.block.comma
-  add.blank
+  add.blank % Without this, one-word titles have no space after comma
   howpublished "howpublished" bibinfo.check output
   howpublished empty$
   { "" * }

@@ -923,7 +923,7 @@ Metallic glasses are an important class of materials that promise
 improved durability, corrosion resistance, and mechanical behavior in harsh
 environments. However, discovery of metallic glass forming materials is
 particularly challenging due to the lack of theories that can predict which
-alloys can be formed into metallic glasses. Ren \emph{et al.}
+alloys can be formed into metallic glasses. Ren et al.\ 
 trained a machine learning model to predict glass-forming ability using data 
 from the materials literature, and used it to identify new Co-V-Zr metallic glasses
 via high-throughput experiments at Stanford Linear Accelerator
@@ -932,7 +932,7 @@ they found its accuracy improved for many other types of alloys.
 
 The associated machine learning model was contributed to DLHub as a
 serialized scikit-learn Random Forest model. Containers were prepared to serve the
-model, which take a list of elments as inputs return the predicted glass-forming ability
+model, which take a list of elements as inputs return the predicted glass-forming ability
 for that alloy system. An example Jupyter notebook was then prepared to use the model in DLHub 
 to generate ternary plots showing areas of highest metallic glass forming likelihood \ref{fig:dlhub-glass}.
 
@@ -953,19 +953,21 @@ waste by user intervention.
 The classification model here enables the multi-label classification of X-Ray
 scattering data with 17 potential labels (e.g., ``beam off image," ``FCC,"
 ``BCC," ``polycrystalline," ``high background," ``strong scattering") \cite{wang2017x}. The
-classification model is a Tensorflow 1.4 implementation in Python 2.7 of a
-convolutional neural network following the ResNet architecture. Original
+classification model is a Tensorflow 1.4~\cite{tensorflow} implementation in Python 2.7 of a
+convolutional neural network following the ResNet architecture~\cite{resnet}. Original
 training data comprised simulated data and experimental data tagged by experts
 collected at National Synchrotron Light Source (NSLS) at Brookhaven National
-Laboratory as described in Wang et al. This pretrained model and dataset was
-contributed to DLHub by Wang and Yager et al. and the original source code has
-been made available to the public on Github\cite{wang2017xcode}. Containers were created to serve
+Laboratory as described in Wang et al. This pretrained model and dataset were
+contributed to DLHub by Wang and Yager et al.; the source code is available 
+on Github\cite{wang2017xcode}. Containers were created to serve
 the model and handle data transformation from input image files to the
-required input: 256x256 numpy arrays.
+required input: 256$\times$256 NumPy arrays.
 
 \begin{figure}[h]
   \centerline{\includegraphics[width=5in]{Figs/DLHub-BNL.png}}
-  \caption{Tagging X-Ray scattering images with DLHub. (a) User sends pointers to X-Ray scattering images to the DLHub service. (b) DLHub returns a list of most likely tags for the image.
+  \caption{Tagging X-Ray scattering images with DLHub. 
+  (a) User sends pointers to X-Ray scattering images to the DLHub service. 
+  (b) DLHub returns a list of most likely tags for the image.
 \label{fig:dlhub-bnl}}
 \end{figure}
 
@@ -1059,8 +1061,8 @@ data on-demand.
 \section{ACKNOWLEDGMENTS}
 
 This work was supported in part by DOE contract DE-AC02-06CH11357 and by award 70NANB14H012 from the U.S.\  Department of Commerce, National Institute of Standards and Technology as part of the Center for Hierarchical Materials Design (CHiMaD).
-We are grateful to colleagues at the Argonne Photon Source and other synchrotron light sources
-for many helpful discussions, in particular Jon Almer, Francesco De Carlo, Do{\u{g}}a G{\"u}rsoy, Nicholas Schwarz, Hemant Sharma, Stephen Streiffer, and Brian Toby.
+We are grateful to colleagues at the Argonne Photon Source and elsewhere
+for many helpful discussions, in particular Jon Almer, Tekin Bicer, Francesco De Carlo, Do{\u{g}}a G{\"u}rsoy, Ray Osborn, Dula Parkinson, Nicholas Schwarz, Hemant Sharma, Stephen Streiffer, Brian Toby, and Justin Wozniak.
 
 % References
 
