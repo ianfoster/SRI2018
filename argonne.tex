@@ -535,7 +535,7 @@ a wide range of external event sources and action options.
 % segmentation models to the data as the models are improved.
 
 
-\subsection{Globus Automate}
+\subsection{AUTOMATION AS A SERVICE}
 
 We have developed a prototype cloud-hosted automation service called Globus Automate
 that allows for the construction of robust automation pipelines (called ``flows'')
@@ -591,7 +591,7 @@ $\sim$10,000 events per second on a 1PB Lustre file system~\cite{paul17scalable}
 \end{figure}
 
 
-\subsection{Capturing and responding to events}
+\subsection{CAPTURING AND RESPONDING TO EVENTS}
 Globus Automate is reliant on the ability to monitor and receive events from
 external services. 
 We define a \darkcode{globus\_event} REST API to be implemented by any service that wants to produce 
@@ -635,7 +635,7 @@ When events are no longer needed from a service, Globus Automate will \darkcode{
 registration 
 using the same \bluecode{<registration\_id>}.
 
-\subsection{Invoking and managing actions}
+\subsection{INVOKING AND MANAGING ACTIONS}
 The Globus Automate engine invokes an action in an external service to 
 perform a step of an automation flow. Each external service must implement a
 simple REST API for introspection, execution, and management. 
@@ -701,7 +701,7 @@ This service will be used for such purposes
 as simple user prompts to complex metadata entry and curation.
 Such services will be integrated with Globus Automate as asynchronous actions.
 
-\subsection{The Globus Automate engine.}
+\subsection{THE GLOBUS AUTOMATE ENGINE}
 Globus Automate is responsible for executing end-to-end automation flows \emph{reliably}, 
 from event registration and processing for triggers to
 flow (i.e., state machine) execution and action invocation. 
@@ -753,7 +753,7 @@ and to deploy, execute, and manage automation flows.
 %point of the flow, and view the status of actions (e.g., success or failure).
 %Globus Auth will provide end-to-end security.
 
-\subsection{Automation Use Cases}
+\subsection{AUTOMATION USE CASES}
 
 We present two use cases in which Globus Automate is currently being applied. These
 use cases highlight the benefits of automation for analysis and publication activities
@@ -1045,7 +1045,7 @@ that users can search and find models, retrain them on specific datasets, and in
 data on-demand. 
 
 
-%\section{SUMMARY}
+\section{SUMMARY}
 
 
 
